@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Validator;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -41,7 +42,7 @@ class LoginController extends Controller
             
             $user_name = $user->user_name;
             
-            if ($password == $inputPassword) {
+            if (password_verify($inputPassword, $password)) {
                 return view('homes.index', compact('user'));
             } else {
                 return redirect()->route('logins.index')->with('message', 'ユーザーIDまたはパスワードが違います');
