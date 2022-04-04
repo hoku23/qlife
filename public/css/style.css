@@ -1,0 +1,831 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+div {
+    margin: 0;
+}
+
+/* ヘッダー */
+header {
+    width: 100%;
+    background-color: #E2F0D9;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 60;
+    /* border-bottom: 5px solid #548235; */
+}
+.logo {
+    width: 80px;
+    height: 100px;
+}
+.logo  img {
+    width: 100%;
+    margin: 10px 20px;
+}
+.link {
+    margin: 20px;
+    align-items: center;
+}
+.link > a {
+    color: black;
+    text-decoration: none;
+    font-size: 20px;
+}
+.link > a:hover {
+    text-decoration: underline;
+}
+
+header > div:nth-child(2) {
+    display: flex;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.header-text {
+    margin-right: 20px;
+    text-align: right;
+}
+.header-text > a {
+    color: black;
+    text-decoration: none;
+    font-size: 16px;
+}
+.header-text > a:hover {
+    text-decoration: underline;
+}
+.header-text > p {
+    font-size: 18px;
+}
+#menu {
+    width: 100px;
+    height: 100px;
+    background-color: #548235;
+    z-index: 50;
+}
+#menu:hover {
+    opacity: .8;
+}
+.hamburger {
+    width: 50px;
+    height: 50px;
+    background-color: #548235;
+    margin: 25px auto;
+    display: block;
+    position: relative;
+    z-index: 50;
+}
+.hamburger span {
+    width: 50px;
+    height: 2px;
+    border-radius: 2px;
+    background-color: white;
+    position: absolute;
+    z-index: 50;
+    transition: all .3s ease;
+}
+.hamburger > span:nth-child(1) {
+    top: 5px;
+}
+.hamburger > span:nth-child(2) {
+    top: 24px;
+}
+.hamburger > span:nth-child(3) {
+    bottom: 5px;
+}
+
+.open > span:nth-child(1) {
+    top: 25px;
+    transform: rotate(45deg);
+}
+.open > span:nth-child(2) {
+    display: none;
+}
+.open > span:nth-child(3) {
+    top: 25px;
+    transform: rotate(-45deg);
+}
+
+/* ナビゲーション */
+.nav-mask {
+    position: absolute;
+    top: 0;
+    right: -300px;
+    width: 300px;
+    height: 100vh;
+    background-color: #548235;
+    z-index: 30;
+    transition: all .3s ease;
+}
+.show-nav {
+    right: 0;
+}
+nav ul {
+    margin-top: 100px;
+}
+nav li {
+    list-style: none;
+    margin: 30px 0;
+}
+nav li > a {
+    color: white;
+    text-decoration: none;
+}
+nav li > a:hover {
+    text-decoration: underline;
+}
+
+
+/* 会員登録 */
+.registration {
+    max-width: 600px;
+    width: 100%;
+    background-color: #E2F0D9;
+    border: 3px solid #548235;
+    margin: 165px auto 10px auto;
+    border-radius: 60px;
+}
+.registration > h1 {
+    text-align: center;
+}
+.registration > form {
+    max-width: 450px;
+    width: 75%;
+    margin: 0 auto;
+}
+#registrationInput-form > div {
+    display: flex;
+    flex-direction: column;
+    margin: 30px auto;
+}
+input {
+    height: 30px;
+    outline: none;
+}
+.registration-btn {
+    width: 150px;
+    height: 46px;
+    background-color: #548235;
+    color: white;
+    border-radius: 10px;
+    padding: 10px 6px 10px 6px;
+    font-size: 16px;
+
+    border: 1px solid #548235;
+}
+.registration-btn:hover {
+    background-color: white;
+    color: #548235;
+}
+#to-registrationCheck {
+    width: 150px;
+}
+
+.error {
+    color: #ff0000;
+}
+
+/* 会員情報確認 */
+.check-info {
+    max-width: 450px;
+    width: 50%;
+    margin: 0;
+}
+.check-info p {
+    margin: 5px 0 0 0;
+    font-size: 18px;
+}
+.check-info > div {
+    margin: 30px auto;
+}
+
+#registrationCheck-btn {
+    display: flex;
+    width: 100%;
+    margin: 70px auto 30px auto;
+    justify-content: space-between;
+}
+
+/* 会員登録完了 */
+#registrationConpletion {
+    margin-top: 200px;
+}
+#registrationConpletion > h1 {
+    margin: 70px auto;
+}
+#registrationConpletion > p {
+    max-width: 500px;
+    width: 90%;
+    font-size: 20px;
+    margin: 0 auto 70px auto;
+}
+
+/* ログイン */
+#to-registrationInput {
+    margin: 20px 30px;
+}
+.toRegistration-btn {
+    width: 150px;
+    background-color: #548235;
+    color: white;
+    border-radius: 30px;
+    padding: 10px 6px 10px 6px;
+    font-size: 16px;
+    border: 1px solid #548235;
+}
+.toRegistration-btn:hover {
+    background-color: white;
+    color: #548235;
+}
+.login {
+    max-width: 600px;
+    width: 100%;
+    background-color: #E2F0D9;
+    border: 3px solid #548235;
+    margin: 200px auto 10px auto;
+    border-radius: 60px;
+}
+.login > h1 {
+    text-align: center;
+}
+#login-forms {
+    max-width: 450px;
+    width: 75%;
+    margin: 0 auto;
+}
+.login-form {
+    display: flex;
+    flex-direction: column;
+    margin: 30px auto;
+}
+.login-btn {
+    width: 150px;
+    height: 46px;
+    background-color: #548235;
+    color: white;
+    border-radius: 10px;
+    padding: 10px 6px 10px 6px;
+    font-size: 16px;
+    border: 1px solid #548235;
+}
+.login-btn:hover {
+    background-color: white;
+    color: #548235;
+}
+.login-btn-place {
+    text-align: center;
+    margin: 70px auto 30px auto;
+}
+
+/* ホーム */
+.main-header {
+    width: 100%;
+    background-color: white;
+    display: flex;
+    border-bottom: 1px solid gray;
+    position: fixed;
+    top: 100px;
+    left: 0;
+    z-index: 20;
+}
+.main-header span {
+    margin: 20px;
+    font-size: 24px;
+}
+.main-header h1 {
+    font-size: 24px;
+    margin: 20px;
+}
+.shown-posts {
+    color: black;
+    text-decoration: none;
+}
+.hidden-posts {
+    color: lightgray;
+    text-decoration: none;
+}
+.hidden-posts:hover {
+    color: black;
+}
+
+.wrapper {
+    width: 90%;
+    margin: 0 auto;
+}
+.posts-list {
+    width: 100%;
+    display: grid;
+    margin: 210px auto 20px auto;
+    grid-auto-rows: 477px;
+    grid-template-columns: repeat(auto-fit, 374px);
+    justify-content: center;
+}
+.post {
+    width: 350px;
+    background-color: #E2F0D9;
+    border: 2px solid #548235;
+    margin: 0 20px 40px 20px;
+    display: inline-block;
+    text-align: left;
+}
+.myPost {
+    padding-top: 30px;
+}
+.icon-userName {
+    display: flex;
+    align-items: center;
+    margin: 10px 0 10px 25px;
+}
+.icon-userName > p {
+    margin: 0;
+}
+.icon {
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    border-radius: 50%;
+    margin-right: 5px;
+    background-color: white;
+}
+.title {
+    height: 56px;
+    font-size: 18px;
+    margin: 0 25px 10px 25px;
+    overflow: scroll;
+}
+.thumnail {
+    width: 300px;
+    height: 200px;
+    border: 1px solid black;
+    background-color: white;
+    margin: 0 auto;
+}
+.tags {
+    width: 300px;
+    height: 66px;
+    overflow: scroll;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+}
+.tag {
+    height: 20px;
+    background-color: #DAE3F3;
+    border: 1px solid #2F528F;
+    padding: 3px 10px;
+    margin-bottom: 5px;
+    border-radius: 15px;
+    margin-right: 10px;
+}
+.reaction {
+    display: flex;
+    margin: 0 0 10px 25px;
+}
+.reaction p {
+    margin: 0 20px 0 0;
+}
+
+/* 保存投稿一覧 */
+.othersPosts-list {
+    width: 100%;
+    margin: 210px auto 0 auto;
+    display: grid;
+    grid-auto-rows: 490px;
+    grid-template-columns: repeat(auto-fit, 374px);
+    justify-content: center;
+}
+.reaction-img {
+    width: 300px;
+    margin: 0 25px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+}
+.good-comment {
+    display: flex;
+}
+.good-comment > div {
+    margin-right: 10px;
+}
+.good-img,
+.comment-img,
+.save-img {
+    width: 30px;
+}
+.good-img > img,
+.comment-img > img,
+.save-img > img {
+    width: 100%;
+}
+
+/* フォロー/フォロワー */
+.follow-header {
+    display: flex;
+}
+.follow-header div {
+    width: 50%;
+    text-align: center;
+}
+#followList {
+    width: 90%;
+    height: 100vh;
+    position: fixed;
+    top: 0x;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+}
+.follow {
+    border-right: 1px solid gray;
+}
+.follow-follower-list {
+    width: 50%;
+    /* height: 100vh; */
+    padding-top: 200px;
+    overflow: scroll;
+}
+#follow-list {
+    border-right: 1px solid gray;
+    margin: 0;
+}
+.follow-user {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.follow-user .icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+.follow-user p {
+    font-size: 18px;
+}
+.follow-cancel {
+    background-color: #548ef3;
+    color: white;
+    
+    text-decoration: none;
+    margin-right: 30px;
+    padding: 10px;
+    border-radius: 30px;
+    border: 1px solid #2F528F;
+}
+
+/* 設定 */
+#setting {
+    width: 100%;
+    margin: 200px auto 0 auto;
+}
+.tabs {
+    width: 100vw;
+    margin: 0 calc(50% - 50vw);
+    display: flex;
+    padding-left: 5%;
+    border-bottom: 2px solid #548235;
+    box-sizing: border-box;
+}
+.tab {
+    list-style: none;
+    font-size: 20px;
+    margin: 0;
+    padding: 10px 20px 0 20px;
+    cursor: pointer;
+}
+.active-tab {
+    background-color: #548235;
+    border-radius: 20px 20px 0 0;
+    color: white;
+}
+.setting-content {
+    margin-top: 50px;
+    display: none;
+}
+.show-content {
+    display: flex;
+}
+
+/* 会員情報設定 */
+.user-item {
+    display: flex;
+
+}
+.setting-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.setting-user {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.setting-user .icon {
+    width: 120px;
+    height: 120px;
+    margin: 0 0 10px 0;
+}
+.user-info {
+    margin-left: 30px;
+    min-width: 270px;
+}
+.user-info h3 {
+    margin: 0;
+}
+.user-info p{
+    margin: 0 0 20px 0;
+    font-size: 20px;
+}
+.change {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.change-btn {
+    float: right;
+    font-size: 12px;
+    font-weight: lighter;
+    padding: 5px 10px;
+    border: 1px solid #2F528F;
+    background-color: #548ef3;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.change-btn:hover {
+    background-color: white;
+    color: #548ef3;
+    font-weight: bold;
+}
+
+.change-forms {
+    width: 50%;
+}
+.change-form {
+    display: none;
+    width: 100%;
+    background-color: #E2F0D9;
+    border: 1px solid #548235;
+    border-radius: 40px;
+}
+.show-changeForm {
+    display: block;
+}
+.change-form label {
+    font-size: 20px;
+}
+.icon-change-form > p {
+    width: 75%;
+    margin: 30px auto 0 auto;
+    font-size: 20px;
+}
+.new-icon {
+    width: 220px;
+    padding-top: 220px;
+    border: 1px solid black;
+    border-radius: 50%;
+    background-color: white;
+    margin: 20px auto;
+}
+.setting-btn > button {
+    width: 150px;
+    background-color: #548235;
+    color: white;
+    border-radius: 10px;
+    padding: 3px 10px;
+    font-size: 16px;
+    border: 1px solid #548235;
+    cursor: pointer;
+}
+.setting-btn > button:hover {
+    background-color: white;
+    color: #548235;
+    font-weight: bold;
+}
+.setting-btn {
+    width: 75%;
+    margin: 0 auto 20px auto;
+    text-align: center;
+}
+
+/* お気に入りタグ設定 */
+.setting-favoriteTags {
+    width: 100%;
+}
+.setting-favoriteTags > p {
+    margin: 0;
+    text-align: center;
+    font-size: 20px;
+}
+.favorite-tags {
+    display: grid;
+    grid-auto-rows: 90px;
+    grid-template-columns: repeat(auto-fit, 120px);
+    justify-content: center;
+    height: 360px;
+    overflow: scroll;
+    margin-bottom: 30px;
+}
+.fav-tag {
+    width: 60px;
+    height: 30px;
+    border-radius: 20px;
+    text-align: center;
+    margin: 20px 20px;
+    background-color: #DAE3F3;
+    border: 1px solid #2F528F;
+    padding: 3px 10px;
+    opacity: .3;
+    cursor: pointer;
+}
+.fav-on {
+    opacity: 1;
+}
+
+/* 質問受け取り設定 */
+.setting-questionReceive {
+    width: 90%;
+    max-width: 500px;
+    background-color: #E2F0D9;
+    border: 1px solid #548235;
+    border-radius: 40px;
+    margin: 0 auto;
+    padding: 30px 100px;
+}
+.setting-questionReceive > form div {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 20px auto;
+    width: 287px;
+}
+.setting-questionReceive label {
+    position: relative;
+    font-size: 24px;
+}
+.questionReceive {
+    width: 20px;
+    margin-right: 10px;
+}
+
+.setting-questionReceive button {
+    margin-top: 30px;
+}
+
+/* 通知設定 */
+.setting-notification {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.notification-item {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.notification-info {
+    margin-left: 30px;
+    min-width: 270px;
+}
+.notification-info h3 {
+    margin: 0;
+}
+.notification-info p{
+    margin: 0 0 20px 0;
+    font-size: 20px;
+}
+
+.selected-user {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 350px;
+    height: 100px;
+    overflow: scroll;
+    margin: 15px auto;
+}
+.selected-user p {
+    margin: 0;
+    font-size: 16px;
+}
+.notificationTags {
+    display: grid;
+    grid-auto-rows: 50px;
+    grid-template-columns: repeat(auto-fit, 100px);
+    justify-content: center;
+    height: 100px;
+    overflow: scroll;
+    margin: 15px auto;
+}
+.note-tag {
+    width: 60px;
+    height: 30px;
+    border-radius: 20px;
+    text-align: center;
+    margin: 0;
+    background-color: #DAE3F3;
+    border: 1px solid #2F528F;
+    padding: 3px 10px;
+    cursor: pointer;
+}
+
+
+
+.notification-changes {
+    width: 50%;
+    display: block;
+}
+.notification-change {
+    display: none;
+}
+.show-noteChange {
+    display: block;
+}
+.noteChange-titleBox {
+    width: 100%;
+    background-color: #E2F0D9;
+    border: 2px solid #548235;
+    border-radius: 40px 40px 0 0;
+}
+.noteChange-title {
+    font-size: 20px;
+    text-align: center;
+}
+.noteChange-contentBox {
+    width: 100%;
+    background-color: white;
+    border: 2px solid #548235;
+    border-top: none;
+    border-radius: 0 0 40px 40px;
+}
+.followUser-lists {
+    width: 90%;
+    max-width: 500px;
+    height: 300px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: 0 auto;
+    overflow: scroll;
+}
+.userSelection-btn {
+    width: 30px;
+    height: 20px;
+    text-align: center;
+    float: right;
+    font-size: 12px;
+    font-weight: lighter;
+    padding: 5px 10px;
+    border: 1px solid #2F528F;
+    background-color: #548ef3;
+    color: white;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.userSelection {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.postTag-selection {
+    width: 90%;
+    height: 300px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin: 0 auto;
+    overflow: scroll;
+}
+.noteChangeTags {
+    display: grid;
+    grid-auto-rows: 50px;
+    grid-template-columns: repeat(auto-fit, 100px);
+    justify-content: center;
+    height: 300px;
+    overflow: scroll;
+    margin: 15px auto;
+}
+.noteChange-tag {
+    width: 60px;
+    height: 30px;
+    border-radius: 20px;
+    text-align: center;
+    margin: 0;
+    background-color: #DAE3F3;
+    border: 1px solid #2F528F;
+    padding: 3px 10px;
+    cursor: pointer;
+    opacity: .3;
+}
+.note-on {
+    opacity: 1;
+}
+
