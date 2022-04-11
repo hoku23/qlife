@@ -1,21 +1,21 @@
 // タブに対してクリックイベントを適用
 const tabs = document.getElementsByClassName('tab');
 for(let i = 0; i < tabs.length; i++) {
-tabs[i].addEventListener('click', tabSwitch, false);
+    tabs[i].addEventListener('click', tabSwitch, false);
 }
 
 // タブをクリックすると実行する関数
-    function tabSwitch(){
-    // タブのclassの値を変更
-        document.getElementsByClassName('active-tab')[0].classList.remove('active-tab');
-        this.classList.add('active-tab');
+function tabSwitch(){
+// タブのclassの値を変更
+    document.getElementsByClassName('active-tab')[0].classList.remove('active-tab');
+    this.classList.add('active-tab');
 
-        // コンテンツのclassの値を変更
-        document.getElementsByClassName('show-content')[0].classList.remove('show-content');
-        const arrayTabs = Array.prototype.slice.call(tabs);
-        const index = arrayTabs.indexOf(this);
-        document.getElementsByClassName('setting-content')[index].classList.add('show-content');
-    };
+    // コンテンツのclassの値を変更
+    document.getElementsByClassName('show-content')[0].classList.remove('show-content');
+    const arrayTabs = Array.prototype.slice.call(tabs);
+    const index = arrayTabs.indexOf(this);
+    document.getElementsByClassName('setting-content')[index].classList.add('show-content');
+};
 
 
 // 変更入力ボタンに対してクリックイベントを適用
@@ -25,14 +25,13 @@ for(let i = 0; i < changeButtons.length; i++) {
 }
 
 // 変更入力ボタンをクリックすると実行する関数
-    function showChangeForm(){
-
-        // コンテンツのclassの値を変更
-        document.getElementsByClassName('show-changeForm')[0].classList.remove('show-changeForm');
-        const arrayChanges = Array.prototype.slice.call(changeButtons);
-        const index = arrayChanges.indexOf(this);
-        document.getElementsByClassName('change-form')[index].classList.add('show-changeForm');
-    };
+function showChangeForm(){
+    // コンテンツのclassの値を変更
+    document.getElementsByClassName('show-changeForm')[0].classList.remove('show-changeForm');
+    const arrayChanges = Array.prototype.slice.call(changeButtons);
+    const index = arrayChanges.indexOf(this);
+    document.getElementsByClassName('change-form')[index].classList.add('show-changeForm');
+};
 
 
 // お気に入りタグに対してクリックイベントを適用
@@ -42,7 +41,7 @@ for(let i = 0; i < favoriteTags.length; i++) {
 }
 
 // お気に入りタグをクリックすると実行する関数
-    function switchFavoriteTags(){
+function switchFavoriteTags(){
 
     // classの切り替え
     // .fav-onがついていれば外す
@@ -66,7 +65,7 @@ for(let i = 0; i < noteChangeTags.length; i++) {
 }
 
 // 通知設定のタグをクリックすると実行する関数
-    function switchNoteTags(){
+function switchNoteTags(){
 
     // classの切り替え
     // .fav-onがついていれば外す
@@ -90,33 +89,17 @@ for(let i = 0; i < noteChangeButtons.length; i++) {
 }
 
 // 通知設定の変更入力ボタンをクリックすると実行する関数
-    function showChangeNote(){
+function showChangeNote(){
 
-        // コンテンツのclassの値を変更
-        document.getElementsByClassName('show-noteChange')[0].classList.remove('show-noteChange');
-        const arrayChanges = Array.prototype.slice.call(noteChangeButtons);
-        const index = arrayChanges.indexOf(this);
-        document.getElementsByClassName('notification-change')[index].classList.add('show-noteChange');
-    };
+    // コンテンツのclassの値を変更
+    document.getElementsByClassName('show-noteChange')[0].classList.remove('show-noteChange');
+    const arrayChanges = Array.prototype.slice.call(noteChangeButtons);
+    const index = arrayChanges.indexOf(this);
+    document.getElementsByClassName('notification-change')[index].classList.add('show-noteChange');
+};
 
 
-/* 
-.menuをクリックしたら、
-#nav-maskに.show-navがついていれば外し、ついていなければ追加する
-.show-nav {right: 0;}
-#hamburgerに.openがついていれば外し、ついていなければ追加する
-.open span:nth-child(1) {
-    top: 25px;
-    transform: rotate(45deg);
-}
-.open span:nth-child(2) {
-    display: none;
-}
-.open span:nth-child(3) {
-    top: 25px;
-    transform: rotate(-45deg);
-}
-*/
+// tag
 const navMask = document.getElementById('nav-mask');
 const menu = document.getElementById('menu');
 const hamburger = document.getElementById('hamburger');
@@ -138,3 +121,92 @@ function openMenu(){
         hamburger.classList.add('open');
     }
 }
+
+
+function newTextCreate() {
+    area2.value = area.value;
+	if (area2.value) {
+	    //入力内容を改行ごとに分けて配列に格納
+        let formText = area2.value.split('\n');
+        //画像パスを拾う
+        let aryCheck = formText.filter(value => value.includes('storage/content_imgs/'));
+        
+        aryCheck.forEach(function(element) {
+            //パス部分とテキスト部分を分ける
+            let cutElem = element.substr(0, element.indexOf('.jpg') + 4);
+            let cutText = element.substr(element.indexOf('.jpg') + 4);
+            //パス部分にimgタグを付与して配列に格納し直す
+            // let imgTag = "<img src=\"" + cutElem + "\">"
+            let imgTag = "<div class=\"PostContent-imgs\"><img style=\"max-width: 90%\" src=\"https://b0b0704b8c11464390acf6e91a447ae8.vfs.cloud9.us-west-2.amazonaws.com/" + cutElem + "\"></div>"
+            formText[formText.indexOf(element)] = imgTag;
+            //テキスト部分を配列に格納
+            formText.splice(formText.indexOf(imgTag) + 1, 0, cutText);
+        });
+        //入力内容の配列の要素を<br>で繋ぐ
+        let newFormText = formText.join('<br>');
+        
+        area2.value = newFormText;
+    }    
+}
+
+//textarea取得
+var area = document.getElementById('content');
+var area2 = document.getElementById('content_htmlTag');
+//プレビューボタン取得
+const check = document.getElementById('postContent_preview-btn');
+//プレビューボタンのクリックイベント
+check.addEventListener('click', function(e) {
+    //textareaの入力内容にimgタグ付与
+    newTextCreate();
+    //phpにpost
+	let preview = document.getElementById('postContent_preview');
+	preview.click();
+})
+
+//保存ボタン取得
+const save_btn = document.getElementById('save-btn');
+//保存ボタンのクリックイベント
+save_btn.addEventListener('click', function(e) {
+    //textareaの入力内容にimgタグ付与
+    newTextCreate();
+    //phpにpost
+	let save = document.getElementById('postContent_save');
+	save.click();
+})
+
+const fileSelect = document.getElementById("fileSelect"),
+      fileElem = document.getElementById("fileElem");
+    
+    fileSelect.addEventListener("click", function (e) {
+      if (fileElem) {
+        fileElem.click();
+      }
+    }, false);
+
+function addText3()
+{
+
+    var datetime = Date.now();
+    var file_name =  user_name + "." + datetime + "." + "jpg";
+
+    let fileName = document.getElementById('fileName');
+    fileName.value = file_name;
+
+	var text ="\n" + "storage/content_imgs/" + file_name + "\n";
+	
+	//カーソルの位置を基準に前後を分割して、その間に文字列を挿入
+	area.value = area.value.substr(0, area.selectionStart)
+			+ text
+			+ area.value.substr(area.selectionStart);
+			
+	newTextCreate();
+	
+	let preview = document.getElementById('postContent_preview');
+	preview.click();
+	
+}
+
+
+console.log('Hello');
+console.log(hokuto);
+console.log(user_name);

@@ -34,7 +34,7 @@
                 <nav>
                     <ul>
                         <li><a href="timeLine.html">タイムライン</a></li>
-                        <li><a href="createNewPost.html">新規投稿作成</a></li>
+                        <li><a href="{{ route('posts.create')}}">新規投稿作成</a></li>
                         <li><a href="followList.html">フォロー/フォロワー一覧</a></li>
                         <li><a href="home.html">投稿一覧</a></li>
                         <li><a href="question.html">質問ホーム</a></li>

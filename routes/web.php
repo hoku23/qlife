@@ -30,3 +30,6 @@ Route::resource('logins', 'LoginController');
 Route::post('logins/auth', 'LoginController@auth')->name('logins.auth');
 
 Route::get('logout', 'LoginController@logout')->name('logout');
+
+Route::resource('posts', 'PostController');
+Route::get('posts/create_title', 'PostController@create_title')->name('posts.create_title');

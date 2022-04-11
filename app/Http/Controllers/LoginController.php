@@ -37,13 +37,16 @@ class LoginController extends Controller
             
             foreach ($users as $user);
             
+            $user_id = $user->user_id;
             $password = $user->password;
             $inputPassword =$request->input('password');
             
             $user_name = $user->user_name;
             
             if (password_verify($inputPassword, $password)) {
-                return view('homes.index', compact('user'));
+                session()->put('user', $user);
+                // return view('homes.index', compact('user'));
+                return redirect()->route('posts.index');
             } else {
                 return redirect()->route('logins.index')->with('message', 'ユーザーIDまたはパスワードが違います');
             }
@@ -52,7 +55,8 @@ class LoginController extends Controller
     
     public function logout()
     {
-         return view('logins.logout');
+        session()->forget('user');
+        return view('logins.logout');
     }
 
     /**

@@ -829,3 +829,1201 @@ input {
     opacity: 1;
 }
 
+/* 新規投稿作成 */
+/* 本文作成 */
+#createNewPost {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+}
+#create-flow {
+    width: 180px;
+    height: 100vh;
+    border-right: 1px solid gray;
+}
+#createPost-container {
+    display: flex;
+    height: 100vh;
+    flex-grow: 1;
+}
+.create-box {
+    flex-grow: 1;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+#create-box-right {
+    border-left: 1px solid gray;
+    width: 50%;
+}
+#create-box-left {
+    background-color: #fff;
+    width: 50%;
+}
+
+.createContent-preview {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    padding: 238px 5px 0 5px;
+    box-sizing: border-box;
+    overflow: scroll;
+}
+/* 投稿作成フロー表示 */
+.createFlow-list {
+    margin: 210px auto 0 auto;
+    padding: 0;
+}
+.createFlow-list li {
+    list-style: none;
+    margin: 30px 20px;
+
+}
+.createFlow-list a {
+    text-decoration: none;
+}
+.other-step a,
+.other-step {
+    color: #AFABAB;
+}
+.show-step a,
+.show-step {
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+}
+#create-box-left > div {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+.createBox-header {
+    width: 100%;
+    height: 60px;
+    background-color: white;
+    border-bottom: 1px solid gray;
+    display: flex;
+    padding-top: 177px;
+    z-index: 10;
+}
+.createBox-header p {
+    font-size: 18px;
+}
+.text-heading {
+    flex-grow: 1;
+    padding-left: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    z-index: 10;
+}
+.text-heading-right {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    z-index: 10;
+}
+.store-btn > button {
+    width: 100px;
+    background-color: #548235;
+    color: white;
+    border-radius: 10px;
+    padding: 3px 10px;
+    font-size: 16px;
+    border: 1px solid #548235;
+    cursor: pointer;
+}
+.store-btn {
+    margin: 0 30px;
+}
+.img-select {
+    width: 150px;
+    border: none;
+    border-left: 1px solid gray;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.imgSelect-icon {
+    width: 20px;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+.img-select img {
+    width: 100%;
+}
+.thumnail-select {
+    display: flex;
+    align-items: center;
+}
+.thumnail-select > p {
+    margin: 0;
+
+}
+.thumnailImg-select {
+    background-color: #fff;
+    height: 60px;
+    margin-left: 20px;
+    padding: 0 10px;
+    border: none;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.thumnailImg-select p {
+    margin: 0;
+}
+.thumnailImg-select img {
+    width: 100%;
+}
+
+#content_htmlTag,
+#postContent_preview,
+#postContent_save,
+#fileElem{
+    display: none;
+}
+
+#postContent_preview-btn {
+    width: 150px;
+    height: 60px;
+    border: none;
+    border-right: 1px solid gray;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.postContent-imgs {
+    width: 100%;
+}
+.postContent-img {
+    width: 100%;
+}
+
+/* タイトル作成 */
+.createPost-form,
+.text-content {
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    margin: 0;
+}
+.createPost-form > textarea {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    box-sizing: border-box;
+    outline: none;
+    font-size: 16px;
+    padding: 5px;
+}
+.thumnail-up {
+    width: 400px;
+    height: 300px;
+    margin: 80px auto;
+    border: 1px solid #000;
+    background-color: #ececec;
+}
+
+/* タグ指定 */
+.createPostTags-container {
+    width: 100%;
+    display: flex;
+    padding: 230px 0 0 0;
+}
+.createPostTags-btn {
+    text-align: center;
+}
+
+/* 内容確認 */
+.checkPost-box {
+    flex-grow: 1;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+#checkPost-box-left {
+    background-color: #fff;
+    width: 35%;
+}
+#checkPost-box-right {
+    border-left: 1px solid gray;
+    width: 65%;
+}
+#checkPost-box-left > div {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+.createPost-sample {
+    width: 95%;
+    max-width: 350px;
+    background-color: #E2F0D9;
+    border: 2px solid #548235;
+    margin: 30px auto;
+    display: block;
+    text-align: left;
+    box-sizing: border-box;
+}
+/* 投稿完了 */
+#createPost-complete {
+    display: block;
+    height: 100vh;
+    flex-grow: 1;
+}
+.post-complete {
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    margin: 0;
+    padding-top: 177px;
+    box-sizing: border-box;
+}
+.complete-message {
+    max-width: 600px;
+    width: 90%;
+    background-color: #E2F0D9;
+    border: 3px solid #548235;
+    margin: 80px auto 10px auto;
+    border-radius: 60px;
+}
+.complete-message > p {
+    font-size: 28px;
+    text-align: center;
+}
+.toTimeline-btn {
+    text-align: center;
+    padding-bottom: 40px;
+}
+.toTimeline-btn button {
+    width: 300px;
+    background-color: #548235;
+    color: white;
+    border-radius: 10px;
+    padding: 3px 10px;
+    font-size: 16px;
+    border: 1px solid #548235;
+    cursor: pointer;
+}
+
+/* タイムライン */
+#timeline-container {
+    width: 100%;
+    height: 100vh;
+    padding-top: 177px;
+    box-sizing: border-box;
+    display: flex;
+}
+.search-area {
+    min-width: 300px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}
+.posts-area {
+    flex-grow: 1;
+    background-color: white;
+    overflow: scroll;
+    border-right: 1px solid gray;
+}
+.timelinePosts-list {
+    width: 100%;
+    margin: 30px 0 0 0;
+    display: grid;
+    grid-auto-rows: 490px;
+    grid-template-columns: 374px 374px;
+    justify-content: center;
+}
+/* キーワード検索 */
+.keyword-search {
+    width: 100%;
+    height: 80px;
+    border-bottom: 1px solid gray;
+    display: flex;
+    flex-direction: column;
+}
+.keyword-search > form {
+    width: 100%;
+    flex-grow: 1;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.keyword {
+    width: 200px;
+    height: 26px;
+    margin-right: 5px;
+    background-color: #F2F2F2;
+    border: 1px solid black;
+}
+.keywordSearch-btn {
+    height: 30px;
+}
+/* タグ検索 */
+.tags-search {
+    width: 100%;
+    flex-grow: 1;
+}
+.searchTags-box {
+    width: 100%;
+}
+.searchTags-box > p {
+    margin: 10px 0 0 0;
+    text-align: center;
+    font-size: 16px;
+}
+.search-tags {
+    display: grid;
+    grid-auto-rows: 70px;
+    grid-template-columns: repeat(auto-fit, 90px);
+    justify-content: center;
+    height: 360px;
+    overflow: scroll;
+    margin: 30px 0;
+}
+.tagSearch-btn {
+    width: 100px;
+    background-color: #548235;
+    color: white;
+    border-radius: 10px;
+    padding: 3px 10px;
+    font-size: 16px;
+    border: 1px solid #548235;
+    cursor: pointer;
+}
+.timelineSearch-btn {
+    text-align: center;
+}
+
+/* 個々の投稿詳細 */
+.postDetail-header {
+    align-items: center;
+}
+.postDetail-header > h2 {
+    font-size: 20px;
+    margin: 0 30px;
+}
+#postDetail-container {
+    width: 100%;
+    height: 100vh;
+    padding-top: 177px;
+    box-sizing: border-box;
+    display: flex;
+}
+.reaction-area {
+    min-width: 300px;
+    max-width: 300px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    /* box-sizing: border-box; */
+}
+.postDetails {
+    max-width: 750px;
+    width: 90%;
+    background-color: #E2F0D9;
+    border: 1px solid #548235;
+    margin: 30px auto;
+    padding: 25px;
+    box-sizing: border-box;
+}
+.postDetail-textBox {
+    width: 100%;
+}
+.postDetail-textBox > p {
+    font-size: 18px;
+    margin: 0;
+}
+.postDetails-icon-userName {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+}
+.postDetails-icon-userName > p {
+    margin: 0;
+}
+/* グッド＆保存 */
+.good-save {
+    width: 100%;
+    height: 80px;
+    border-bottom: 1px solid gray;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0 10px;
+}
+.goodSave-box {
+    display: flex;
+}
+.goodSave-img,
+.comment-img {
+    width: 40px;
+    margin-right: 10px;
+}
+.goodSave-img > img,
+.comment-img > img {
+    width: 100%;
+}
+.backTimeline-btn {
+    width: 160px;
+    background-color: #548235;
+    color: white;
+    border-radius: 10px;
+    padding: 3px 10px;
+    font-size: 16px;
+    border: 1px solid #548235;
+    cursor: pointer;
+}
+/* コメント */
+.comment-box {
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+.comment-form-box {
+    width: 100%;
+    height: 250px;
+    border-bottom: 1px solid gray;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    box-sizing: border-box;
+}
+.comment-lists {
+    width: 300px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+}
+.commentForm-title {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.commentForm-title > p {
+    margin: 0;
+}
+.comment-form-box > form {
+    width: 100%;
+    flex-grow: 1;
+    text-align: center;
+}
+.comment-form {
+    width: 100%;
+    height: 130px;
+    box-sizing: border-box;
+}
+.comment-btn {
+    width: 160px;
+    background-color: #548235;
+    color: white;
+    margin-top: 5px;
+    border-radius: 10px;
+    padding: 3px 10px;
+    font-size: 16px;
+    border: 1px solid #548235;
+    cursor: pointer;
+}
+/* コメント欄 */
+.comment-num {
+    width: 100%;
+    height: 40px;
+    border-bottom: 1px solid gray;
+    display: flex;
+    margin-top: 510px;
+    align-items: center;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+.comment-num > p {
+    margin: 0;
+}
+.comment-num  span {
+    margin-left: 10px;
+}
+.comment-list {
+    flex-grow: 1;
+    display: flex;
+    overflow: scroll;
+
+}
+
+.comment {
+    height: 130px;
+    border-bottom: 1px solid gray;
+    padding: 10px 10px;
+    box-sizing: border-box;
+}
+.comment-icon-userName {
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+.comment-icon-userName > p {
+    margin: 0;
+}
+.comment-icon-userName > .icon {
+    width: 25px;
+    height: 25px;
+}
+.show-reply {
+    display: flex;
+    align-items: center;
+}
+.comment p {
+    margin: 0;
+}
+.reply > p {
+    font-size: 14px;
+    color: #2E75B6;
+    cursor: pointer;
+}
+.show-reply > p {
+    font-size: 14px;
+    cursor: pointer;
+}
+.line-img {
+    width: 30px;
+    display: flex;
+    align-items: center;
+}
+.line-img > img {
+    width: 100%;
+}
+
+.comment-contents {
+    width: 100%;
+    background-color: #fff;
+    overflow: scroll;
+}
+
+/* 質問ホーム */
+#questionHome-container {
+    display: flex;
+    padding-top: 177px;
+    width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
+}
+.myQuestions {
+    flex-grow: 1;
+    background-color: white;
+    overflow: scroll;
+}
+/* 質問ホームのリンク */
+.question-link {
+    width: 200px;
+    background-color: #548235;
+}
+.question-link > ul {
+    margin-top: 80px;
+}
+.question-link li {
+    list-style: none;
+    margin-bottom: 30px;
+}
+.question-link a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+.question-link a:hover {
+    text-decoration: underline;
+}
+/* 質問リスト */
+.question-lists {
+    margin: 30px 0 30px 20px;
+    display: grid;
+    grid-auto-rows: 520px;
+    grid-template-columns: repeat(auto-fit, 370px);
+    justify-content: center;
+}
+.question {
+    width: 350px;
+    background-color: #E2F0D9;
+    border: 1px solid #548235;
+    border-radius: 50px;
+    padding: 30px 20px;
+    box-sizing: border-box;
+}
+.myQuestion {
+    height: 500px;
+}
+.question-title {
+    margin-bottom: 15px;
+    height: 18px;
+}
+.question p {
+    margin: 0;
+}
+.question-label {
+    font-size: 18px;
+}
+.question-content {
+    width: 100%;
+    height: 100px;
+    overflow: scroll;
+    margin-bottom: 15px;
+}
+.question-imgs {
+    width: 100%;
+    margin-bottom: 15px;
+}
+.question-img {
+    width: 250px;
+    height: 150px;
+    border: 1px solid #000;
+    background-color: #fff;
+}
+.question-tags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 30px;
+    overflow: scroll;
+    margin-bottom: 15px;
+}
+.question-tag {
+    text-align: center;
+    height: 20px;
+    background-color: #DAE3F3;
+    border: 1px solid #2F528F;
+    padding: 3px 10px;
+    margin-bottom: 5px;
+    border-radius: 15px;
+    margin-right: 10px;
+}
+.question-answerNum {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.question-answerNum span {
+    margin-left: 5px;
+}
+
+
+/* 新規質問作成 */
+.createQuestion-form {
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+.createQuestion-title {
+    width: 100%;
+    flex-grow: 1;
+    border: 0;
+    border-bottom: 1px solid gray;
+    box-sizing: border-box;
+    background-color: white;
+    outline: none;
+    font-size: 16px;
+    padding: 5px;
+}
+.questionCreate-left {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: relative;
+}
+.createQuestion-box-left .text-heading {
+    position: absolute;
+    top: 177px;
+    left: 0;
+    background-color: #fff;
+    border-bottom: 1px solid gray;
+    width: 100%;
+    height: 61px;
+    box-sizing: border-box;
+}
+.questionCreate-right {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: relative;
+}
+.questionStore-btn {
+    width: 100px;
+    background-color: #548235;
+    color: white;
+    border-radius: 10px;
+    padding: 3px 10px;
+    font-size: 16px;
+    border: 1px solid #548235;
+    cursor: pointer;
+}
+.question-store {
+    width: 100px;
+    height: 40px;
+    margin: 15px auto;
+    display: flex;
+    align-items: center;
+}
+.createQuestionText-form {
+    flex-grow: 1;
+    width: 90%;
+    background-color: #fff;
+    margin: 15px 0 0 0;
+}
+.questionCreate-content {
+    width: 100%;
+    height: 200px;
+    box-sizing: border-box;
+    outline: none;
+}
+.createQuestionForm-box {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: 237px;
+    box-sizing: border-box;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: scroll;
+}
+.createQuestion-box-left {
+    align-items: center;
+}
+.createQuestion-imgs {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-bottom: 15px;
+}
+.createQuestion-img {
+    width: 250px;
+    height: 150px;
+    border: 1px solid #000;
+    margin: 0 10px 10px 0;
+}
+
+/* 新規質問作成_タグ選択&ユーザー指定 */
+.questionCreate-tags-box,
+.questionCreate-users-container {
+    width: 100%;
+    flex-grow: 1;
+    padding-top: 30px;
+    background-color: #fff;
+}
+.questionCreate-tags {
+    display: grid;
+    grid-auto-rows: 70px;
+    grid-template-columns: repeat(auto-fit, 120px);
+    justify-content: center;
+    height: 300px;
+    overflow: scroll;
+    margin: 30px auto;
+}
+.questionCreate-users-box {
+    width: 100%;
+    text-align: center;
+}
+.questionCreate-users-box > p {
+    margin: 0;
+    font-size: 20px;
+}
+.questionCreateUsers-list {
+    width: 100%;
+}
+.questionCreateUsers {
+    width: 100%;
+    height: 300px;
+    margin: 30px auto;
+    overflow: scroll;
+}
+.questionCreateUser {
+    width: 85%;
+    display: flex;
+    align-items: center;
+    margin: 0 auto 5px auto;
+    justify-content: space-between;
+}
+.questionCreateUsers-select {
+    width: 90px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #DAE3F3;
+    border: 1px solid #2F528F;
+    border-radius: 20px;
+}
+.questionCreateUsers-select > p {
+    margin: 0;
+}
+
+/*新規質問作成_内容確認 */
+.questionCreateCheck-sample {
+    width: 90%;
+    background-color: #fff;
+}
+.questionSample {
+    margin: 30px auto;
+}
+.questionSample .icon-userName {
+    margin: 0 0 15px 0;
+}
+.questionCreate-content {
+    width: 100%;
+    height: 100px;
+    overflow: scroll;
+    margin-bottom: 15px;
+}
+.questionSample-content {
+    margin-bottom: 20px;
+}
+.questionSample-img {
+    width: 100%;
+    height: 200px;
+    border: 1px solid #000;
+    background-color: #fff;
+    margin-bottom: 20px;
+}
+.questionSample-tags-users {
+    width: 100%;
+    flex-grow: 1;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.questionSample-tags-box,
+.questionSample-users-box {
+    width: 90%;
+    height: 230px;
+    padding-top: 30px;
+    box-sizing: border-box;
+}
+.questionSample-tags-users p {
+    margin: 0;
+    font-size: 18px;
+}
+.questionSample-tags,
+.questionSample-users {
+    width: 100%;
+    height: 160px;
+    margin: 15px auto 0 auto;
+}
+.questionSample-tags {
+    display: grid;
+    grid-auto-rows: 50px;
+    grid-template-columns: repeat(auto-fit, 120px);
+    overflow: scroll;
+}
+.questionSample-tags .question-tag {
+    height: 30px;
+    border-radius: 20px;
+}
+.questionSample-users {
+    display: grid;
+    grid-auto-rows: 50px;
+    grid-template-columns: repeat(auto-fit, 180px);
+    overflow: scroll;
+}
+.questionSample-users .icon-userName {
+    margin: 0 0 5px 0;
+}
+
+/* 質問一覧 */
+#questionList-container {
+    width: 100%;
+    height: 100vh;
+    padding-top: 177px;
+    box-sizing: border-box;
+    display: flex;
+}
+.questionList-box {
+    flex-grow: 1;
+    background-color: white;
+    overflow: scroll;
+    border-right: 1px solid gray;
+}
+.otherQuestion-lists {
+    margin: 30px 0 30px 20px;
+    display: grid;
+    grid-auto-rows: 570px;
+    grid-template-columns: repeat(auto-fit, 370px);
+    justify-content: center;
+}
+.otherQuestion {
+    height: 550px;
+}
+.otherQuestion .icon-userName {
+    margin: 0 0 15px 0;
+}
+
+/* 個々の質問表示 */
+#questionDetail-container {
+    width: 100%;
+    height: 100vh;
+    padding-top: 177px;
+    box-sizing: border-box;
+    display: flex;
+}
+.question-area {
+    flex-grow: 1;
+    background-color: white;
+    overflow: scroll;
+    border-right: 1px solid gray;
+}
+.questionDetails {
+    max-width: 750px;
+    width: 90%;
+    background-color: #E2F0D9;
+    border: 1px solid #548235;
+    border-radius: 50px;
+    margin: 30px auto;
+    padding: 25px;
+    box-sizing: border-box;
+}
+.questionDetails .icon-userName {
+    margin: 0 0 15px 0;
+}
+.questionDetails > p {
+    font-size: 20px;
+    margin: 0 0 10px 0;
+}
+.questionDetails-content {
+    margin-bottom: 20px;
+}
+.questionDetails-content p {
+    margin: 0;
+}
+.questionDetails-content-imgs {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.questionDetails-content-img {
+    width: 300px;
+    height: 200px;
+    margin: 0 20px 20px 0;
+    border: 1px solid #000;
+    background-color: #fff;
+}
+.questionDetails-tags {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.answers-area {
+    min-width: 450px;
+    max-width: 450px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+}
+.answer-lists {
+    width: 450px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+}
+.answers-list-header {
+    width: 100%;
+    height: 80px;
+    border-bottom: 1px solid gray;
+    display: flex;
+    margin-top: 178px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+.answers-list-header > p {
+    margin: 0;
+    font-size: 20px;
+}
+.answers-list-header  span {
+    margin-left: 10px;
+}
+.answers-list {
+    flex-grow: 1;
+    display: flex;
+    overflow: scroll;
+}
+.createAnswer-btn {
+    width: 160px;
+    background-color: #548235;
+    color: white;
+    border-radius: 10px;
+    padding: 3px 10px;
+    font-size: 16px;
+    border: 1px solid #548235;
+    cursor: pointer;
+}
+.answersList-contents {
+    width: 100%;
+    padding-top: 20px;
+    background-color: #fff;
+    overflow: scroll;
+}
+.answer {
+    width: 400px;
+    height: 250px;
+    background-color: #E2F0D9;
+    border: 1px solid #548235;
+    border-radius: 50px;
+    margin: 0 auto 20px auto;
+    padding: 25px;
+    box-sizing: border-box;
+}
+.answer .icon-userName {
+    margin: 0 0 15px 0;
+}
+.bestAnswer-flag {
+    width: 30px;
+    display: none;
+}
+.bestAnswer-flag > img {
+    width: 100%;
+}
+.bestAnswer-on {
+    display: flex;
+}
+.answer-content {
+    width: 100%;
+    height: 140px;
+    box-sizing: border-box;
+    overflow: scroll;
+}
+.answer-content > p {
+    margin: 0;
+}
+
+/* 新規回答作成 */
+#createAnswer-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    flex-grow: 1;
+}
+.createAnswer-form {
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    margin: 0;
+}
+.createAnswer-form > textarea {
+    width: 100%;
+    flex-grow: 1;
+    border: 0;
+    border-bottom: 1px solid gray;
+    box-sizing: border-box;
+    outline: none;
+    font-size: 16px;
+    padding: 5px;
+}
+.createAnswerStore-btn {
+    width: 160px;
+    height: 40px;
+    background-color: #548235;
+    color: white;
+    border-radius: 10px;
+    margin: 15px auto;
+    padding: 3px 10px;
+    font-size: 16px;
+    border: 1px solid #548235;
+    cursor: pointer;
+}
+#createAnswer-container .text-heading {
+    flex-grow: 1;
+    padding-left: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: 60px;
+    z-index: 10;
+}
+.answer-submit {
+    margin-left: 30px;
+}
+.createAnswer-box {
+    flex-grow: 1;
+}
+.createAnswerComplete {
+    padding-top: 177px;
+}
+.createAnswer-check {
+    width: 400px;
+    background-color: #E2F0D9;
+    border: 1px solid #548235;
+    border-radius: 50px;
+    margin: 30px auto 20px auto;
+    padding: 25px;
+    box-sizing: border-box;
+}
+.createAnswer-check .icon-userName {
+    margin: 0;
+}
+
+/* 個々の回答 */
+#answerDetail-container {
+    width: 100%;
+    height: 100vh;
+    padding-top: 177px;
+    box-sizing: border-box;
+    display: flex;
+}
+.answer-area {
+    flex-grow: 1;
+    background-color: white;
+    overflow: scroll;
+    border-right: 1px solid gray;
+}
+.answerDetails {
+    max-width: 750px;
+    width: 90%;
+    background-color: #E2F0D9;
+    border: 1px solid #548235;
+    border-radius: 50px;
+    margin: 30px auto;
+    padding: 25px;
+    box-sizing: border-box;
+}
+.answerDetails .icon-userName {
+    margin: 0 0 15px 0;
+}
+.answerDetail-content {
+    margin-bottom: 15px;
+}
+.answerDetail-content p,
+.answer-date p {
+    margin: 0;
+}

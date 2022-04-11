@@ -35,7 +35,7 @@
                             </div>
                             <div class="login-form">
                                 <label>パスワード</label>
-                                <input type="text" name="password">
+                                <input type="password" name="password">
                                 @if ($errors->has('password'))
                                     <p class="error">{{ $errors->first('password') }}</p>
                                 @endif
