@@ -43,11 +43,18 @@ class PostController extends Controller
         return view('posts.content_create', compact('user', 'param_json', 'file_name', 'content', 'content_htmlTag'));
     }
 
-    public function create_title(Request $request)
+    public function create_title()
     {
         $user = session()->get('user');
+        $user_name = $user->user_name;
+        $userName = json_encode($user_name);
         
-        return view('posts.title_thumnail_create', compact('user'));
+        return view('posts.title_thumnail_create', compact('user', 'userName'));
+    }
+    
+    public function tag_create()
+    {
+        return view('posts.tags_create');
     }
     /**
      * Store a newly created resource in storage.
@@ -77,13 +84,51 @@ class PostController extends Controller
         if ($request->input('action') == 'preview') {
             return redirect()->route('posts.create')->withInput($values);   
         } else {
-            
-            sesstion()->put('content', $content_htmlTag);
+            session()->put('post_content', $content_htmlTag);
             return redirect()->route('posts.create_title');
         }
     }
     
+    public function store_title(Request $request) {
+        if ($request->input('postTitle')) {
+            $title = $request->input('postTitle');
+            session()->put('post_title', $title);
+            
+            if (session()->has('post_title') && session()->has('thumnail')) {
+                $thumnail = session()->get('thumnail');
+                return redirect()->route('posts.tag_create');
+            } elseif (session()->has('post_title')) {
+                return redirect()->route('posts.create_title')->with('title', $title)
+                                                              ->with('title_message', 'サムネイルを選択してください');    
+            }
+            
+        } else {
+            return redirect()->route('posts.create_title')->with('title_message', 'タイトルを入力し直してください');
+        }
+    }
     
+    public function store_thumnail(Request $request) {
+        $postTitle_textarea = $request->input('postTitle_textarea');
+        if ($request->file('thumnail')) {
+            $file_name = $request->input('file_name');
+            $thumnailPath = $request->input('thumnailPath');
+            $img = $request->file('thumnail')->storeAs('thumnail_imgs', $file_name, 'public');
+        } else { 
+            
+            return redirect()->route('posts.create_title')->with('title_message', '画像を選択し直してください')
+                                                          ->with('title', $postTitle_textarea);
+        }
+        session()->put('thumnail', $thumnailPath);
+        
+        if (session()->has('thumnail') && session()->has('post_title')) {
+            return redirect()->route('posts.create_title')->with('thumnailPath', $thumnailPath);
+        } elseif (session()->has('thumnail')) {
+            return redirect()->route('posts.create_title')->with('thumnailPath', $thumnailPath)
+                                                          ->with('title_message', 'タイトルを入力してください')
+                                                          ->with('title', $postTitle_textarea);
+        } 
+        
+    }
 
     /**
      * Display the specified resource.

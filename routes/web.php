@@ -33,3 +33,6 @@ Route::get('logout', 'LoginController@logout')->name('logout');
 
 Route::resource('posts', 'PostController');
 Route::get('posts/create_title', 'PostController@create_title')->name('posts.create_title');
+Route::post('store_title', 'PostController@store_title')->name('posts.store_title');
+Route::post('store_thumnail', 'PostController@store_thumnail')->name('posts.store_thumnail');
+Route::get('posts/tag_create', 'PostController@tag_create')->name('posts.tag_create');

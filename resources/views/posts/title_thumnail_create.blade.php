@@ -18,9 +18,9 @@
                         <div class="icon">
                             <img src="" alt="">
                         </div>
-                            <p class="user-name">{{$user->user_name}}</p>
+                            <p id="user_name" class="user-name">{{$user->user_name}}</p>
                     </div>
-                    <a href="login.html">ログアウト</a>
+                    <a href="{{ route('logout') }}">ログアウト</a>
                 </div>
                 <div id="menu">
                     <div id="hamburger" class="hamburger">
@@ -47,6 +47,11 @@
             <article>
                 <div class="main-header">
                     <h1>新規投稿作成</h1>
+                    @if (session('title_message'))
+                    <div style="display:flex; align-items:center; color:red;">
+                        <p>{{session('title_message')}}</p>
+                    </div>
+                    @endif
                 </div>
                 <section>
                     <div id="createNewPost">
@@ -66,12 +71,14 @@
                                         <div class="text-heading">
                                             <p>タイトル</p>
                                             <div class="store-btn">
-                                                <button>保存する</button>
+                                                <button id="postTitle-store-btn">保存する</button>
                                             </div>
                                         </div>
                                     </div>
-                                    <form class="createPost-form">
-                                        <textarea name="" placeholder="タイトルを入力"></textarea>
+                                    <form class="createPost-form" method="POST" action="/store_title">
+                                        {{csrf_field()}}
+                                        <textarea id="postTitle" name="postTitle" placeholder="タイトルを入力">@if(session('title')){{session('title')}}@endif</textarea>
+                                        <input id="postTitle-store" type="submit" name="action" value="save" style="display:none">
                                     </form>
                                 </div>
                             </div>
@@ -80,7 +87,7 @@
                                     <div class="text-heading">
                                         <div class="thumnail-select">
                                             <p>サムネイル</p>
-                                            <button id="fileSelect" onchange="addText3();" class="thumnailImg-select">
+                                            <button id="thumnailFileSelect-btn" class="thumnailImg-select">
                                                 <div class="imgSelect-icon">
                                                     <img src="{{asset('images/picture.png')}}" alt="画像ロゴ">
                                                 </div>
@@ -88,20 +95,35 @@
                                             </button>
                                         </div>
                                         <div class="store-btn">
-                                            <button>保存する</button>
+                                            <button id="postThumnail-store-btn">保存する</button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="text-content">
-                                    <div class="thumnail-up"></div>
+                                    <div id="selectedThumnail" class="thumnail-up">
+                                        <img id="img" src="@if(session('thumnailPath')){{session('thumnailPath')}}@endif" style="width:100%">
+                                    </div>
                                 </div>
+                                <form method="POST" action="/store_thumnail" enctype="multipart/form-data">
+                                    {{csrf_field()}}
+                                    <input id="thumnailFileSelect" type="file" name="thumnail" style="display:none">
+                                    <input id="thumnailPath" type="hidden" name="thumnailPath" style="display:none">
+                                    <input id="fileName" type="hidden" name="file_name">
+                                    <input id="postTitle_textarea" type="hidden" name="postTitle_textarea">
+                                    <input id="postThumnail-store" type="submit" name="action" value="save" style="display:none">
+                                </form>
                             </div>
                         </div>
                     </div>
                 </section>
             </article>
         </main>
+        
+        <script type="text/javascript">
+            let userName = document.getElementById('user_name');
+            var user_name = userName.innerHTML;
+        </script>
 
-        <script src="js/index.js" charset="utf-8"></script>
+        <script src="{{asset('js/index.js')}}" charset="utf-8"></script>
     </body>
 </html>

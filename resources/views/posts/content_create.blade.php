@@ -97,12 +97,12 @@
                                 </div>
                                 <div class="createContent-preview">
                                     @if (isset($content_htmlTag))
-                                    <div>
-                                        <?php
-                                        echo $content_htmlTag;
-                                        ?>
-                                    </div>
-                                @endif
+                                        <div>
+                                            <?php
+                                            echo $content_htmlTag;
+                                            ?>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -112,92 +112,6 @@
         </main>
         
         <script type="text/javascript">
-            <!--function newTextCreate() {-->
-            <!--    area2.value = area.value;-->
-            <!--	if (area2.value) {-->
-            <!--	    //入力内容を改行ごとに分けて配列に格納-->
-            <!--        let formText = area2.value.split('\n');-->
-            <!--        //画像パスを拾う-->
-            <!--        let aryCheck = formText.filter(value => value.includes('storage/content_imgs/'));-->
-                    
-            <!--        aryCheck.forEach(function(element) {-->
-            <!--            //パス部分とテキスト部分を分ける-->
-            <!--            let cutElem = element.substr(0, element.indexOf('.jpg') + 4);-->
-            <!--            let cutText = element.substr(element.indexOf('.jpg') + 4);-->
-            <!--            //パス部分にimgタグを付与して配列に格納し直す-->
-            <!--            let imgTag = "<img src=" + cutElem + ">"-->
-            <!--            formText[formText.indexOf(element)] = imgTag;-->
-            <!--            //テキスト部分を配列に格納-->
-            <!--            formText.splice(formText.indexOf(imgTag) + 1, 0, cutText);-->
-            <!--        });-->
-            <!--        //入力内容の配列の要素を<br>で繋ぐ-->
-            <!--        let newFormText = formText.join('<br>');-->
-                    
-            <!--        area2.value = newFormText;-->
-            <!--    }    -->
-            <!--}-->
-            
-            <!--//textarea取得-->
-            <!--var area = document.getElementById('content');-->
-            <!--var area2 = document.getElementById('content_htmlTag');-->
-            <!--//プレビューボタン取得-->
-            <!--const check = document.getElementById('postContent_preview-btn');-->
-            <!--//プレビューボタンのクリックイベント-->
-            <!--check.addEventListener('click', function(e) {-->
-            <!--    //textareaの入力内容にimgタグ付与-->
-            <!--    newTextCreate();-->
-            <!--    //phpにpost-->
-            <!--	let preview = document.getElementById('postContent_preview');-->
-            <!--	preview.click();-->
-            <!--})-->
-            
-            <!--//保存ボタン取得-->
-            <!--const save_btn = document.getElementById('save-btn');-->
-            <!--//保存ボタンのクリックイベント-->
-            <!--save_btn.addEventListener('click', function(e) {-->
-            <!--    //textareaの入力内容にimgタグ付与-->
-            <!--    newTextCreate();-->
-            <!--    //phpにpost-->
-            <!--	let save = document.getElementById('save-btn');-->
-            <!--	save.click();-->
-            <!--})-->
-            
-            <!--const fileSelect = document.getElementById("fileSelect"),-->
-            <!--      fileElem = document.getElementById("fileElem");-->
-                
-            <!--    fileSelect.addEventListener("click", function (e) {-->
-            <!--      if (fileElem) {-->
-            <!--        fileElem.click();-->
-            <!--      }-->
-            <!--    }, false);-->
-            
-            <!--fileElem.addEventListener("change", addText3());-->
-            
-            <!--function addText3()-->
-            <!--{-->
-            <!--    var user_name = JSON.parse('<?php echo $param_json; ?>');-->
-            
-            <!--    var datetime = Date.now();-->
-            <!--    var file_name =  user_name + "." + datetime + "." + "jpg";-->
-            
-            <!--    let fileName = document.getElementById('fileName');-->
-            <!--    fileName.value = file_name;-->
-            
-            <!--	var text ="\n" + "storage/content_imgs/" + file_name + "\n";-->
-            	
-            <!--	//カーソルの位置を基準に前後を分割して、その間に文字列を挿入-->
-            <!--	area.value = area.value.substr(0, area.selectionStart)-->
-            <!--			+ text-->
-            <!--			+ area.value.substr(area.selectionStart);-->
-            			
-            <!--	newTextCreate();-->
-            	
-            <!--	let preview = document.getElementById('postContent_preview');-->
-            <!--	preview.click();-->
-            	
-            <!--}-->
-            
-            var hokuto = 'kuramoto';
             var user_name = JSON.parse('<?php echo $param_json; ?>');
         </script>
         

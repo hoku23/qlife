@@ -155,33 +155,41 @@ var area2 = document.getElementById('content_htmlTag');
 //プレビューボタン取得
 const check = document.getElementById('postContent_preview-btn');
 //プレビューボタンのクリックイベント
-check.addEventListener('click', function(e) {
+if (check) {
+    check.addEventListener('click', function() {
     //textareaの入力内容にimgタグ付与
     newTextCreate();
     //phpにpost
 	let preview = document.getElementById('postContent_preview');
 	preview.click();
-})
+})    
+}
+
 
 //保存ボタン取得
 const save_btn = document.getElementById('save-btn');
 //保存ボタンのクリックイベント
-save_btn.addEventListener('click', function(e) {
+if (save_btn) {
+    save_btn.addEventListener('click', function() {
     //textareaの入力内容にimgタグ付与
     newTextCreate();
     //phpにpost
 	let save = document.getElementById('postContent_save');
 	save.click();
 })
+    
+}
 
 const fileSelect = document.getElementById("fileSelect"),
       fileElem = document.getElementById("fileElem");
-    
-    fileSelect.addEventListener("click", function (e) {
+if (fileSelect) {
+    fileSelect.addEventListener("click", function () {
       if (fileElem) {
         fileElem.click();
       }
     }, false);
+}
+    
 
 function addText3()
 {
@@ -207,6 +215,60 @@ function addText3()
 }
 
 
-console.log('Hello');
-console.log(hokuto);
-console.log(user_name);
+let postTitle_store_btn = document.getElementById('postTitle-store-btn');
+let postTitle_store = document.getElementById('postTitle-store');
+if (postTitle_store_btn) {
+    postTitle_store_btn.addEventListener("click", function(e) {
+        postTitle_store.click();
+    })    
+}
+
+let postThumnail_store_btn = document.getElementById('postThumnail-store-btn');
+let postThumnail_store = document.getElementById('postThumnail-store');
+if (postThumnail_store_btn) {
+    postThumnail_store_btn.addEventListener("click", function(e) {
+        var datetime = Date.now();
+        var file_name =  user_name + "." + datetime + "." + "jpg";
+    
+        let fileName = document.getElementById('fileName');
+        fileName.value = file_name;
+        console.log(fileName.value);
+        
+        let imgTag = "https://b0b0704b8c11464390acf6e91a447ae8.vfs.cloud9.us-west-2.amazonaws.com/storage/thumnail_imgs/" + file_name;
+        console.log(imgTag);
+        let thumnailPath = document.getElementById('thumnailPath');
+        thumnailPath.value = imgTag;
+        console.log(thumnailPath.value);
+        let postTitle_textarea = document.getElementById('postTitle_textarea');
+        let postTitle = document.getElementById('postTitle');
+        console.log(postTitle.value);
+        console.log(postTitle_textarea);
+        postTitle_textarea.value = postTitle.value;
+        console.log(postTitle_textarea);
+        postThumnail_store.click();
+    })    
+}
+
+let thumnailFileSelect_btn = document.getElementById('thumnailFileSelect-btn');
+let thumnailFileSelect = document.getElementById('thumnailFileSelect');
+// let thumnailUpload = document.getElementById('thumnailUpload');
+if (thumnailFileSelect_btn) {
+    thumnailFileSelect_btn.addEventListener("click", function(e) {
+        thumnailFileSelect.click();
+    })
+
+    thumnailFileSelect.addEventListener("change", function(e) {
+        
+        const file = e.target.files;
+        const reader = new FileReader();
+        reader.readAsDataURL(file[0]);
+        reader.onload = () => {
+            const image = document.getElementById('img');
+            image.src = reader.result;
+        };    
+    	
+    })
+}
+
+
+

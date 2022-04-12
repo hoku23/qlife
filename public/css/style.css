@@ -1031,10 +1031,7 @@ input {
 }
 .thumnail-up {
     width: 400px;
-    height: 300px;
     margin: 80px auto;
-    border: 1px solid #000;
-    background-color: #ececec;
 }
 
 /* タグ指定 */
