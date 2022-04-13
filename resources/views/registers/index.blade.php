@@ -12,6 +12,9 @@
             <div class="logo">
                 <img src="images/logo.png" alt="ロゴ">
             </div>
+            <div id="to-registrationInput">
+                <a href="{{ route('logins.index') }}"><button class="toRegistration-btn">ログイン</button></a>
+            </div>
         </header>
         <main>
             <article>

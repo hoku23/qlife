@@ -34,28 +34,28 @@ function showChangeForm(){
 };
 
 
-// お気に入りタグに対してクリックイベントを適用
-const favoriteTags = document.getElementsByClassName('fav-tag');
-for(let i = 0; i < favoriteTags.length; i++) {
-    favoriteTags[i].addEventListener('click', switchFavoriteTags, false);
-}
+// // お気に入りタグに対してクリックイベントを適用
+// const favoriteTags = document.getElementsByClassName('fav-tag');
+// for(let i = 0; i < favoriteTags.length; i++) {
+//     favoriteTags[i].addEventListener('click', switchFavoriteTags, false);
+// }
 
-// お気に入りタグをクリックすると実行する関数
-function switchFavoriteTags(){
+// // お気に入りタグをクリックすると実行する関数
+// function switchFavoriteTags(){
 
-    // classの切り替え
-    // .fav-onがついていれば外す
-    // .fav-onがついていなければつける
-    const arrayFavoriteTags = Array.prototype.slice.call(favoriteTags);
-    const index = arrayFavoriteTags.indexOf(this);
-    const targetTag = document.getElementsByClassName('fav-tag')[index];
-    const tagclasses = Array.from(targetTag.classList);
-    if (tagclasses.includes('fav-on') == true) {
-        targetTag.classList.remove('fav-on');
-    } else {
-        targetTag.classList.add('fav-on');
-    }
-};
+//     // classの切り替え
+//     // .fav-onがついていれば外す
+//     // .fav-onがついていなければつける
+//     const arrayFavoriteTags = Array.prototype.slice.call(favoriteTags);
+//     const index = arrayFavoriteTags.indexOf(this);
+//     const targetTag = document.getElementsByClassName('fav-tag')[index];
+//     const tagclasses = Array.from(targetTag.classList);
+//     if (tagclasses.includes('fav-on') == true) {
+//         targetTag.classList.remove('fav-on');
+//     } else {
+//         targetTag.classList.add('fav-on');
+//     }
+// };
 
 
 // 通知設定のタグに対してクリックイベントを適用
@@ -137,7 +137,10 @@ function newTextCreate() {
             let cutText = element.substr(element.indexOf('.jpg') + 4);
             //パス部分にimgタグを付与して配列に格納し直す
             // let imgTag = "<img src=\"" + cutElem + "\">"
-            let imgTag = "<div class=\"PostContent-imgs\"><img style=\"max-width: 90%\" src=\"https://b0b0704b8c11464390acf6e91a447ae8.vfs.cloud9.us-west-2.amazonaws.com/" + cutElem + "\"></div>"
+            // let imgTag = "<div class=\"PostContent-imgs\"><img style=\"max-width: 90%\" src=\"https://b0b0704b8c11464390acf6e91a447ae8.vfs.cloud9.us-west-2.amazonaws.com/" + cutElem + "\"></div>"
+            console.log(cutElem);
+            // cutElem = '../storage/content_imgs/Hokuto.1649828956409.jpg'; // 
+            let imgTag = "<div class=\"PostContent-imgs\"><img style=\"max-width: 90%\" src=\"../" + cutElem + "\"></div>"
             formText[formText.indexOf(element)] = imgTag;
             //テキスト部分を配列に格納
             formText.splice(formText.indexOf(imgTag) + 1, 0, cutText);
@@ -214,7 +217,7 @@ function addText3()
 	
 }
 
-
+// 新規投稿作成のタイトル保存
 let postTitle_store_btn = document.getElementById('postTitle-store-btn');
 let postTitle_store = document.getElementById('postTitle-store');
 if (postTitle_store_btn) {
@@ -222,7 +225,7 @@ if (postTitle_store_btn) {
         postTitle_store.click();
     })    
 }
-
+// 新規投稿作成のサムネイルプレビュー
 let postThumnail_store_btn = document.getElementById('postThumnail-store-btn');
 let postThumnail_store = document.getElementById('postThumnail-store');
 if (postThumnail_store_btn) {
@@ -234,7 +237,9 @@ if (postThumnail_store_btn) {
         fileName.value = file_name;
         console.log(fileName.value);
         
-        let imgTag = "https://b0b0704b8c11464390acf6e91a447ae8.vfs.cloud9.us-west-2.amazonaws.com/storage/thumnail_imgs/" + file_name;
+        // let imgTag = "https://b0b0704b8c11464390acf6e91a447ae8.vfs.cloud9.us-west-2.amazonaws.com/storage/thumnail_imgs/" + file_name;
+        let imgTag = "storage/thumnail_imgs/" + file_name;
+
         console.log(imgTag);
         let thumnailPath = document.getElementById('thumnailPath');
         thumnailPath.value = imgTag;
@@ -248,10 +253,9 @@ if (postThumnail_store_btn) {
         postThumnail_store.click();
     })    
 }
-
+// 新規投稿作成のサムネイル保存
 let thumnailFileSelect_btn = document.getElementById('thumnailFileSelect-btn');
 let thumnailFileSelect = document.getElementById('thumnailFileSelect');
-// let thumnailUpload = document.getElementById('thumnailUpload');
 if (thumnailFileSelect_btn) {
     thumnailFileSelect_btn.addEventListener("click", function(e) {
         thumnailFileSelect.click();
@@ -270,5 +274,26 @@ if (thumnailFileSelect_btn) {
     })
 }
 
+// お気に入りタグに対してクリックイベントを適用
+const postTags = document.getElementsByClassName('post-tag');
+for(let i = 0; i < postTags.length; i++) {
+    postTags[i].addEventListener('click', switchPostTags, false);
+}
 
+// お気に入りタグをクリックすると実行する関数
+function switchPostTags(){
+
+    // classの切り替え
+    // .tag-onがついていれば外す
+    // .tag-onがついていなければつける
+    const arrayPostTags = Array.prototype.slice.call(postTags);
+    const index = arrayPostTags.indexOf(this);
+    const targetTag = document.getElementsByClassName('post-tag')[index];
+    const tagclasses = Array.from(targetTag.classList);
+    if (tagclasses.includes('tag-on') == true) {
+        targetTag.classList.remove('tag-on');
+    } else {
+        targetTag.classList.add('tag-on');
+    }
+};
 

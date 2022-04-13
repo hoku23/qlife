@@ -46,97 +46,33 @@
         <main>
             <article>
                 <div class="main-header">
-                    <h1 class="shown-posts">ユーザーネームさんの投稿</h1>
+                    <h1 class="shown-posts">{{$user->user_name}}さんの投稿</h1>
                     <span>/</span>
                     <a href="savePostsList.html" class="hidden-posts"><h1>保存済みの投稿</h1></a>
                 </div>
                 <section class="wrapper">
                     <div class="posts-list">
-                        <div class="post myPost">
-                            <p class="title">タイトルタイトルタイトルタイトルタイトルタイトルタイトルタイトルタイトルタイトルタイトルタイトル</p>
-                            <div class="thumnail">
-                                <img src="" alt="">
+                        @if (isset($newPosts))
+                            @foreach ($newPosts as $post)
+                            <div class="post myPost">
+                                <p class="title">{{$post->post_title}}</p>
+                                <div class="thumnail">
+                                    <img src="{{$post->thumnail}}" alt="" style="width:100%">
+                                </div>
+                                <div class="tags">
+                                    @if (isset($post->tags))
+                                        @foreach ($post->tags as $tag)
+                                            <div class="tag">{{$tag}}</div>
+                                        @endforeach
+                                    @endif
+                                </div>
+                                <div class="reaction-to-myPost">
+                                    <p>0グッド</p>
+                                    <p>0コメント</p>
+                                </div>
                             </div>
-                            <div class="tags">
-                                <div class="tag">タグ1</div>
-                                <div class="tag">タグ2</div>
-                                <div class="tag">タグ3</div>
-                            </div>
-                            <div class="reaction">
-                                <p>0グッド</p>
-                                <p>0コメント</p>
-                            </div>
-                        </div>
-                        <div class="post myPost">
-                            <p class="title">タイトル</p>
-                            <div class="thumnail">
-                                <img src="" alt="">
-                            </div>
-                            <div class="tags">
-                                <div class="tag">タグ1</div>
-                                <div class="tag">タグ2</div>
-                                <div class="tag">タグ1</div>
-                                <div class="tag">タグ2</div>
-                                <div class="tag">タグ1</div>
-                                <div class="tag">タグ2</div>
-                                <div class="tag">タグ3</div>
-                                <div class="tag">タグ3</div>
-                                <div class="tag">タグ2</div>
-                                <div class="tag">タグ3</div>
-                                <div class="tag">タグ3</div>
-                            </div>
-                            <div class="reaction">
-                                <p>0グッド</p>
-                                <p>0コメント</p>
-                            </div>
-                        </div>
-                        <div class="post myPost">
-                            <p class="title">タイトル</p>
-                            <div class="thumnail">
-                                <img src="" alt="">
-                            </div>
-                            <div class="tags">
-                                <div class="tag">タグ1</div>
-                                <div class="tag">タグ2</div>
-                                <div class="tag">タグ1</div>
-                                <div class="tag">タグ2</div>
-                                <div class="tag">タグ3</div>
-                            </div>
-                            <div class="reaction">
-                                <p>0グッド</p>
-                                <p>0コメント</p>
-                            </div>
-                        </div>
-                        <div class="post myPost">
-                            <p class="title">タイトル</p>
-                            <div class="thumnail">
-                                <img src="" alt="">
-                            </div>
-                            <div class="tags">
-                                <div class="tag">タグ1</div>
-                                <div class="tag">タグ2</div>
-                                <div class="tag">タグ3</div>
-                            </div>
-                            <div class="reaction">
-                                <p>0グッド</p>
-                                <p>0コメント</p>
-                            </div>
-                        </div>
-                        <div class="post myPost">
-                            <p class="title">タイトル</p>
-                            <div class="thumnail">
-                                <img src="" alt="">
-                            </div>
-                            <div class="tags">
-                                <div class="tag">タグ1</div>
-                                <div class="tag">タグ2</div>
-                                <div class="tag">タグ3</div>
-                            </div>
-                            <div class="reaction">
-                                <p>0グッド</p>
-                                <p>0コメント</p>
-                            </div>
-                        </div>
+                            @endforeach
+                        @endif
                     </div>
                 </section>
             </article>

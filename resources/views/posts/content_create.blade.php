@@ -54,8 +54,8 @@
                             <ul class="createFlow-list">
                                 <li class="show-step"><a href="{{ route('posts.create')}}">本文作成</a></li>
                                 <li class="other-step"><a href="{{ route('posts.create_title')}}">タイトル作成<br>サムネイル指定</a></li>
-                                <li class="other-step"><a href="createNewPostTags.html">タグ選択</a></li>
-                                <li class="other-step"><a href="createNewPostCheck.html">内容確認</a></li>
+                                <li class="other-step"><a href="{{route('posts.create_tags')}}">タグ選択</a></li>
+                                <li class="other-step"><a href="{{route('posts.confirm')}}">内容確認</a></li>
                                 <li class="other-step">投稿完了</li>
                             </ul>
                         </div>

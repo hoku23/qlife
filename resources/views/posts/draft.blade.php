@@ -62,9 +62,9 @@
                         <div id="createPost-complete">
                             <div class="post-complete">
                                 <div class="complete-message">
-                                    <p>投稿が公開されました!</p>
+                                    <p>下書きとして保存されました!</p>
                                     <div class="toTimeline-btn">
-                                        <a href="timeline.html"><button>タイムラインで確認する</button></a>
+                                        <a href="{{route('posts.index')}}"><button>投稿一覧に戻る</button></a>
                                     </div>
                                 </div>
                             </div>

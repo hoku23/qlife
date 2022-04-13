@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Post;
 use App\User;
 use App\Post_tag;
+use Validator;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -16,9 +17,23 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request = session()->get('user')) {
+        if (session()->has('user')) {
             $user = session()->get('user');
-            return view('posts.index', compact('user'));
+            $posts = Post::where('user_id', $user->user_id)->where('post_release_flag', 1)->get();
+            
+            $newPosts =[];
+            foreach ($posts as $post) {
+                $tagsRecords = Post_tag::where('post_id', $post->post_id)->get();
+                $tags =[];
+                foreach ($tagsRecords as $tagsRecord) {
+                    $tag = $tagsRecord->tag_name;
+                    array_push($tags, $tag);
+                }
+                $post['tags'] = $tags;
+                array_push($newPosts, $post);
+            }
+             
+            return view('posts.index', compact('user', 'newPosts'));
         } else {
             return redirect()->route('logins.index')->with('message', 'ログインしてください');
         }
@@ -52,9 +67,11 @@ class PostController extends Controller
         return view('posts.title_thumnail_create', compact('user', 'userName'));
     }
     
-    public function tag_create()
+    public function create_tags()
     {
-        return view('posts.tags_create');
+        $user = session()->get('user');
+        
+        return view('posts.tags_create', compact('user'));
     }
     /**
      * Store a newly created resource in storage.
@@ -96,7 +113,7 @@ class PostController extends Controller
             
             if (session()->has('post_title') && session()->has('thumnail')) {
                 $thumnail = session()->get('thumnail');
-                return redirect()->route('posts.tag_create');
+                return redirect()->route('posts.create_tags');
             } elseif (session()->has('post_title')) {
                 return redirect()->route('posts.create_title')->with('title', $title)
                                                               ->with('title_message', 'サムネイルを選択してください');    
@@ -121,13 +138,40 @@ class PostController extends Controller
         session()->put('thumnail', $thumnailPath);
         
         if (session()->has('thumnail') && session()->has('post_title')) {
-            return redirect()->route('posts.create_title')->with('thumnailPath', $thumnailPath);
+            return redirect()->route('posts.create_tags');
         } elseif (session()->has('thumnail')) {
             return redirect()->route('posts.create_title')->with('thumnailPath', $thumnailPath)
                                                           ->with('title_message', 'タイトルを入力してください')
                                                           ->with('title', $postTitle_textarea);
         } 
         
+    }
+    
+    public function store_tags(Request $request)
+    {
+        $raw = file_get_contents('php://input'); // POSTされた生のデータを受け取る
+        $data = json_decode($raw); // json形式をphp変数に変換
+        
+        // やりたい処理
+        
+        $result = $data;
+        
+        session()->put('tags', $result);
+        $tags = session()->get('tags');
+        
+        $res = 'Complete';
+        echo json_encode($res);
+    }
+    
+    public function show_confirm()
+    {
+        $user = session()->get('user');
+        $title = session()->get('post_title');
+        $thumnail = session()->get('thumnail');
+        $tags = session()->get('tags');
+        $content = session()->get('post_content');
+        
+        return view('posts.confirm', compact('user', 'title', 'thumnail', 'tags', 'content'));
     }
 
     /**
@@ -136,11 +180,119 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    private $validator = [
+            'post_title' =>'required|string',
+            'post_content' => 'required|string',
+            'thumnail' => 'required|string',
+        ]; 
+    
+    public function release_post()
     {
         $user = session()->get('user');
         
-        return view('posts.title_thumnail_create', compact('user'));
+        $input = [
+            'post_title' => session()->get('post_title'),
+            'post_content' => session()->get('post_content'),
+            'thumnail' => session()->get('thumnail'),
+            ];
+        $validator = Validator::make($input, $this->validator);
+        
+        if ($validator->fails()) {
+            return redirect()->route('posts.confirm')
+                             ->withErrors($validator);
+        } else {
+            $post = new Post();
+            $post->post_title = session()->get('post_title');
+            $post->post_content = session()->get('post_content');
+            $post->thumnail = session()->get('thumnail');
+            $post->post_date = date('Y-m-d');
+            $post->post_time = date('H:i:s');
+            $post->user_id = session()->get('user')->user_id;
+            $post->post_release_flag = 1;
+            $post->save();
+            
+            $posts = Post::where('post_title', session()->get('post_title'))->get();
+            foreach ($posts as $targetPost)
+            $post_id = $targetPost->post_id;
+        
+            
+            session()->forget('post_title');
+            session()->forget('post_content');
+            session()->forget('thumnail');
+            
+            $tags = session()->get('tags');
+            
+            if (isset($tags)) {
+                foreach ($tags as $tag) {
+                    $post_tag = new Post_tag();
+                    $post_tag->post_id = $post_id;
+                    $post_tag->tag_name = $tag;
+                    $post_tag->save();
+                }
+            }
+            session()->forget('tags');   
+            
+            return view('posts.complete', compact('user'));    
+        }
+        
+        
+    }
+    public function draft_post()
+    {
+        $user = session()->get('user');
+        
+        $input = [
+            'post_title' => session()->get('post_title'),
+            'post_content' => session()->get('post_content'),
+            'thumnail' => session()->get('thumnail'),
+            ];
+        $validator = Validator::make($input, $this->validator);
+        
+        if ($validator->fails()) {
+            return redirect()->route('posts.confirm')
+                             ->withErrors($validator);
+        } else {
+            $post = new Post();
+            $post->post_title = session()->get('post_title');
+            $post->post_content = session()->get('post_content');
+            $post->thumnail = session()->get('thumnail');
+            $post->post_date = date('Y-m-d');
+            $post->post_time = date('H:i:s');
+            $post->user_id = session()->get('user')->id;
+            $post->post_release_flag = 0;
+            $post->save();
+            
+            $posts = Post::where('thumnail', session()->get('thumnail'))->get();
+            foreach ($posts as $targetPost)
+            $post_id = $targetPost->post_id;
+            
+            session()->forget('post_title');
+            session()->forget('post_content');
+            session()->forget('thumnail');
+            
+            
+            
+            $tags = session()->get('tags');
+            
+            if (isset($tags)) {
+                foreach ($tags as $tag) {
+                    $post_tag = new Post_tag();
+                    $post_tag->post_id = $post_id;
+                    $post_tag->tag_name = $tag;
+                    $post_tag->save();
+                }
+            }
+            session()->forget('tags');   
+            
+            return view('posts.draft', compact('user'));    
+        }
+        
+        
+    }
+     
+    public function show()
+    {
+        //
     }
 
     /**

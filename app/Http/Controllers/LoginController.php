@@ -45,7 +45,6 @@ class LoginController extends Controller
             
             if (password_verify($inputPassword, $password)) {
                 session()->put('user', $user);
-                // return view('homes.index', compact('user'));
                 return redirect()->route('posts.index');
             } else {
                 return redirect()->route('logins.index')->with('message', 'ユーザーIDまたはパスワードが違います');
@@ -55,7 +54,7 @@ class LoginController extends Controller
     
     public function logout()
     {
-        session()->forget('user');
+        session()->flush();
         return view('logins.logout');
     }
 

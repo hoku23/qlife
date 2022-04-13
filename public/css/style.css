@@ -362,8 +362,9 @@ input {
 .thumnail {
     width: 300px;
     height: 200px;
-    border: 1px solid black;
-    background-color: white;
+    /*border: 1px solid black;*/
+    /*background-color: white;*/
+    overflow: hidden;
     margin: 0 auto;
 }
 .tags {
@@ -385,11 +386,16 @@ input {
     border-radius: 15px;
     margin-right: 10px;
 }
-.reaction {
+.reaction-to-myPost {
     display: flex;
     margin: 0 0 10px 25px;
 }
-.reaction p {
+.reaction {
+    display: flex;
+    margin: 0 0 10px 0px;
+}
+.reaction p,
+.reaction-to-myPost p {
     margin: 0 20px 0 0;
 }
 
@@ -629,14 +635,14 @@ input {
 .favorite-tags {
     display: grid;
     grid-auto-rows: 90px;
-    grid-template-columns: repeat(auto-fit, 120px);
+    grid-template-columns: repeat(auto-fit, 180px);
     justify-content: center;
     height: 360px;
     overflow: scroll;
     margin-bottom: 30px;
 }
 .fav-tag {
-    width: 60px;
+    width: 120px;
     height: 30px;
     border-radius: 20px;
     text-align: center;
@@ -927,7 +933,7 @@ input {
     height: 60px;
     z-index: 10;
 }
-.store-btn > button {
+.store-btn  button {
     width: 100px;
     background-color: #548235;
     color: white;
@@ -1043,6 +1049,30 @@ input {
 .createPostTags-btn {
     text-align: center;
 }
+.post-tags {
+    display: grid;
+    grid-auto-rows: 90px;
+    grid-template-columns: repeat(auto-fit, 180px);
+    justify-content: center;
+    height: 360px;
+    overflow: scroll;
+    margin-bottom: 30px;
+}
+.post-tag {
+    width: 120px;
+    height: 30px;
+    border-radius: 20px;
+    text-align: center;
+    margin: 20px 20px;
+    background-color: #DAE3F3;
+    border: 1px solid #2F528F;
+    padding: 3px 10px;
+    opacity: .3;
+    cursor: pointer;
+}
+.tag-on {
+    opacity: 1;
+}
 
 /* 内容確認 */
 .checkPost-box {
@@ -1054,6 +1084,7 @@ input {
 }
 #checkPost-box-left {
     background-color: #fff;
+    min-width: 360px;
     width: 35%;
 }
 #checkPost-box-right {
@@ -1074,6 +1105,13 @@ input {
     display: block;
     text-align: left;
     box-sizing: border-box;
+}
+
+#postContentPreview-head {
+    margin-left: 30px; 
+}
+#draft-btn {
+    width: 110px;
 }
 /* 投稿完了 */
 #createPost-complete {
