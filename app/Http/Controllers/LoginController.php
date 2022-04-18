@@ -32,20 +32,24 @@ class LoginController extends Controller
             return redirect()->route('logins.index')
                              ->withErrors($validator);
         } else {
+            
+            
             $inputUser_id = $request->input('user_id');
-            $users = User::where('user_id', $inputUser_id)->get();
+            $user = User::where('user_id', $inputUser_id)->first();
             
-            foreach ($users as $user);
-            
-            $user_id = $user->user_id;
-            $password = $user->password;
-            $inputPassword =$request->input('password');
-            
-            $user_name = $user->user_name;
-            
-            if (password_verify($inputPassword, $password)) {
-                session()->put('user', $user);
-                return redirect()->route('posts.index');
+            if (isset($user)) {
+                $user_id = $user->user_id;
+                $password = $user->password;
+                $inputPassword =$request->input('password');
+                
+                $user_name = $user->user_name;
+                
+                if (password_verify($inputPassword, $password)) {
+                    session()->put('user', $user);
+                    return redirect()->route('posts.index');
+                } else {
+                    return redirect()->route('logins.index')->with('message', 'ユーザーIDまたはパスワードが違います');
+                }
             } else {
                 return redirect()->route('logins.index')->with('message', 'ユーザーIDまたはパスワードが違います');
             }

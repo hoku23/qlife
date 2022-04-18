@@ -46,22 +46,26 @@
         <main>
             <article>
                 <div class="main-header">
-                    <h1 class="shown-posts">{{$user->user_name}}さんの投稿</h1>
-                    <span>/</span>
-                    <a href="{{route('posts.save_post_show')}}" class="hidden-posts"><h1>保存済みの投稿</h1></a>
+                    <h1 class="shown-posts">{{$otherUser->user_name}}さんの投稿</h1>
+                    <div class="follow-btn-container">
+                        @if (isset($follow))
+                        <a id="follow-btn">フォロー中</a>
+                        @else
+                        <a id="follow-btn">フォローする</a>
+                        @endif
+                        <form method="POST" action="/user_follow">
+                            {{csrf_field()}}
+                            <input id="follow_user_id" type="hidden" name="follow_user_id" value="{{$otherUser->user_id}}">
+                            <input id="follow_user" type="submit" name="page" value="otherUser_page" style="display:none"> 
+                        </form>
+                    </div>
                 </div>
                 <section class="wrapper">
                     <div class="posts-list">
                         @if (isset($newPosts))
                             @foreach ($newPosts as $post)
                             <div class="post myPost">
-                                <p class="title myPost_title">{{$post->post_title}}</p>
-                                <form style="display:none" method="POST" action="/post_detail">
-                                    {{csrf_field()}}
-                                    <input type="hidden" name="post_id" value="{{$post->post_id}}">
-                                    <input type="submit" style="display:none">
-                                </form>
-                                <!--<div class="post_id" style="display:none">{{$post->post_id}}</div>-->
+                                <p class="title">{{$post->post_title}}</p>
                                 <div class="thumnail">
                                     <img src="{{$post->thumnail}}" alt="" style="width:100%">
                                 </div>
@@ -72,9 +76,15 @@
                                         @endforeach
                                     @endif
                                 </div>
-                                <div class="reaction-to-myPost">
-                                    <p>{{$post->good}}グッド</p>
-                                    <p>0コメント</p>
+                                <div class="reaction-img">
+                                    <div class="reaction">
+                                        <p>0グッド</p>
+                                        <p>0コメント</p>
+                                    </div>
+                                    <div class="save-img">
+                                        <img src="images/save_w.png" alt="">
+                                        <div class="post_id" style="display:none">{{$post->post_id}}</div>
+                                    </div>
                                 </div>
                             </div>
                             @endforeach
@@ -83,20 +93,6 @@
                 </section>
             </article>
         </main>
-        
-        <script text/javascript>
-            let myPost_titles = document.getElementsByClassName('myPost_title');
-            for (let i = 0; i < myPost_titles.length; i++) {
-                if (myPost_titles[i]) {
-                    myPost_titles[i].addEventListener('click', function(e) {
-                        console.log(e.target.nextElementSibling.lastElementChild);
-                        let submit = e.target.nextElementSibling.lastElementChild;
-                        submit.click();
-                    })       
-                }
-            }
-        
-        </script>
 
         <script src="{{ asset('js/index.js') }}" charset="utf-8"></script>
     </body>

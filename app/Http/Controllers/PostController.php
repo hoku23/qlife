@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Post;
 use App\User;
 use App\Post_tag;
+use App\Save;
+use App\Good;
 use Validator;
 use Illuminate\Http\Request;
 
@@ -30,6 +32,15 @@ class PostController extends Controller
                     array_push($tags, $tag);
                 }
                 $post['tags'] = $tags;
+                
+                $good_nums = Good::where('post_id', $post->post_id)->get();
+                $good_array = [];
+                foreach ($good_nums as $good_num) {
+                    array_push($good_array, $good_num);
+                }
+                
+                $post['good'] = count($good_array);
+                
                 array_push($newPosts, $post);
             }
              
@@ -38,6 +49,47 @@ class PostController extends Controller
             return redirect()->route('logins.index')->with('message', 'ログインしてください');
         }
         
+    }
+    
+    public function save_post_show()
+    {
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        }
+        
+        $saves = Save::where('user_id', $user->user_id)->get();
+        
+        $posts = [];
+        foreach ($saves as $save) {
+            $post = Post::where('post_id', $save->post_id)->first();
+            $post_user = User::where('user_id', $post->user_id)->first();
+            $post['user_name'] = $post_user->user_name;
+            $post['user_icon'] = $post_user->user_icon;
+            
+            $tags = [];
+            $post_tags = Post_tag::where('post_id', $post->post_id)->get();
+            foreach ($post_tags as $post_tag) {
+                array_push($tags, $post_tag->tag_name);
+            }
+            $post['tags'] = $tags;
+            
+            $good_nums = Good::where('post_id', $post->post_id)->get();
+            $good_array = [];
+            foreach ($good_nums as $good_num) {
+                array_push($good_array, $good_num);
+            }
+            $post['good'] = count($good_array);
+            
+            $post['save_datetime'] = $save->save_datetime;
+            
+            array_push($posts, $post);
+        }
+        
+        $save_datetime = array_column($posts, 'save_datetime');
+        array_multisort($posts, SORT_DESC, $save_datetime);
+        
+        
+        return view('posts.save_posts', compact('user', 'posts'));
     }
 
     /**
@@ -205,13 +257,13 @@ class PostController extends Controller
             $post->post_title = session()->get('post_title');
             $post->post_content = session()->get('post_content');
             $post->thumnail = session()->get('thumnail');
-            $post->post_date = date('Y-m-d');
+            $post->post_date = date('Y.m.d');
             $post->post_time = date('H:i:s');
             $post->user_id = session()->get('user')->user_id;
             $post->post_release_flag = 1;
             $post->save();
             
-            $posts = Post::where('post_title', session()->get('post_title'))->get();
+            $posts = Post::where('thumnail', session()->get('thumnail'))->get();
             foreach ($posts as $targetPost)
             $post_id = $targetPost->post_id;
         
@@ -256,7 +308,7 @@ class PostController extends Controller
             $post->post_title = session()->get('post_title');
             $post->post_content = session()->get('post_content');
             $post->thumnail = session()->get('thumnail');
-            $post->post_date = date('Y-m-d');
+            $post->post_date = date('Y.m.d');
             $post->post_time = date('H:i:s');
             $post->user_id = session()->get('user')->id;
             $post->post_release_flag = 0;

@@ -17,7 +17,7 @@
                 <div class="header-text">
                     <div class="icon-userName">
                         <div class="icon">
-                            <img src="" alt="">
+                            <img src="{{$user->user_icon}}" alt="">
                         </div>
                             <p class="user-name">ユーザーネーム</p>
                     </div>
@@ -34,12 +34,12 @@
             <div id="nav-mask" class="nav-mask">
                 <nav>
                     <ul>
-                        <li><a href="timeLine.html">タイムライン</a></li>
-                        <li><a href="createNewPost.html">新規投稿作成</a></li>
-                        <li><a href="followList.html">フォロー/フォロワー一覧</a></li>
-                        <li><a href="home.html">投稿一覧</a></li>
+                        <li><a href="{{route('timeline.index')}}">タイムライン</a></li>
+                        <li><a href="{{ route('posts.create')}}">新規投稿作成</a></li>
+                        <li><a href="{{ route('follow.index') }}">フォロー/フォロワー一覧</a></li>
+                        <li><a href="{{ route('posts.index') }}">投稿一覧</a></li>
                         <li><a href="question.html">質問ホーム</a></li>
-                        <li><a href="setting.html">設定</a></li>
+                        <li><a href="{{route('settingUser.index')}}">設定</a></li>
                     </ul>
                 </nav>
             </div>
@@ -54,9 +54,9 @@
                         <div id="create-flow">
                             <ul class="createFlow-list">
                                 <li class="other-step"><a href="{{route('posts.create')}}">本文作成</a></li>
-                                <li class="other-step"><a href="{{route('posts.create_title')}}l">タイトル作成<br>サムネイル指定</a></li>
+                                <li class="other-step"><a href="{{route('posts.create_title')}}">タイトル作成<br>サムネイル指定</a></li>
                                 <li class="show-step"><a href="{{route('posts.create_tags')}}">タグ選択</a></li>
-                                <li class="other-step"><a href="createNewPostCheck.html">内容確認</a></li>
+                                <li class="other-step"><a href="{{route('posts.confirm')}}">内容確認</a></li>
                                 <li class="other-step">投稿完了</li>
                             </ul>
                         </div>
@@ -99,10 +99,30 @@
                                         <div class="post-tag">子供</div>
                                         <div class="post-tag">結婚</div>
                                         <div class="post-tag">同棲</div>
+                                        <div class="post-tag">玄関</div>
+                                        <div class="post-tag">リビング</div>
+                                        <div class="post-tag">キッチン</div>
+                                        <div class="post-tag">ダイニング</div>
+                                        <div class="post-tag">寝室</div>
+                                        <div class="post-tag">ベランダ</div>
+                                        <div class="post-tag">トイレ</div>
+                                        <div class="post-tag">バスルーム</div>
+                                        <div class="post-tag">子供部屋</div>
+                                        <div class="post-tag">マンション</div>
+                                        <div class="post-tag">一軒家</div>
+                                        <div class="post-tag">アパート</div>
+                                        <div class="post-tag">リフォーム</div>
+                                        <div class="post-tag">DIY</div>
+                                        <div class="post-tag">冷蔵庫</div>
+                                        <div class="post-tag">洗濯機</div>
+                                        <div class="post-tag">テレビ</div>
+                                        <div class="post-tag">ベッド</div>
+                                        <div class="post-tag">安価</div>
+                                        <div class="post-tag">高価</div>
                                     </div>
                                     <div class="store-btn createPostTags-btn">
                                         <button id="submit">保存する</button>
-                                        <a id="next" href=" {{route('posts.confirm')}}"></a>
+                                        <a id="next" href=" {{route('posts.confirm')}}" style="display:none"></a>
                                     </div>
                                 </div>
                             </div>

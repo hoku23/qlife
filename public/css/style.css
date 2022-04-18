@@ -79,6 +79,7 @@ header > div:nth-child(2) {
     margin: 25px auto;
     display: block;
     position: relative;
+    cursor: pointer;
     z-index: 50;
 }
 .hamburger span {
@@ -286,6 +287,7 @@ input {
 /* ホーム */
 .main-header {
     width: 100%;
+    height: 77px;
     background-color: white;
     display: flex;
     border-bottom: 1px solid gray;
@@ -293,6 +295,14 @@ input {
     top: 100px;
     left: 0;
     z-index: 20;
+    /*width: 100%;*/
+    /*background-color: white;*/
+    /*display: flex;*/
+    /*border-bottom: 1px solid gray;*/
+    /*position: fixed;*/
+    /*top: 100px;*/
+    /*left: 0;*/
+    /*z-index: 20;*/
 }
 .main-header span {
     margin: 20px;
@@ -348,10 +358,14 @@ input {
 .icon {
     width: 30px;
     height: 30px;
-    border: 1px solid black;
+    /*border: 1px solid black;*/
     border-radius: 50%;
     margin-right: 5px;
     background-color: white;
+    overflow: hidden;
+}
+.icon > img {
+    height: 100%;
 }
 .title {
     height: 56px;
@@ -404,7 +418,7 @@ input {
     width: 100%;
     margin: 210px auto 0 auto;
     display: grid;
-    grid-auto-rows: 490px;
+    grid-auto-rows: 530px;
     grid-template-columns: repeat(auto-fit, 374px);
     justify-content: center;
 }
@@ -425,11 +439,15 @@ input {
 .comment-img,
 .save-img {
     width: 30px;
+    cursor: pointer;
 }
 .good-img > img,
 .comment-img > img,
 .save-img > img {
     width: 100%;
+}
+.save_post_userName {
+    cursor: pointer;
 }
 
 /* フォロー/フォロワー */
@@ -452,15 +470,38 @@ input {
 .follow {
     border-right: 1px solid gray;
 }
+.follow,
+.follower {
+    width: 50%;
+    text-align: center;
+}
+.user_search_header {
+    width: 300px;
+    border-left: 1px solid gray;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#followList {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+}
+#follow-list {
+    border-right: 1px solid gray;
+    margin: 0;
+}
 .follow-follower-list {
     width: 50%;
     /* height: 100vh; */
     padding-top: 200px;
     overflow: scroll;
-}
-#follow-list {
     border-right: 1px solid gray;
-    margin: 0;
+
 }
 .follow-user {
     display: flex;
@@ -476,17 +517,54 @@ input {
 .follow-user p {
     font-size: 18px;
 }
-.follow-cancel {
+.follow-btn,
+.follow-cancel,
+#follow-btn {
     background-color: #548ef3;
     color: white;
-    
+    height: 16px;
+    font-size: 12px; 
     text-decoration: none;
-    margin-right: 30px;
-    padding: 10px;
+    margin-right: 20px;
+    padding: 8px 10px 10px 10px;
     border-radius: 30px;
     border: 1px solid #2F528F;
+    cursor: pointer;
 }
-
+.user_search {
+    width: 300px;
+    height: 100vh;
+    padding-top: 200px;
+    background-color: white;
+    /* border-left: 1px solid gray; */
+    box-sizing: border-box;
+    overflow: scroll;
+}
+.userSearch_form {
+    width: 150px;
+    height: 26px;
+    margin-right: 5px;
+    background-color: #F2F2F2;
+    border: 1px solid black;
+}
+.userSearch-btn {
+    height: 30px;
+}
+.user_page_link {
+    cursor: pointer;
+    color: #000;
+    text-decoration: none;
+}
+.follow-btn-container {
+    width: 150px;
+    height: 76px;
+    display: flex;
+    align-items: center;
+}
+.to_user_page,
+.to_user_page_from_follow {
+    cursor: pointer;
+}
 /* 設定 */
 #setting {
     width: 100%;
@@ -507,9 +585,15 @@ input {
     padding: 10px 20px 0 20px;
     cursor: pointer;
 }
+.tab a {
+    color: #000;
+    text-decoration: none;
+}
 .active-tab {
     background-color: #548235;
     border-radius: 20px 20px 0 0;
+}
+.active-tab a {
     color: white;
 }
 .setting-content {
@@ -583,26 +667,51 @@ input {
     border: 1px solid #548235;
     border-radius: 40px;
 }
+.change-form form > div {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 30px auto 10px auto;
+}
+.change-form form > div input {
+    margin-bottom: 20px;
+}
 .show-changeForm {
     display: block;
 }
 .change-form label {
     font-size: 20px;
 }
-.icon-change-form > p {
-    width: 75%;
-    margin: 30px auto 0 auto;
+#newIcon-header > p {
+    margin: 0;
     font-size: 20px;
+}
+#newIcon-header {
+    display: flex;
+    width: 75%;
+    justify-content: space-between;
+    margin: 30px auto 0 auto;
+}
+#selection-icon {
+    background-color: #548235;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    width: 90px;
+    cursor: pointer;
 }
 .new-icon {
     width: 220px;
-    padding-top: 220px;
-    border: 1px solid black;
+    height: 220px;
+    /*border: 1px solid black;*/
     border-radius: 50%;
-    background-color: white;
+    /*background-color: white;*/
     margin: 20px auto;
+    overflow: hidden;
 }
-.setting-btn > button {
+
+.setting-btn > button,
+#userIcon_change_btn {
     width: 150px;
     background-color: #548235;
     color: white;
@@ -612,7 +721,8 @@ input {
     border: 1px solid #548235;
     cursor: pointer;
 }
-.setting-btn > button:hover {
+.setting-btn > button:hover,
+#userIcon_change_btn:hover {
     background-color: white;
     color: #548235;
     font-weight: bold;
@@ -622,7 +732,6 @@ input {
     margin: 0 auto 20px auto;
     text-align: center;
 }
-
 /* お気に入りタグ設定 */
 .setting-favoriteTags {
     width: 100%;
@@ -667,16 +776,14 @@ input {
     margin: 0 auto;
     padding: 30px 100px;
 }
-.setting-questionReceive > form div {
-    display:flex;
-    flex-direction: row;
-    align-items: center;
+.setting-questionReceive > div {
     margin: 20px auto;
-    width: 287px;
+    width: 256px;
 }
 .setting-questionReceive label {
     position: relative;
     font-size: 24px;
+    margin-left: 20px;
 }
 .questionReceive {
     width: 20px;
@@ -686,7 +793,35 @@ input {
 .setting-questionReceive button {
     margin-top: 30px;
 }
-
+.questionReceive-options {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+#questionReceive-yes-btn,
+#questionReceive-no-btn {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #000;
+    border-radius: 50%;
+    background-color: #fff;
+    position: relative;
+    margin: 0;
+}
+.check {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #000;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    margin: 0;
+    opacity: 0;
+}
+.checked {
+    opacity: 1;
+}
 /* 通知設定 */
 .setting-notification {
     width: 100%;
@@ -715,7 +850,7 @@ input {
     flex-direction: row;
     flex-wrap: wrap;
     width: 350px;
-    height: 100px;
+    max-height: 100px;
     overflow: scroll;
     margin: 15px auto;
 }
@@ -724,24 +859,24 @@ input {
     font-size: 16px;
 }
 .notificationTags {
-    display: grid;
-    grid-auto-rows: 50px;
-    grid-template-columns: repeat(auto-fit, 100px);
-    justify-content: center;
-    height: 100px;
+    
+    width: 350px;
+    max-height: 75px;
     overflow: scroll;
-    margin: 15px auto;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 .note-tag {
-    width: 60px;
-    height: 30px;
-    border-radius: 20px;
-    text-align: center;
-    margin: 0;
+    
+    height: 25px;
     background-color: #DAE3F3;
     border: 1px solid #2F528F;
     padding: 3px 10px;
-    cursor: pointer;
+    margin-bottom: 5px;
+    border-radius: 20px;
+    margin-right: 10px;
 }
 
 
@@ -804,7 +939,7 @@ input {
 
 .postTag-selection {
     width: 90%;
-    height: 300px;
+    height: 220px;
     padding-top: 20px;
     padding-bottom: 20px;
     margin: 0 auto;
@@ -813,14 +948,14 @@ input {
 .noteChangeTags {
     display: grid;
     grid-auto-rows: 50px;
-    grid-template-columns: repeat(auto-fit, 100px);
+    grid-template-columns: repeat(auto-fit, 180px);
     justify-content: center;
-    height: 300px;
+    height: 200px;
     overflow: scroll;
     margin: 15px auto;
 }
 .noteChange-tag {
-    width: 60px;
+    width: 120px;
     height: 30px;
     border-radius: 20px;
     text-align: center;
@@ -831,7 +966,8 @@ input {
     cursor: pointer;
     opacity: .3;
 }
-.note-on {
+.notePost-on,
+.noteQuestion-on {
     opacity: 1;
 }
 
@@ -1179,7 +1315,7 @@ input {
     width: 100%;
     margin: 30px 0 0 0;
     display: grid;
-    grid-auto-rows: 490px;
+    grid-auto-rows: 530px;
     grid-template-columns: 374px 374px;
     justify-content: center;
 }
@@ -1223,13 +1359,15 @@ input {
     font-size: 16px;
 }
 .search-tags {
-    display: grid;
-    grid-auto-rows: 70px;
-    grid-template-columns: repeat(auto-fit, 90px);
-    justify-content: center;
-    height: 360px;
+    width: 300px;
+    max-height: 360px;
     overflow: scroll;
-    margin: 30px 0;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding-left: 20px;
+    box-sizing: border-box;
 }
 .tagSearch-btn {
     width: 100px;
@@ -1243,6 +1381,26 @@ input {
 }
 .timelineSearch-btn {
     text-align: center;
+}
+.search-tag {
+    height: 25px;
+    background-color: #DAE3F3;
+    border: 1px solid #2F528F;
+    padding: 3px 10px;
+    margin-bottom: 5px;
+    border-radius: 20px;
+    margin-right: 10px;
+    opacity: 0.3;
+    cursor: pointer;
+}
+.search-on {
+    opacity: 1;
+}
+.post_date {
+    margin-left: 25px
+}
+.title {
+    cursor: pointer;
 }
 
 /* 個々の投稿詳細 */
@@ -1266,6 +1424,7 @@ input {
     background-color: white;
     display: flex;
     flex-direction: column;
+    z-index: 30;
     /* box-sizing: border-box; */
 }
 .postDetails {
@@ -1297,11 +1456,13 @@ input {
     width: 100%;
     height: 80px;
     border-bottom: 1px solid gray;
+    border-top: 1px solid gray;
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
     padding: 0 10px;
+    z-index: 20;
 }
 .goodSave-box {
     display: flex;
@@ -1321,7 +1482,7 @@ input {
     color: white;
     border-radius: 10px;
     padding: 3px 10px;
-    font-size: 16px;
+    font-size: 14px;
     border: 1px solid #548235;
     cursor: pointer;
 }
@@ -1404,11 +1565,19 @@ input {
 }
 
 .comment {
-    height: 130px;
+    /* height: 130px; */
     border-bottom: 1px solid gray;
     padding: 10px 10px;
     box-sizing: border-box;
 }
+/* .reply-comment {
+    height: 130px;
+    width: 100%;
+    border-bottom: 1px solid gray;
+    border-top: 1px solid gray;
+    padding: 10px 0 0 0;
+    box-sizing: border-box;
+} */
 .comment-icon-userName {
     display: flex;
     align-items: center;
@@ -1421,7 +1590,7 @@ input {
     width: 25px;
     height: 25px;
 }
-.show-reply {
+.show-reply-btn {
     display: flex;
     align-items: center;
 }
@@ -1433,7 +1602,7 @@ input {
     color: #2E75B6;
     cursor: pointer;
 }
-.show-reply > p {
+.show-reply-btn > p {
     font-size: 14px;
     cursor: pointer;
 }
@@ -1450,6 +1619,22 @@ input {
     width: 100%;
     background-color: #fff;
     overflow: scroll;
+}
+
+.reply-comment-contents {
+    width: 100%;
+    border-top: 1px solid gray;
+    background-color: #E2F0D9;
+    overflow: scroll;
+}
+
+.hidden_form,
+.hidden-reply-comment {
+    display: none;
+}
+.show_form,
+.show-reply-comment {
+    display: block;
 }
 
 /* 質問ホーム */

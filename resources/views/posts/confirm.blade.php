@@ -16,7 +16,7 @@
                 <div class="header-text">
                     <div class="icon-userName">
                         <div class="icon">
-                            <img src="" alt="">
+                            <img src="{{$user->user_icon}}" alt="">
                         </div>
                             <p class="user-name">{{$user->user_name}}</p>
                     </div>
@@ -33,12 +33,12 @@
             <div id="nav-mask" class="nav-mask">
                 <nav>
                     <ul>
-                        <li><a href="timeLine.html">タイムライン</a></li>
-                        <li><a href="{{route('posts.create')}}">新規投稿作成</a></li>
-                        <li><a href="followList.html">フォロー/フォロワー一覧</a></li>
-                        <li><a href="{{route('posts.index')}}">投稿一覧</a></li>
+                        <li><a href="{{route('timeline.index')}}">タイムライン</a></li>
+                        <li><a href="{{ route('posts.create')}}">新規投稿作成</a></li>
+                        <li><a href="{{ route('follow.index') }}">フォロー/フォロワー一覧</a></li>
+                        <li><a href="{{ route('posts.index') }}">投稿一覧</a></li>
                         <li><a href="question.html">質問ホーム</a></li>
-                        <li><a href="setting.html">設定</a></li>
+                        <li><a href="{{route('settingUser.index')}}">設定</a></li>
                     </ul>
                 </nav>
             </div>
@@ -71,7 +71,7 @@
                                         <div class="createPost-sample">
                                             <div class="icon-userName">
                                                 <div class="icon">
-                                                    <img src="" alt="">
+                                                    <img src="{{$user->user_icon}}" alt="">
                                                 </div>
                                                 <p class="user-name">{{$user->user_name}}</p>
                                             </div>
