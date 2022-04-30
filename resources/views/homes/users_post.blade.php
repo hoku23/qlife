@@ -37,7 +37,7 @@
                         <li><a href="{{ route('posts.create')}}">新規投稿作成</a></li>
                         <li><a href="{{ route('follow.index') }}">フォロー/フォロワー一覧</a></li>
                         <li><a href="{{ route('posts.index') }}">投稿一覧</a></li>
-                        <li><a href="question.html">質問ホーム</a></li>
+                        <li><a href="{{ route('question.index') }}">質問ホーム</a></li>
                         <li><a href="{{route('settingUser.index')}}">設定</a></li>
                     </ul>
                 </nav>
@@ -70,6 +70,13 @@
                                         </div>
                                     @endif
                                     </p>
+                                </div>
+                                <div class="post-detail-tags">
+                                    @if (isset($post->tags))
+                                        @foreach ($post->tags as $tag)
+                                            <div class="tag">{{$tag}}</div>
+                                        @endforeach
+                                    @endif
                                 </div>
                                 <div>
                                     <div class="reaction">
@@ -117,33 +124,40 @@
                                     </div>
                                     <p>コメント</p>
                                 </div>
-                                <form action="">
-                                    <textarea class="comment-form" name="" id="" placeholder="コメントを入力"></textarea>
-                                    <input class="comment-btn" type="button" value="送信">
+                                <form method="POST" action="/comment_store">
+                                    {{csrf_field()}}
+                                    <textarea class="comment-form" name="comment" id="" placeholder="コメントを入力"></textarea>
+                                    <input type="hidden" name="post_id" value="{{$post->post_id}}">
+                                    <input class="comment-btn" type="submit" value="送信">
                                 </form>
                             </div>
                             <div class="comment-lists">
                                 <div class="comment-num">
-                                    <p>コメント<span>0件</span></p>
+                                    <p>コメント<span>{{$comment_count}}件</span></p>
                                 </div>
                                 <div class="comment-list">
                                     <div class="comment-contents">
+                                        @if (isset($new_parent_comments))
+                                        @foreach ($new_parent_comments as $parent_comment)
                                         <div class="comment">
                                             <div class="comment-icon-userName">
                                                 <div class="icon">
-                                                    <img src="" alt="">
+                                                    <img src="{{$parent_comment->user_icon}}" alt="">
                                                 </div>
-                                                <p class="user-name">ユーザーネーム</p>
+                                                <p class="user-name">{{$parent_comment->user_name}}</p>
                                             </div>
                                             <div class="comment-text">
-                                                <p>コメントコメントコメントコメントコメントコメント</p>
+                                                <p>{{$parent_comment->content}}</p>
                                             </div>
                                             <div class="reply">
                                                 <p>返信する</p>
                                             </div>
-                                            <form class="reply_form hidden_form" action="">
-                                                <textarea class="comment-form" name="" id="" placeholder="コメントを入力"></textarea>
-                                                <input class="comment-btn" type="button" value="送信">
+                                            <form class="reply_form hidden_form" method="POST" action="/reply_store">
+                                                {{csrf_field()}}
+                                                <textarea class="comment-form" name="comment" id="" placeholder="コメントを入力"></textarea>
+                                                <input type="hidden" name="comment_path" value="{{$parent_comment->path}}">
+                                                <input type="hidden" name="post_id" value="{{$post->post_id}}">
+                                                <input class="comment-btn" type="submit" value="送信">
                                             </form>
                                             <div class="show-reply-btn">
                                                 <div class="line-img">
@@ -152,106 +166,36 @@
                                                 <p class="show_reply_btn">返信を表示</p>
                                             </div>
                                             <div class="reply-comment-contents hidden-reply-comment">
+                                                @if (isset($parent_comment->reply))
+                                                @foreach ($parent_comment->reply as $reply)
                                                 <div class="comment">
                                                     <div class="comment-icon-userName">
                                                         <div class="icon">
-                                                            <img src="" alt="">
+                                                            <img src="{{$reply->user_icon}}" alt="">
                                                         </div>
-                                                        <p class="user-name">ユーザーネーム</p>
+                                                        <p class="user-name">{{$reply->user_name}}</p>
                                                     </div>
                                                     <div class="comment-text">
-                                                        <p>コメントコメントコメントコメントコメントコメント</p>
+                                                        <p>>>{{$reply->reply_user_name}}</p>
+                                                        <p>{{$reply->content}}</p>
                                                     </div>
                                                     <div class="reply">
                                                         <p>返信する</p>
                                                     </div>
-                                                    <form class="reply_form hidden_form" action="">
-                                                        <textarea class="comment-form" name="" id="" placeholder="コメントを入力"></textarea>
-                                                        <input class="comment-btn" type="button" value="送信">
+                                                    <form class="reply_form hidden_form" method="POST" action="/reply_store">
+                                                        {{csrf_field()}}
+                                                        <textarea class="comment-form" name="comment" id="" placeholder="コメントを入力"></textarea>
+                                                        <input type="hidden" name="comment_path" value="{{$reply->path}}">
+                                                        <input type="hidden" name="post_id" value="{{$post->post_id}}">
+                                                        <input class="comment-btn" type="submit" value="送信">
                                                     </form>
-                                                    <div class="show-reply-btn">
-                                                        <div class="line-img">
-                                                            <img src="images/line.png" alt="">
-                                                        </div>
-                                                        <p class="show_reply_btn">返信を表示</p>
-                                                    </div>
                                                 </div>
-                                                <div class="comment">
-                                                    <div class="comment-icon-userName">
-                                                        <div class="icon">
-                                                            <img src="" alt="">
-                                                        </div>
-                                                        <p class="user-name">ユーザーネーム</p>
-                                                    </div>
-                                                    <div class="comment-text">
-                                                        <p>コメントコメントコメントコメントコメントコメント</p>
-                                                    </div>
-                                                    <div class="reply">
-                                                        <p>返信する</p>
-                                                    </div>
-                                                    <form class="reply_form hidden_form" action="">
-                                                        <textarea class="comment-form" name="" id="" placeholder="コメントを入力"></textarea>
-                                                        <input class="comment-btn" type="button" value="送信">
-                                                    </form>
-                                                    <div class="show-reply-btn">
-                                                        <div class="line-img">
-                                                            <img src="images/line.png" alt="">
-                                                        </div>
-                                                        <p class="show_reply_btn">返信を表示</p>
-                                                    </div>
-                                                </div>
+                                                @endforeach
+                                                @endif
                                             </div>
                                         </div>
-                                        <div class="comment">
-                                            <div class="comment-icon-userName">
-                                                <div class="icon">
-                                                    <img src="" alt="">
-                                                </div>
-                                                <p class="user-name">ユーザーネーム</p>
-                                            </div>
-                                            <div class="comment-text">
-                                                <p>コメントコメントコメントコメントコメントコメント</p>
-                                            </div>
-                                            <div class="reply">
-                                                <p>返信する</p>
-                                            </div>
-                                            <form class="reply_form hidden_form" action="">
-                                                <textarea class="comment-form" name="" id="" placeholder="コメントを入力"></textarea>
-                                                <input class="comment-btn" type="button" value="送信">
-                                            </form>
-                                            <div class="show-reply-btn">
-                                                <div class="line-img">
-                                                    <img src="images/line.png" alt="">
-                                                </div>
-                                                <p class="show_reply_btn">返信を表示</p>
-                                            </div>
-                                            <div class="reply-comment-contents hidden-reply-comment">
-                                                <div class="comment">
-                                                    <div class="comment-icon-userName">
-                                                        <div class="icon">
-                                                            <img src="" alt="">
-                                                        </div>
-                                                        <p class="user-name">ユーザーネーム</p>
-                                                    </div>
-                                                    <div class="comment-text">
-                                                        <p>コメントコメントコメントコメントコメントコメント</p>
-                                                    </div>
-                                                    <div class="reply">
-                                                        <p>返信する</p>
-                                                    </div>
-                                                    <form class="reply_form hidden_form" action="">
-                                                        <textarea class="comment-form" name="" id="" placeholder="コメントを入力"></textarea>
-                                                        <input class="comment-btn" type="button" value="送信">
-                                                    </form>
-                                                    <div class="show-reply-btn">
-                                                        <div class="line-img">
-                                                            <img src="images/line.png" alt="">
-                                                        </div>
-                                                        <p class="show_reply_btn">返信を表示</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                        @endforeach
+                                        @endif
                                     </div>
                                 </div>
                             </div>

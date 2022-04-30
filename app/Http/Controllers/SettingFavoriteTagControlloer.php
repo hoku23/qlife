@@ -31,9 +31,6 @@ class SettingFavoriteTagControlloer extends Controller
     
     public function store_tags(Request $request)
     {
-        
-        
-        
         $raw = file_get_contents('php://input'); // POSTされた生のデータを受け取る
         $data = json_decode($raw); // json形式をphp変数に変換
         

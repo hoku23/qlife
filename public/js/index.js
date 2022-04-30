@@ -577,3 +577,284 @@ for (let i = 0; i < show_reply_btns.length; i++) {
         })
     }
 }
+
+function newTextCreate2() {
+    question_area2.value = question_area.value;
+	if (question_area2.value) {
+	    //入力内容を改行ごとに分けて配列に格納
+        let formText = question_area2.value.split('\n');
+        //画像パスを拾う
+        let aryCheck = formText.filter(value => value.includes('storage/question_imgs/'));
+        
+        aryCheck.forEach(function(element) {
+            //パス部分とテキスト部分を分ける
+            let cutElem = element.substr(0, element.indexOf('.jpg') + 4);
+            let cutText = element.substr(element.indexOf('.jpg') + 4);
+            //パス部分にimgタグを付与して配列に格納し直す
+            // let imgTag = "<img src=\"" + cutElem + "\">"
+            // let imgTag = "<div class=\"PostContent-imgs\"><img style=\"max-width: 90%\" src=\"https://b0b0704b8c11464390acf6e91a447ae8.vfs.cloud9.us-west-2.amazonaws.com/" + cutElem + "\"></div>"
+            console.log(cutElem);
+            // cutElem = '../storage/content_imgs/Hokuto.1649828956409.jpg'; // 
+            let imgTag = "<div class=\"PostContent-imgs\"><img style=\"max-width: 90%\" src=\"../" + cutElem + "\"></div>"
+            formText[formText.indexOf(element)] = imgTag;
+            //テキスト部分を配列に格納
+            formText.splice(formText.indexOf(imgTag) + 1, 0, cutText);
+        });
+        //入力内容の配列の要素を<br>で繋ぐ
+        let newFormText = formText.join('<br>');
+        
+        console.log(newFormText);
+        
+        question_area2.value = newFormText;
+    }    
+}
+
+//textarea取得
+var question_area = document.getElementById('questionCreate-content');
+var question_area2 = document.getElementById('question_content_htmlTag');
+//プレビューボタン取得
+const question_check = document.getElementById('questionContent_preview-btn');
+//プレビューボタンのクリックイベント
+if (question_check) {
+    question_check.addEventListener('click', function() {
+    //textareaの入力内容にimgタグ付与
+    newTextCreate2();
+    newTextCreate3();
+    //phpにpost
+	let preview = document.getElementById('questionContent_preview');
+	preview.click();
+})    
+}
+
+
+//保存ボタン取得
+const question_save_btn = document.getElementById('save-btn');
+//保存ボタンのクリックイベント
+if (question_save_btn) {
+    question_save_btn.addEventListener('click', function() {
+    //textareaの入力内容にimgタグ付与
+    newTextCreate2();
+    newTextCreate3();
+    //phpにpost
+	let save = document.getElementById('questionContent_save');
+	save.click();
+})
+    
+}
+
+const question_fileSelect = document.getElementById("question_fileSelect"),
+      question_fileElem = document.getElementById("question_fileElem");
+if (question_fileSelect) {
+    question_fileSelect.addEventListener("click", function () {
+      if (question_fileElem) {
+        question_fileElem.click();
+      }
+    }, false);
+}
+
+
+
+function addText4()
+{
+
+    var datetime = Date.now();
+    var file_name =  user_name + "." + datetime + "." + "jpg";
+
+    let fileName = document.getElementById('question_fileName');
+    console.log(fileName);
+    fileName.value = file_name;
+
+	var text ="\n" + "storage/question_imgs/" + file_name + "\n";
+	
+	//カーソルの位置を基準に前後を分割して、その間に文字列を挿入
+	question_area.value = question_area.value.substr(0, question_area.selectionStart)
+			+ text
+			+ question_area.value.substr(question_area.selectionStart);
+			
+	newTextCreate2();
+	
+	let preview = document.getElementById('questionContent_preview');
+	preview.click();
+	
+}
+
+//textarea取得
+var try_area = document.getElementById('questionCreate-try');
+var try_area2 = document.getElementById('try_htmlTag');
+
+const try_fileSelect = document.getElementById("try_fileSelect"),
+      try_fileElem = document.getElementById("try_fileElem");
+if (try_fileSelect) {
+    try_fileSelect.addEventListener("click", function () {
+      if (try_fileElem) {
+        try_fileElem.click();
+      }
+    }, false);
+}
+
+function addText5()
+{
+
+    var datetime = Date.now();
+    var file_name =  user_name + "." + datetime + "." + "jpg";
+
+    let fileName = document.getElementById('question_fileName');
+    console.log(fileName);
+    fileName.value = file_name;
+
+	var text ="\n" + "storage/question_imgs/" + file_name + "\n";
+	
+	//カーソルの位置を基準に前後を分割して、その間に文字列を挿入
+	try_area.value = try_area.value.substr(0, try_area.selectionStart)
+			+ text
+			+ try_area.value.substr(try_area.selectionStart);
+			
+	newTextCreate3();
+	
+	let preview = document.getElementById('questionContent_preview');
+	preview.click();
+	
+}
+
+function newTextCreate3() {
+    try_area2.value = try_area.value;
+	if (try_area2.value) {
+	    //入力内容を改行ごとに分けて配列に格納
+        let formText = try_area2.value.split('\n');
+        //画像パスを拾う
+        let aryCheck = formText.filter(value => value.includes('storage/question_imgs/'));
+        
+        aryCheck.forEach(function(element) {
+            //パス部分とテキスト部分を分ける
+            let cutElem = element.substr(0, element.indexOf('.jpg') + 4);
+            let cutText = element.substr(element.indexOf('.jpg') + 4);
+            //パス部分にimgタグを付与して配列に格納し直す
+            // let imgTag = "<img src=\"" + cutElem + "\">"
+            // let imgTag = "<div class=\"PostContent-imgs\"><img style=\"max-width: 90%\" src=\"https://b0b0704b8c11464390acf6e91a447ae8.vfs.cloud9.us-west-2.amazonaws.com/" + cutElem + "\"></div>"
+            console.log(cutElem);
+            // cutElem = '../storage/content_imgs/Hokuto.1649828956409.jpg'; // 
+            let imgTag = "<div class=\"PostContent-imgs\"><img style=\"max-width: 90%\" src=\"../" + cutElem + "\"></div>"
+            formText[formText.indexOf(element)] = imgTag;
+            //テキスト部分を配列に格納
+            formText.splice(formText.indexOf(imgTag) + 1, 0, cutText);
+        });
+        //入力内容の配列の要素を<br>で繋ぐ
+        let newFormText = formText.join('<br>');
+        
+        console.log(newFormText);
+        
+        try_area2.value = newFormText;
+    }    
+}
+
+// 投稿タグに対してクリックイベントを適用
+const questionTags = document.getElementsByClassName('question-tag');
+for(let i = 0; i < questionTags.length; i++) {
+    questionTags[i].addEventListener('click', switchQuestionTags, false);
+}
+
+// 投稿タグをクリックすると実行する関数
+function switchQuestionTags(){
+
+    // classの切り替え
+    // .tag-onがついていれば外す
+    // .tag-onがついていなければつける
+    const arrayQuestionTags = Array.prototype.slice.call(questionTags);
+    const index = arrayQuestionTags.indexOf(this);
+    const targetTag = document.getElementsByClassName('question-tag')[index];
+    const tagclasses = Array.from(targetTag.classList);
+    if (tagclasses.includes('tag-on') == true) {
+        targetTag.classList.remove('tag-on');
+    } else {
+        targetTag.classList.add('tag-on');
+    }
+};
+
+let questionCreateUsers_select = document.getElementsByClassName('questionCreateUsers-select');
+for (let i = 0; i < questionCreateUsers_select.length; i++) {
+    if (questionCreateUsers_select[i]) {
+        questionCreateUsers_select[i].addEventListener('click', function(e){
+            console.log(e.target.innerHTML);
+            if (e.target.classList.contains('user_selected') == true) {
+                e.target.classList.remove('user_selected');
+                e.target.textContent = '選択する';
+            } else {
+                e.target.classList.add('user_selected');
+                e.target.textContent = '選択中';
+            }
+        })
+    }
+}
+
+let createAnswer_btn = document.getElementById('createAnswer_btn');
+if (createAnswer_btn) {
+    createAnswer_btn.addEventListener('click', function(e) {
+        e.target.nextElementSibling.lastElementChild.click();
+    })
+}
+
+function newTextCreate4() {
+    area2.value = area.value;
+	if (area2.value) {
+	    //入力内容を改行ごとに分けて配列に格納
+        let formText = area2.value.split('\n');
+        //画像パスを拾う
+        let aryCheck = formText.filter(value => value.includes('storage/answer_imgs/'));
+        
+        aryCheck.forEach(function(element) {
+            //パス部分とテキスト部分を分ける
+            let cutElem = element.substr(0, element.indexOf('.jpg') + 4);
+            let cutText = element.substr(element.indexOf('.jpg') + 4);
+            //パス部分にimgタグを付与して配列に格納し直す
+            // let imgTag = "<img src=\"" + cutElem + "\">"
+            // let imgTag = "<div class=\"PostContent-imgs\"><img style=\"max-width: 90%\" src=\"https://b0b0704b8c11464390acf6e91a447ae8.vfs.cloud9.us-west-2.amazonaws.com/" + cutElem + "\"></div>"
+            console.log(cutElem);
+            // cutElem = '../storage/content_imgs/Hokuto.1649828956409.jpg'; // 
+            let imgTag = "<div class=\"PostContent-imgs\"><img style=\"max-width: 90%\" src=\"../" + cutElem + "\"></div>"
+            formText[formText.indexOf(element)] = imgTag;
+            //テキスト部分を配列に格納
+            formText.splice(formText.indexOf(imgTag) + 1, 0, cutText);
+        });
+        //入力内容の配列の要素を<br>で繋ぐ
+        let newFormText = formText.join('<br>');
+        
+        area2.value = newFormText;
+    }    
+}
+
+//保存ボタン取得
+const answer_save_btn = document.getElementById('answer-save-btn');
+//保存ボタンのクリックイベント
+if (answer_save_btn) {
+    answer_save_btn.addEventListener('click', function() {
+    //textareaの入力内容にimgタグ付与
+    newTextCreate4();
+    //phpにpost
+	let save = document.getElementById('postContent_save');
+	save.click();
+})
+    
+}
+
+function addText6()
+{
+
+    var datetime = Date.now();
+    var file_name =  user_name + "." + datetime + "." + "jpg";
+
+    let fileName = document.getElementById('fileName');
+    fileName.value = file_name;
+
+	var text ="\n" + "storage/answer_imgs/" + file_name + "\n";
+	
+	//カーソルの位置を基準に前後を分割して、その間に文字列を挿入
+	area.value = area.value.substr(0, area.selectionStart)
+			+ text
+			+ area.value.substr(area.selectionStart);
+			
+	newTextCreate4();
+	
+	let preview = document.getElementById('postContent_preview');
+	preview.click();
+	
+}

@@ -8,6 +8,7 @@ use App\Post;
 use App\Post_tag;
 use App\Good;
 use App\Save;
+use App\Comment;
 use Illuminate\Http\Request;
 
 class TimelineController extends Controller
@@ -50,6 +51,10 @@ class TimelineController extends Controller
                     $followPost['save'] = 0;
                 }
                 
+                $post_id = $followPost->post_id;
+                $comment_count = Comment::where('path', 'like', "$post_id%")->get()->count();
+                $followPost['comment'] = $comment_count;
+                
                 array_push($posts, $followPost);
             }
         }
@@ -81,6 +86,10 @@ class TimelineController extends Controller
                 $myPost['save'] = 0;
             }
             
+            $post_id = $myPost->post_id;
+            $comment_count = Comment::where('path', 'like', "$post_id%")->get()->count();
+            $myPost['comment'] = $comment_count;
+            
             array_push($posts, $myPost);
         }
         
@@ -105,6 +114,13 @@ class TimelineController extends Controller
         $post['user_name'] = $post_user->user_name;
         $post['user_icon'] = $post_user->user_icon;
         
+        $tagsRecords = Post_tag::where('post_id', $post->post_id)->get();
+        $tags =[];
+        foreach ($tagsRecords as $tagsRecord) {
+            $tag = $tagsRecord->tag_name;
+            array_push($tags, $tag);
+        }
+        $post['tags'] = $tags;
         
         $post_good = Good::where('post_id', $post_id)->where('user_id', $user->user_id)->first();
         if (isset($post_good)) {
@@ -128,7 +144,40 @@ class TimelineController extends Controller
         }
         
         
-        return view('homes.users_post', compact('user', 'post', 'good_num'));
+        $parent_comments = Comment::where('path', 'like', "$post_id%")->where('parent_comment_id', 0)->get();
+        $new_parent_comments = [];
+        foreach ($parent_comments as $parent_comment) {
+            
+            $parent_comment_user = User::where('user_id', $parent_comment->user_id)->first();
+            $user_name = $parent_comment_user->user_name;
+            $user_icon = $parent_comment_user->user_icon;
+            $parent_comment['user_name'] = $user_name;
+            $parent_comment['user_icon'] = $user_icon;
+            
+            $child_comments = Comment::where('root_comment_id', $parent_comment->root_comment_id)->whereNotIn('comment_id', [$parent_comment->comment_id])->orderBy('order')->get();
+            $new_child_comments = [];
+            foreach ($child_comments as $child_comment) {
+                $child_comment_user = User::where('user_id', $child_comment->user_id)->first();
+                $user_name = $child_comment_user->user_name;
+                $user_icon = $child_comment_user->user_icon;
+                $child_comment['user_name'] = $user_name;
+                $child_comment['user_icon'] = $user_icon;
+                
+                $p_comment = Comment::where('comment_id', $child_comment->parent_comment_id)->first();
+                $p_comment_user = User::where('user_id', $p_comment->user_id)->first();
+                $p_comment_user_name = $p_comment_user->user_name;
+                
+                $child_comment['reply_user_name'] = $p_comment_user_name;
+                
+                array_push($new_child_comments, $child_comment);
+            }
+            $parent_comment['reply'] = $new_child_comments;
+            array_push($new_parent_comments, $parent_comment);
+        }
+        
+        $comment_count = Comment::where('path', 'like', "$post_id%")->get()->count();
+        
+        return view('homes.users_post', compact('user', 'post', 'good_num', 'new_parent_comments', 'comment_count'));
     }
     
     public function post_detail(Request $request)

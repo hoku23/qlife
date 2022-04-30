@@ -26,9 +26,7 @@ if (env('APP_ENV') === 'local') {
 Route::post('registers/confirm', 'RegisterController@confirm')->name('registers.confirm');
 
 Route::resource('logins', 'LoginController');
-
 Route::post('logins/auth', 'LoginController@auth')->name('logins.auth');
-
 Route::get('logout', 'LoginController@logout')->name('logout');
 
 Route::resource('posts', 'PostController');
@@ -75,7 +73,37 @@ Route::post('post_detail', 'TimelineController@post_detail')->name('timeline.pos
 Route::get('post_search_result', 'SearchController@post_search_result')->name('search.post_search_result');
 Route::post('post_search', 'SearchController@post_search')->name('search.post_search');
 Route::post('search_tag_store', 'SearchController@search_tag_store')->name('search.search_tag_store');
+Route::get('question_search_result', 'SearchController@question_search_result')->name('search.question_search_result');
+Route::post('question_search', 'SearchController@question_search')->name('search.question_search');
+Route::post('question_tag_store', 'SearchController@question_tag_store')->name('search.question_tag_store');
 
 Route::post('good_store', 'GoodController@good_store')->name('good_store');
 
 Route::post('save_store', 'SaveController@save_store')->name('save_store');
+
+Route::post('comment_store', 'CommentController@comment_store')->name('comment_store');
+Route::post('reply_store', 'CommentController@reply_store')->name('reply_store');
+Route::post('answer_comment_store', 'CommentController@answer_comment_store')->name('answer_comment_store');
+Route::post('answer_reply_store', 'CommentController@answer_reply_store')->name('answer_reply_store');
+
+Route::resource('question', 'QuestionController');
+Route::get('create_tags', 'QuestionController@create_tags')->name('question.create_tags');
+Route::post('question/store_tags', 'QuestionController@store_tags')->name('question.store_tags');
+Route::post('question/store_users', 'QuestionController@store_users')->name('question.store_users');
+Route::post('question/redirect', 'QuestionController@redirect')->name('question.redirect');
+Route::get('question_confirm', 'QuestionController@confirm')->name('question.confirm');
+Route::get('release_question', 'QuestionController@release_question')->name('question.release');
+Route::get('draft_question', 'QuestionController@draft_question')->name('question.draft');
+Route::get('question_list_show', 'QuestionController@question_list_show')->name('question_list_show');
+Route::post('question_detail', 'QuestionController@question_detail')->name('question_detail');
+Route::get('users_question', 'QuestionController@users_question')->name('question.users_question');
+
+Route::resource('answer', 'AnswerController');
+Route::post('create_answer', 'AnswerController@create_answer')->name('create_answer');
+Route::get('answer_confirm', 'AnswerController@confirm')->name('answer.confirm');
+Route::get('release_answer', 'AnswerController@release_answer')->name('answer.release');
+Route::get('draft_answer', 'AnswerController@draft_answer')->name('answer.draft');
+Route::get('question_content', 'AnswerController@question_content')->name('answer.question_content');
+Route::post('answer_detail', 'AnswerController@answer_detail')->name('answer_detail');
+Route::get('users_answer', 'AnswerController@users_answer')->name('answer.users_answer');
+Route::post('bestAnswer_select', 'AnswerController@bestAnswer_select')->name('bestAnswer_select');

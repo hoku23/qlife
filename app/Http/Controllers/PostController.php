@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use App\User;
+use App\User_notice;
+use App\Post_tag_notice;
 use App\Post_tag;
 use App\Save;
 use App\Good;
 use Validator;
+use App\Notifications\SendInvitation;
+use Mail;
+use App\Mail\PostNotification;
+use App\Jobs\SendPostedMail;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -282,8 +288,33 @@ class PostController extends Controller
                     $post_tag->save();
                 }
             }
-            session()->forget('tags');   
+            session()->forget('tags');
             
+
+    	    $users = [];
+    	    $not_user = [];
+    	    $notice_users = User_notice::where('notice_user_id', $post->user_id)->whereNotIn('user_id', $not_user)->get();
+    	    foreach ($notice_users as $notice_user) {
+                $mail_user = User::where('user_id', $notice_user->user_id)->first();
+                array_push($users, $mail_user);
+                array_push($not_user, $mail_user->user_id);
+    	    }
+    	   
+    	    foreach ($tags as $tag) {
+    	        $notice_tags = Post_tag_notice::where('tag_name', $tag)->whereNotIn('user_id', $not_user)->get();
+    	        foreach ($notice_tags as $notice_tag) {
+    	            $notice_tags_user = User::where('user_id', $notice_tag->user_id)->first();
+    	            array_push($users, $notice_tags_user);
+    	            array_push($not_user, $notice_tags_user->user_id);   
+    	        }
+    	    }
+    	    
+    	    $post_tags = implode('/', $tags);
+    	    $post_user_id = $post->user_id;
+    	    $post_title = $post->post_title;
+    	    
+    	    SendPostedMail::dispatch($post_user_id, $post_title, $post_tags, $users);
+    	
             return view('posts.complete', compact('user'));    
         }
         

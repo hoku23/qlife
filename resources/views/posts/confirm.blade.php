@@ -37,7 +37,7 @@
                         <li><a href="{{ route('posts.create')}}">新規投稿作成</a></li>
                         <li><a href="{{ route('follow.index') }}">フォロー/フォロワー一覧</a></li>
                         <li><a href="{{ route('posts.index') }}">投稿一覧</a></li>
-                        <li><a href="question.html">質問ホーム</a></li>
+                        <li><a href="{{ route('question.index') }}">質問ホーム</a></li>
                         <li><a href="{{route('settingUser.index')}}">設定</a></li>
                     </ul>
                 </nav>

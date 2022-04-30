@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\Hash;
 class RegisterController extends Controller
 {
     private $validator = [
-            'user_id' => 'required|string|unique:users',
-            'password' =>'required|string',
+            'user_id' => 'required|string|unique:users|max:30',
+            'password' =>'required|string|max:20',
             'confirm_password' => 'required|same:password',
-            'user_name' => 'required|string',
-            'email' => 'required|string|unique:users'
+            'user_name' => 'required|string|max:50',
+            'email' => 'required|string|unique:users|max:256|email'
         ];
     /**
      * Display a listing of the resource.
