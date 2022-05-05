@@ -51,13 +51,11 @@
             <article>
                 <div class="main-header post-main-header">
                     <div>
-                        <h1 class="shown-posts">{{$user->user_name}}さんの投稿</h1>
-                        <p>/</p>
-                        <a href="{{route('posts.save_post_show')}}" class="hidden-posts"><h1>保存済みの投稿</h1></a>
+                        <h1 class="shown-posts">下書き保存された投稿</h1>
                     </div>
                     <div>
-                        <a href="{{route('posts.draft_post')}}">
-                            <button class="draft-btn">下書き保存された投稿を表示</button>
+                        <a href="{{route('posts.index')}}">
+                            <button class="draft-btn">公開済み投稿に戻る</button>
                         </a>
                     </div>
                 </div>
@@ -82,10 +80,11 @@
                                         @endforeach
                                     @endif
                                 </div>
-                                <div class="reaction-to-myPost">
-                                    <p>{{$post->good}}グッド</p>
-                                    <p>0コメント</p>
-                                </div>
+                                <form method="POST" action="/post_release_flag_chnge">
+                                    {{csrf_field()}}
+                                    <input type="hidden" name="post_id" value="{{$post->post_id}}">
+                                    <button class="release-btn" style="margin-left:25px">投稿を公開する</button>
+                                </form>
                             </div>
                             @endforeach
                         @endif

@@ -6,8 +6,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width initial-scale=1.0">
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
-        <link rel="stylesheet" href="{{ asset('css/phone_style.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/mini_pc_style.css') }}">
     </head>
     <body>
         <header>
@@ -50,26 +48,16 @@
         <main>
             <article>
                 <div class="main-header">
-                    <h1>新規回答作成</h1>
+                    <h1>投稿削除</h1>
                 </div>
                 <section>
                     <div id="createNewPost">
-                        <div id="create-flow">
-                            <ul class="createFlow-list">
-                                <li class="other-step"><a href="{{route('answer.question_content')}}">質問内容</a></li>
-                                <li class="other-step"><a href="{{route('answer.create')}}">本文作成</a></li>
-                                <li class="other-step"><a href="{{route('answer.confirm')}}">内容確認</a></li>
-                                <li class="show-step">回答送信完了</li>
-                            </ul>
-                        </div>
-                        <div id="createAnswer-container">
-                            <div class="createAnswer-box">
-                                <div class="createAnswerComplete">
-                                    <div class="complete-message">
-                                        <p>回答が送信されました!</p>
-                                        <div class="toTimeline-btn">
-                                            <a href="{{route('question_list_show')}}"><button>質問一覧に戻る</button></a>
-                                        </div>
+                        <div id="createPost-complete">
+                            <div class="post-complete">
+                                <div class="complete-message">
+                                    <p>投稿が削除されました</p>
+                                    <div class="toTimeline-btn">
+                                        <a href="{{route('posts.index')}}"><button>投稿一覧に戻る</button></a>
                                     </div>
                                 </div>
                             </div>

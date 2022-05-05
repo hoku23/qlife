@@ -7,12 +7,16 @@
         <meta name="viewport" content="width=device-width initial-scale=1.0">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/phone_style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/mini_pc_style.css') }}">
     </head>
     <body>
         <header>
-            <div class="logo">
-                <a href="home.html"><img src="{{asset('images/logo.png')}}" alt="ロゴ"></a>
-            </div>
+            <a href="home.html">
+                <div class="logo">
+                    <img src="{{ asset('images/logo.png') }}" alt="ロゴ">
+                </div>
+            </a>
             <div>
                 <div class="header-text">
                     <div class="icon-userName">
@@ -46,25 +50,34 @@
         </header>
         <main>
             <article>
-                <div class="main-header">
+                <div class="main-header timeline-main-header">
                     <h1>タイムライン</h1>
                     @if (session('message'))
-                    <div style="display:flex; align-items:center; color:red;">
+                    <div id="pc_error_message" style=" align-items:center; color:red;">
                         <p>{{session('message')}}</p>
                     </div>
                     @endif
+                    <div id="search_btn">
+                        <p>投稿を探す</p>
+                    </div>
                 </div>
                 <section>
                    <div id="timeline-container">
                        <div class="posts-area">
+                           @if (session('message'))
+                            <div id="phone_error_message" style="display:flex; align-items:center; color:red;">
+                                <p>{{session('message')}}</p>
+                            </div>
+                            @endif
                         <div class="timelinePosts-list">
                             @if (isset($posts))
                             @foreach ($posts as $post)
-                            <div class="post othersPost">
+                            <div class="post otherPost">
                                 <div class="post_date">
                                     <p>{{$post->post_date}}</p>
                                 </div>
-                                <div class="icon-userName">
+                                <div class="icon-userName post_userName">
+                                    <input type="hidden" value="{{$post->user_id}}">
                                     <div class="icon">
                                         <img src="{{$post->user_icon}}" alt="">
                                     </div>
@@ -107,6 +120,11 @@
                             </div>
                             @endforeach
                             @endif
+                            <form style="display:none" method="POST" action="/user_page">
+                                {{csrf_field()}}
+                                <input id="otherUser" type="hidden" name="otherUser">
+                                <input id="otherUser_btn" type="submit" style="display:none;">
+                            </form>
                         </div>
                        </div>
                        <div class="search-area">
@@ -155,6 +173,26 @@
                                         <div class="search-tag">子供</div>
                                         <div class="search-tag">結婚</div>
                                         <div class="search-tag">同棲</div>
+                                        <div class="search-tag">玄関</div>
+                                        <div class="search-tag">リビング</div>
+                                        <div class="search-tag">キッチン</div>
+                                        <div class="search-tag">ダイニング</div>
+                                        <div class="search-tag">寝室</div>
+                                        <div class="search-tag">ベランダ</div>
+                                        <div class="search-tag">トイレ</div>
+                                        <div class="search-tag">バスルーム</div>
+                                        <div class="search-tag">子供部屋</div>
+                                        <div class="search-tag">マンション</div>
+                                        <div class="search-tag">一軒家</div>
+                                        <div class="search-tag">アパート</div>
+                                        <div class="search-tag">リフォーム</div>
+                                        <div class="search-tag">DIY</div>
+                                        <div class="search-tag">冷蔵庫</div>
+                                        <div class="search-tag">洗濯機</div>
+                                        <div class="search-tag">テレビ</div>
+                                        <div class="search-tag">ベッド</div>
+                                        <div class="search-tag">安価</div>
+                                        <div class="search-tag">高価</div>
                                     </div>
                                     <div class="search timelineSearch-btn">
                                        <input id="submit" class="tagSearch-btn" type="button" value="検索する">
@@ -233,7 +271,34 @@
                 })    
             }
             
-
+            let post_userName = document.getElementsByClassName('post_userName');
+            for (let i = 0; i < post_userName.length; i++) {
+                if (post_userName[i]) {
+                    post_userName[i].addEventListener('click', function(e){
+                        console.log(post_userName[i].firstElementChild);
+                        let otherUser_name = post_userName[i].firstElementChild.value;
+                        console.log(otherUser_name);
+                        let otherUser = document.getElementById('otherUser');
+                        otherUser.value = otherUser_name;
+                        console.log(otherUser.value);
+                        let otherUser_btn = document.getElementById('otherUser_btn');
+                        otherUser_btn.click();
+                    })    
+                }
+            }
+            
+            let search_btn = document.getElementById('search_btn');
+            search_btn.addEventListener('click', function(){
+                let search_area = document.getElementsByClassName('search-area');
+                if (search_area[0].classList.contains('search-area-show')) {
+                    search_area[0].classList.remove('search-area-show');
+                    search_btn.lastElementChild.textContent = '投稿を探す';
+                } else {
+                    search_area[0].classList.add('search-area-show');
+                    search_btn.lastElementChild.textContent = '一覧に戻る';
+                }
+            })
+            
         </script>
 
         <script src="{{asset('js/index.js')}}" charset="utf-8"></script>

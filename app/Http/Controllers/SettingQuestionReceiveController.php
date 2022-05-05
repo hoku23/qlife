@@ -14,13 +14,21 @@ class SettingQuestionReceiveController extends Controller
      */
     public function index()
     {
-        $user = session()->get('user');
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
         return view('settings.setting_questionReceive', compact('user'));
     }
     
     public function store_questionReceive(Request $request)
     {
-        $user = session()->get('user');
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
         $input = $request->input('questionReceive');
         
         if (isset($input)) {

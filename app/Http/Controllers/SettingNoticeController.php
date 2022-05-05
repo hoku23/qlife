@@ -13,7 +13,11 @@ class SettingNoticeController extends Controller
 {
     public function index()
     {
-        $user = session()->get('user');
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
         
         $follows = Follow::where('user_id', $user->user_id)->get();
         $newFollows = [];
@@ -74,7 +78,11 @@ class SettingNoticeController extends Controller
     
     public function store_notice_users(Request $request)
     {
-        $user = session()->get('user');
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
         $notice_user_id = $request->input('notice_user_id');
         
         $notice_user_check = User_notice::where('user_id', $user->user_id)->where('notice_user_id', $notice_user_id)->first();
@@ -101,7 +109,11 @@ class SettingNoticeController extends Controller
         
         // やりたい処理
         
-        $user = session()->get('user');
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
         $user_id = $user->user_id;
         
         $noticeTags_check = Post_tag_notice::where('user_id', $user_id)->first();
@@ -131,7 +143,11 @@ class SettingNoticeController extends Controller
         
         // やりたい処理
         
-        $user = session()->get('user');
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
         $user_id = $user->user_id;
         
         $noticeTags_check = Question_tag_notice::where('user_id', $user_id)->first();

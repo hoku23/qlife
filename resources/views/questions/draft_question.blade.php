@@ -51,11 +51,11 @@
             <article>
                 <div class="main-header post-main-header">
                     <div>
-                        <h1 class="shown-posts">{{$user->user_name}}さんの質問</h1>
+                        <h1 class="shown-posts">下書き保存された質問</h1>
                     </div>
                     <div>
-                        <a href="{{route('question.draft_question')}}">
-                            <button class="draft-btn">下書き保存された質問を表示</button>
+                        <a href="{{route('question.index')}}">
+                            <button class="draft-btn">質問ホームに戻る</button>
                         </a>
                     </div>
                 </div>
@@ -89,12 +89,11 @@
                                             @endforeach
                                         @endif
                                     </div>
-                                    <div class="question-answerNum">
-                                        <p>回答<span>{{$question->answers}}件</span></p>
-                                        <div class="question-date">
-                                            <p>{{$question->question_date}}</p>
-                                        </div>
-                                    </div>
+                                    <form method="POST" action="/question_release_flag_chnge">
+                                        {{csrf_field()}}
+                                        <input type="hidden" name="question_id" value="{{$question->question_id}}">
+                                        <button class="release-btn">質問を公開する</button>
+                                    </form>
                                 </div>
                                 @endforeach
                                 @endif

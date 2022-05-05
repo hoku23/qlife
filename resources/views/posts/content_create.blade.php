@@ -6,12 +6,16 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width initial-scale=1.0">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/phone_style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/mini_pc_style.css') }}">
     </head>
     <body>
         <header>
-            <div class="logo">
-                <a href="home.html"><img src="{{ asset('images/logo.png') }}" alt="ロゴ"></a>
-            </div>
+            <a href="home.html">
+                <div class="logo">
+                    <img src="{{ asset('images/logo.png') }}" alt="ロゴ">
+                </div>
+            </a>
             <div>
                 <div class="header-text">
                     <div class="icon-userName">

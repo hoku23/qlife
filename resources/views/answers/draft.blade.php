@@ -6,12 +6,16 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width initial-scale=1.0">
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/phone_style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/mini_pc_style.css') }}">
     </head>
     <body>
         <header>
-            <div class="logo">
-                <a href="home.html"><img src="{{asset('images/logo.png')}}" alt="ロゴ"></a>
-            </div>
+            <a href="home.html">
+                <div class="logo">
+                    <img src="{{ asset('images/logo.png') }}" alt="ロゴ">
+                </div>
+            </a>
             <div>
                 <div class="header-text">
                     <div class="icon-userName">
@@ -64,7 +68,7 @@
                                     <div class="complete-message">
                                         <p>下書きとして保存されました!</p>
                                         <div class="toTimeline-btn">
-                                            <a href="{{route('question.index')}}"><button>質問ホームに戻る</button></a>
+                                            <a href="{{route('question_list_show')}}"><button>質問一覧に戻る</button></a>
                                         </div>
                                     </div>
                                 </div>

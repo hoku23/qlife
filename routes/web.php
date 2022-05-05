@@ -39,6 +39,10 @@ Route::get('createPost_confirm', 'PostController@show_confirm')->name('posts.con
 Route::get('release', 'PostController@release_post')->name('posts.release');
 Route::get('draft', 'PostController@draft_post')->name('posts.draft');
 Route::get('save_post_show', 'PostController@save_post_show')->name('posts.save_post_show');
+Route::post('post_delete', 'PostController@post_delete')->name('posts.post_delete');
+Route::get('post_deleted', 'PostController@post_deleted')->name('posts.post_deleted');
+Route::get('draft_post', 'PostController@show_draft_post')->name('posts.draft_post');
+Route::post('post_release_flag_chnge', 'PostController@release_flag_chnge')->name('post_release_flag_chnge');
 
 Route::resource('follow', 'FollowController');
 Route::post('user_search', 'FollowController@user_search')->name('follow.user_search');
@@ -97,6 +101,10 @@ Route::get('draft_question', 'QuestionController@draft_question')->name('questio
 Route::get('question_list_show', 'QuestionController@question_list_show')->name('question_list_show');
 Route::post('question_detail', 'QuestionController@question_detail')->name('question_detail');
 Route::get('users_question', 'QuestionController@users_question')->name('question.users_question');
+Route::post('question_delete', 'QuestionController@question_delete')->name('question.question_delete');
+Route::get('question_deleted', 'QuestionController@question_deleted')->name('question.question_deleted');
+Route::get('show_draft_question', 'QuestionController@show_draft_question')->name('question.draft_question');
+Route::post('question_release_flag_chnge', 'QuestionController@release_flag_chnge')->name('question_release_flag_chnge');
 
 Route::resource('answer', 'AnswerController');
 Route::post('create_answer', 'AnswerController@create_answer')->name('create_answer');
@@ -107,3 +115,6 @@ Route::get('question_content', 'AnswerController@question_content')->name('answe
 Route::post('answer_detail', 'AnswerController@answer_detail')->name('answer_detail');
 Route::get('users_answer', 'AnswerController@users_answer')->name('answer.users_answer');
 Route::post('bestAnswer_select', 'AnswerController@bestAnswer_select')->name('bestAnswer_select');
+Route::post('answer_delete', 'AnswerController@answer_delete')->name('answer.answer_delete');
+Route::get('answer_deleted', 'AnswerController@answer_deleted')->name('answer.answer_deleted');
+Route::post('answer_release_flag_chnge', 'AnswerController@release_flag_chnge')->name('answer_release_flag_chnge');

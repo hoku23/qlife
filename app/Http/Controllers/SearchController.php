@@ -29,6 +29,8 @@ class SearchController extends Controller
     {
         if (session()->has('user')) {
             $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
         }
         
         $keyword = $request->input('keyword');
@@ -45,6 +47,8 @@ class SearchController extends Controller
     {
         if (session()->has('user')) {
             $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
         }
         
         $key_tags = old('key_tags');
@@ -197,6 +201,8 @@ class SearchController extends Controller
     {
         if (session()->has('user')) {
             $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
         }
         
         $keyword = $request->input('keyword');
@@ -213,6 +219,8 @@ class SearchController extends Controller
     {
         if (session()->has('user')) {
             $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
         }
         $key_tags = old('key_tags');
         if (isset($key_tags)) {

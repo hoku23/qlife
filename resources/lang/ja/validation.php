@@ -56,6 +56,7 @@ return [
         'string' => 'The :attribute must be greater than or equal :value characters.',
         'array' => 'The :attribute must have :value items or more.',
     ],
+    'hankaku' => ':attribute は半角英数字で入力してください',
     'image' => 'The :attribute must be an image.',
     'in' => 'The selected :attribute is invalid.',
     'in_array' => 'The :attribute field does not exist in :other.',
@@ -153,6 +154,13 @@ return [
         'password' => 'パスワード',
         'confirm_password' => '確認用パスワード',
         'email' => 'メールアドレス',
+        'new_user_name' => '新しいユーザーネーム',
+        'new_password' => '新しいパスワード',
+        'new_password_confirm' => '確認用パスワード',
+        'answer_content' => '回答の内容',
+        'question_title' => 'タイトル',
+        'question_content' => '困っていること',
+        'question_try' => '試したことや候補'
         ],
 
 ];

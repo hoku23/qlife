@@ -7,12 +7,16 @@
         <meta name="viewport" content="width=device-width initial-scale=1.0">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/phone_style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/mini_pc_style.css') }}">
     </head>
     <body>
         <header>
-            <div class="logo">
-                <a href="home.html"><img src="{{asset('images/logo.png')}}" alt="ロゴ"></a>
-            </div>
+            <a href="home.html">
+                <div class="logo">
+                    <img src="{{ asset('images/logo.png') }}" alt="ロゴ">
+                </div>
+            </a>
             <div>
                 <div class="header-text">
                     <div class="icon-userName">
@@ -46,30 +50,42 @@
         </header>
         <main>
             <article>
-                <div class="main-header">
+                <div class="main-header timeline-main-header">
                     <h1>質問一覧</h1>
+                    @if (session('message'))
+                    <div id="pc_error_message" style="align-items:center; color:red;">
+                        <p>{{session('message')}}</p>
+                    </div>
+                    @endif
+                    <div id="search_btn">
+                        <p>投稿を探す</p>
+                    </div>
                 </div>
                 <section>
                     <div id="questionList-container">
                         <div class="questionList-box">
+                            @if (session('message'))
+                            <div id="phone_error_message" style="display:flex; align-items:center; color:red;">
+                                <p>{{session('message')}}</p>
+                            </div>
+                            @endif
                             <div class="otherQuestion-lists">
                                 @if (isset($newQuestions))
                                 @foreach ($newQuestions as $question)
                                 <div class="otherQuestion question">
-                                    <div class="icon-userName">
+                                    <div class="icon-userName question_userName">
+                                        <input type="hidden" value="{{$question->user_id}}">
                                         <div class="icon">
                                             <img src="{{$question->user_icon}}" alt="">
                                         </div>
-                                            <p class="user-name">{{$question->user_name}}</p>
+                                        <p class="user-name">{{$question->user_name}}</p>
                                     </div>
-                                    <!--<div class="question-title">-->
                                         <p class="question-title">{{$question->question_title}}</p>
                                         <form style="display:none" method="POST" action="/question_detail">
                                             {{csrf_field()}}
                                             <input type="hidden" name="question_id" value="{{$question->question_id}}">
                                             <input type="submit" style="display:none">
                                         </form>
-                                    <!--</div>-->
                                     <p class="question-label">困っていること</p>
                                     <div class="question-content">
                                         @if (isset($question->question_content))
@@ -96,6 +112,11 @@
                                 </div>
                                 @endforeach
                                 @endif
+                                <form style="display:none" method="POST" action="/user_page">
+                                    {{csrf_field()}}
+                                    <input id="otherUser" type="hidden" name="otherUser">
+                                    <input id="otherUser_btn" type="submit" style="display:none;">
+                                </form>
                             </div>
                         </div>
                         <div class="search-area">
@@ -111,7 +132,7 @@
                                     <p>タグを選択してください</p>
                                     <div class="search-tags">
                                         <div class="search-tag">掃除</div>
-                                        <div class="search-tag">選択</div>
+                                        <div class="search-tag">洗濯</div>
                                         <div class="search-tag">料理</div>
                                         <div class="search-tag">収納</div>
                                         <div class="search-tag">育児</div>
@@ -213,7 +234,33 @@
                 }
             }
             
+            let question_userName = document.getElementsByClassName('question_userName');
+            for (let i = 0; i < question_userName.length; i++) {
+                if (question_userName[i]) {
+                    question_userName[i].addEventListener('click', function(e){
+                        console.log(question_userName[i].firstElementChild);
+                        let otherUser_name = question_userName[i].firstElementChild.value;
+                        console.log(otherUser_name);
+                        let otherUser = document.getElementById('otherUser');
+                        otherUser.value = otherUser_name;
+                        console.log(otherUser.value);
+                        let otherUser_btn = document.getElementById('otherUser_btn');
+                        otherUser_btn.click();
+                    })    
+                }
+            }
             
+            let search_btn = document.getElementById('search_btn');
+            search_btn.addEventListener('click', function(){
+                let search_area = document.getElementsByClassName('search-area');
+                if (search_area[0].classList.contains('search-area-show')) {
+                    search_area[0].classList.remove('search-area-show');
+                    search_btn.lastElementChild.textContent = '投稿を探す';
+                } else {
+                    search_area[0].classList.add('search-area-show');
+                    search_btn.lastElementChild.textContent = '一覧に戻る';
+                }
+            })
 
         </script>
 

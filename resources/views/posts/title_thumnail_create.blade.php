@@ -6,12 +6,16 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width initial-scale=1.0">
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/phone_style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/mini_pc_style.css') }}">
     </head>
     <body>
         <header>
-            <div class="logo">
-                <a href="home.html"><img src="{{asset('images/logo.png')}}" alt="ロゴ"></a>
-            </div>
+            <a href="home.html">
+                <div class="logo">
+                    <img src="{{ asset('images/logo.png') }}" alt="ロゴ">
+                </div>
+            </a>
             <div>
                 <div class="header-text">
                     <div class="icon-userName">
@@ -48,7 +52,10 @@
                 <div class="main-header">
                     <h1>新規投稿作成</h1>
                     @if (session('title_message'))
-                    <div style="display:flex; align-items:center; color:red;">
+                    <div id="phone_error_message" style="align-items:center; color:red;">
+                        <p>{{session('title_message')}}</p>
+                    </div>
+                    <div id="pc_error_message" style="align-items:center; color:red;">
                         <p>{{session('title_message')}}</p>
                     </div>
                     @endif
@@ -77,7 +84,7 @@
                                     </div>
                                     <form class="createPost-form" method="POST" action="/store_title">
                                         {{csrf_field()}}
-                                        <textarea id="postTitle" name="postTitle" placeholder="タイトルを入力">@if(session('title')){{session('title')}}@endif</textarea>
+                                        <textarea id="postTitle" name="postTitle" placeholder="タイトルを入力">@if(isset($title)){{$title}}@endif</textarea>
                                         <input id="postTitle-store" type="submit" name="action" value="save" style="display:none">
                                     </form>
                                 </div>
@@ -101,7 +108,7 @@
                                 </div>
                                 <div class="text-content">
                                     <div id="selectedThumnail" class="thumnail-up">
-                                        <img id="img" src="@if(session('thumnailPath')){{session('thumnailPath')}}@endif" style="width:100%">
+                                        <img id="img" src="@if(isset($thumnail)){{$thumnail}}@endif" style="width:100%">
                                     </div>
                                 </div>
                                 <form method="POST" action="/store_thumnail" enctype="multipart/form-data">

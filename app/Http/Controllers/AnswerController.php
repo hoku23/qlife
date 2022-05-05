@@ -9,6 +9,9 @@ use App\Question;
 use App\Question_tag;
 use Validator;
 use Illuminate\Http\Request;
+use Mail;
+use App\Mail\AnswerNotification;
+use App\Jobs\SendAnswerMail;
 
 class AnswerController extends Controller
 {
@@ -31,9 +34,6 @@ class AnswerController extends Controller
     {
         $question_id = $request->input('question_id');
         
-        // $values = [
-        //     'question_id' => $question_id
-        //     ];
         session()->put('answer_question_id', $question_id);    
         
         return redirect()->route('answer.create');
@@ -44,7 +44,7 @@ class AnswerController extends Controller
         if (session()->has('user')) {
             $user = session()->get('user');
         } else {
-            return redirect()->route('logins.index');
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
         }
         
         $question_id = session()->get('answer_question_id');
@@ -76,7 +76,7 @@ class AnswerController extends Controller
         if (session()->has('user')) {
             $user = session()->get('user');
         } else {
-            return redirect()->route('logins.index');
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
         }
         
         $question_id = session()->get('answer_question_id');
@@ -115,7 +115,11 @@ class AnswerController extends Controller
      */
     public function store(Request $request)
     {
-        $user = session()->get('user');
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
         
         $file_name = $request->input('file_name');
         $content = $request->input('content');
@@ -146,7 +150,7 @@ class AnswerController extends Controller
         if (session()->has('user')) {
             $user = session()->get('user');
         } else {
-            return redirect()->route('logins.index');
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
         }
         
         $content = session()->get('answer_content');
@@ -160,7 +164,11 @@ class AnswerController extends Controller
     
     public function release_answer()
     {
-        $user = session()->get('user');
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
         
         $input = [
             'answer_content' => session()->get('answer_content'),
@@ -188,8 +196,17 @@ class AnswerController extends Controller
             session()->forget('answer_content');
             session()->forget('answer_input_content');
             session()->forget('answer_question_id');
-
-
+            
+            
+            $question = Question::where('question_id', $answer->question_id)->first();
+            $question_user = User::where('user_id', $question->user_id)->first();
+            
+            $emails = [$question_user->email];
+            $answer_user_name = $user->user_name;
+            $question_title = $question->question_title;
+            
+            SendAnswerMail::dispatch($answer_user_name, $question_title, $emails);
+            
             return view('answers.complete', compact('user'));    
         }
         
@@ -198,7 +215,11 @@ class AnswerController extends Controller
     
     public function draft_answer()
     {
-        $user = session()->get('user');
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
         
         $input = [
             'answer_content' => session()->get('answer_content'),
@@ -247,9 +268,15 @@ class AnswerController extends Controller
     {
         if (session()->has('user')) {
             $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
         }
         
         $answer_id = old('answer_id');
+        
+        if (empty($answer_id)) {
+            return redirect()->route('question_list_show');
+        }
         
         $answer = Answer::where('answer_id', $answer_id)->first();
         $answer_user = User::where('user_id', $answer->user_id)->first();
@@ -323,11 +350,53 @@ class AnswerController extends Controller
         } else {
             Question::where('question_id', $answer->question_id)->update(['best_answer_id' => $answer_id]);    
         }
-        
 
-        
-        
         return redirect()->route('answer.users_answer')->withInput($values);
+    }
+    
+    
+    public function answer_delete(Request $request)
+    {
+        $answer_id = $request->input('answer_id');
+        Answer::where('answer_id', $answer_id)->delete();
+        Answer_comment::where('path', 'like', "$answer_id/%");
+        
+        return redirect()->route('answer.answer_deleted');
+    }
+    
+    public function answer_deleted()
+    {
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
+        
+        return view('answers.deleted', compact('user'));
+    }
+    
+    public function release_flag_chnge(Request $request)
+    {
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
+        
+        $answer_id = $request->input('answer_id');
+        $answer = Answer::where('answer_id', $answer_id)->first();
+        Answer::where('answer_id', $answer_id)->update(['release_flag' => 1]);
+        
+        $question = Question::where('question_id', $answer->question_id)->first();
+        $question_user = User::where('user_id', $question->user_id)->first();
+        
+        $emails = [$question_user->email];
+        $answer_user_name = $user->user_name;
+        $question_title = $question->question_title;
+        
+        SendAnswerMail::dispatch($answer_user_name, $question_title, $emails);
+        
+        return view('answers.complete', compact('user'));
     }
     /**
      * Display the specified resource.

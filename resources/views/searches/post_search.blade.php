@@ -7,12 +7,16 @@
         <meta name="viewport" content="width=device-width initial-scale=1.0">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/phone_style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/mini_pc_style.css') }}">
     </head>
     <body>
         <header>
-            <div class="logo">
-                <a href="home.html"><img src="{{asset('images/logo.png')}}" alt="ロゴ"></a>
-            </div>
+            <a href="home.html">
+                <div class="logo">
+                    <img src="{{ asset('images/logo.png') }}" alt="ロゴ">
+                </div>
+            </a>
             <div>
                 <div class="header-text">
                     <div class="icon-userName">
@@ -46,12 +50,21 @@
         </header>
         <main>
             <article>
-                <div class="main-header">
-                    <h1>”{{$keyword}}”の検索結果 {{$posts_num}}件</h1>
+                <div class="main-header timeline-main-header">
+                    <h1 id="pc_search_result">”{{$keyword}}”の検索結果 {{$posts_num}}件</h1>
+                    <h1 id="phone_search_result">検索結果 {{$posts_num}}件</h1>
+                    <div id="search_btn">
+                        <p>投稿を探す</p>
+                    </div>
                 </div>
                 <section>
                    <div id="timeline-container">
                         <div class="posts-area">
+                            @if ($posts_num == 0 ) 
+                            <div style="text-align:center">
+                                <h2>お探しの投稿は見つかりません</h2>
+                            </div>
+                            @endif
                             <div class="timelinePosts-list">
                                 @if (isset($posts))
                                 @foreach ($posts as $post)
@@ -229,6 +242,18 @@
                     submit.click();
                 })    
             }
+            
+            let search_btn = document.getElementById('search_btn');
+            search_btn.addEventListener('click', function(){
+                let search_area = document.getElementsByClassName('search-area');
+                if (search_area[0].classList.contains('search-area-show')) {
+                    search_area[0].classList.remove('search-area-show');
+                    search_btn.lastElementChild.textContent = '投稿を探す';
+                } else {
+                    search_area[0].classList.add('search-area-show');
+                    search_btn.lastElementChild.textContent = '一覧に戻る';
+                }
+            })
 
         </script>
 

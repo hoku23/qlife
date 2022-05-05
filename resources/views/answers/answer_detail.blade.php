@@ -6,12 +6,16 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width initial-scale=1.0">
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/phone_style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/mini_pc_style.css') }}">
     </head>
     <body>
         <header>
-            <div class="logo">
-                <a href="home.html"><img src="{{asset('images/logo.png')}}" alt="ロゴ"></a>
-            </div>
+            <a href="home.html">
+                <div class="logo">
+                    <img src="{{ asset('images/logo.png') }}" alt="ロゴ">
+                </div>
+            </a>
             <div>
                 <div class="header-text">
                     <div class="icon-userName">
@@ -54,6 +58,11 @@
                         <input type="hidden" name="question_id" value="{{$question->question_id}}">
                         <input type="submit" style="display:none">
                     </form>
+                    @if (session('message'))
+                    <div style="display:flex; align-items:center; color:red;">
+                        <p>{{session('message')}}</p>
+                    </div>
+                    @endif
                 </div>
                 <section>
                    <div id="answerDetail-container">
@@ -79,6 +88,7 @@
                                         </div>
                                     @endif
                                 </div>
+                                @if ($question->user_id == $user->user_id)
                                 <form method="POST" action="/bestAnswer_select">
                                     {{csrf_field()}}
                                     <input type="hidden" name="answer_id" value="{{$answer->answer_id}}">
@@ -88,9 +98,17 @@
                                     <input class="bestAnswer_btn" type="submit" value="ベストアンサーとして登録">
                                     @endif
                                 </form>
+                                @endif
                                 <div class="answer-date">
                                     <p>{{$answer->answer_date}}</p>
                                 </div>
+                                @if ($answer->user_id == $user->user_id)
+                                <form method="POST" action="/answer_delete" onsubmit="if(confirm('本当に削除してよろしいですか？')) { return true } else {return false };">
+                                    {{csrf_field()}}
+                                    <input type="hidden" name="answer_id" value="{{$answer->answer_id}}">
+                                    <button class="delete_btn" type="submit">回答を削除する</button>
+                                </form>
+                                @endif
                             </div>
                        </div>
                         <div class="reaction-area">

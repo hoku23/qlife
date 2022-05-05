@@ -17,7 +17,11 @@ class FollowController extends Controller
      */
     public function index(Request $request)
     {
-        $user = session()->get('user');
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
         $follows = Follow::where('user_id', $user->user_id)->get();
         
         $followUsers = [];
@@ -69,9 +73,17 @@ class FollowController extends Controller
     public function user_page(Request $request)
     {
         
-        $user = session()->get('user');
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
         $otherUser_id = $request->input('otherUser');
         $otherUsers = User::where('user_id', $otherUser_id)->get();
+        
+        if (empty($otherUser_id)) {
+            return redirect()->route('posts.index');
+        }
         
         if ($user->user_id == $otherUser_id) {
             return redirect()->route('posts.index');
@@ -112,6 +124,10 @@ class FollowController extends Controller
             $otherUser = $request->old('otherUser');
             $newPosts = $request->old('newPosts');
             
+            if (empty($otherUser)) {
+                return redirect()->route('posts.index');
+            }
+            
             if($request->old('follow')) {
                 $follows = $request->old('follow');
                 foreach ($follows as $follow);
@@ -122,7 +138,11 @@ class FollowController extends Controller
     
     public function user_follow(Request $request)
     {
-        $user = session()->get('user');
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
         $otherUser_id = $request->input('follow_user_id');
         $otherUsers = User::where('user_id', $otherUser_id)->get();
         
@@ -175,7 +195,11 @@ class FollowController extends Controller
     }
     
     public function follow_remove(Request $request) {
-        $user = session()->get('user');
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
         $remove_follow_user_id = $request->input('follow_user_id');
         
         Follow::where('user_id', $user->user_id)->where('follow_user_id', $remove_follow_user_id)->delete();

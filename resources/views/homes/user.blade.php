@@ -6,12 +6,16 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width initial-scale=1.0">
         <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/phone_style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/mini_pc_style.css') }}">
     </head>
     <body>
         <header>
-            <div class="logo">
-                <a href="home.html"><img src="{{ asset('images/logo.png') }}" alt="ロゴ"></a>
-            </div>
+            <a href="home.html">
+                <div class="logo">
+                    <img src="{{ asset('images/logo.png') }}" alt="ロゴ">
+                </div>
+            </a>
             <div>
                 <div class="header-text">
                     <div class="icon-userName">
@@ -61,11 +65,16 @@
                     </div>
                 </div>
                 <section class="wrapper">
-                    <div class="posts-list">
+                    <div class="user-posts-list">
                         @if (isset($newPosts))
                             @foreach ($newPosts as $post)
                             <div class="post myPost">
-                                <p class="title">{{$post->post_title}}</p>
+                                <p class="title save_post_title">{{$post->post_title}}</p>
+                                <form style="display:none" method="POST" action="/post_detail">
+                                    {{csrf_field()}}
+                                    <input type="hidden" name="post_id" value="{{$post->post_id}}">
+                                    <input type="submit" style="display:none">
+                                </form>
                                 <div class="thumnail">
                                     <img src="{{$post->thumnail}}" alt="" style="width:100%">
                                 </div>
@@ -93,6 +102,35 @@
                 </section>
             </article>
         </main>
+        
+        <script text/javascript>
+            let save_post_titles = document.getElementsByClassName('save_post_title');
+            for (let i = 0; i < save_post_titles.length; i++) {
+                if (save_post_titles[i]) {
+                    save_post_titles[i].addEventListener('click', function(e) {
+                        console.log(e.target.nextElementSibling.lastElementChild);
+                        let submit = e.target.nextElementSibling.lastElementChild;
+                        submit.click();
+                    })       
+                }
+            }
+            
+            let save_post_userName = document.getElementsByClassName('save_post_userName');
+            for (let i = 0; i < save_post_userName.length; i++) {
+                if (save_post_userName[i]) {
+                    save_post_userName[i].addEventListener('click', function(e){
+                        console.log(save_post_userName[i].firstElementChild);
+                        let otherUser_name = save_post_userName[i].firstElementChild.value;
+                        console.log(otherUser_name);
+                        let otherUser = document.getElementById('otherUser');
+                        otherUser.value = otherUser_name;
+                        console.log(otherUser.value);
+                        let otherUser_btn = document.getElementById('otherUser_btn');
+                        otherUser_btn.click();
+                    })    
+                }
+            }
+        </script>
 
         <script src="{{ asset('js/index.js') }}" charset="utf-8"></script>
     </body>

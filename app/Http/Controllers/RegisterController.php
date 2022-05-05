@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Validator;
+use App\Rules\Hankaku;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
@@ -30,7 +31,13 @@ class RegisterController extends Controller
     {
         $input = $request->all();
         
-        $validator = Validator::make($input, $this->validator);
+        // $validator = Validator::make($input, $this->validator);
+        $validator = Validator::make($input, ['user_id' => ['required', 'string', 'unique:users', new Hankaku, 'max:30'],
+                                              'password' => ['required', 'string', new Hankaku, 'max:20'],
+                                              'confirm_password' => ['required', 'same:password'],
+                                              'user_name' => ['required', 'string', 'max:50'],
+                                              'email' => ['required', 'string', 'unique:users', 'max:256', 'email']
+        ]);
         
         if ($validator->fails()){
             return redirect()->route('registers.index')

@@ -6,12 +6,16 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width initial-scale=1.0">
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/phone_style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/mini_pc_style.css') }}">
     </head>
     <body>
         <header>
-            <div class="logo">
-                <a href="home.html"><img src="{{asset('images/logo.png')}}" alt="ロゴ"></a>
-            </div>
+            <a href="home.html">
+                <div class="logo">
+                    <img src="{{ asset('images/logo.png') }}" alt="ロゴ">
+                </div>
+            </a>
             <div>
                 <div class="header-text">
                     <div class="icon-userName">
@@ -45,10 +49,17 @@
         </header>
         <main>
             <article>
-                <div class="main-header">
-                    <a href="{{route('posts.index')}}" class="hidden-posts"><h1>{{$user->user_name}}さんの投稿</h1></a>
-                    <span>/</span>
-                    <h1 class="shown-posts">保存済みの投稿</h1>
+                <div class="main-header post-main-header">
+                    <div>
+                        <a href="{{route('posts.index')}}" class="hidden-posts"><h1>{{$user->user_name}}さんの投稿</h1></a>
+                        <p>/</p>
+                        <h1 class="shown-posts">保存済みの投稿</h1>
+                    </div>
+                    <div>
+                        <a href="{{route('posts.draft_post')}}">
+                            <button class="draft-btn">下書き保存された投稿を表示</button>
+                        </a>
+                    </div>
                 </div>
                 <section class="wrapper">
                     <div class="othersPosts-list">

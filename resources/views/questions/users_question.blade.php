@@ -6,12 +6,16 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width initial-scale=1.0">
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/phone_style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/mini_pc_style.css') }}">
     </head>
     <body>
         <header>
-            <div class="logo">
-                <a href="home.html"><img src="{{asset('images/logo.png')}}" alt="ロゴ"></a>
-            </div>
+            <a href="home.html">
+                <div class="logo">
+                    <img src="{{ asset('images/logo.png') }}" alt="ロゴ">
+                </div>
+            </a>
             <div>
                 <div class="header-text">
                     <div class="icon-userName">
@@ -89,6 +93,13 @@
                                         @endif
                                     </div>
                                 </div>
+                                @if ($question->user_id == $user->user_id)
+                                <form method="POST" action="/question_delete" onsubmit="if(confirm('本当に削除してよろしいですか？')) { return true } else {return false };">
+                                    {{csrf_field()}}
+                                    <input type="hidden" name="question_id" value="{{$question->question_id}}">
+                                    <button class="delete_btn" type="submit">質問を削除する</button>
+                                </form>
+                                @endif
                             </div>
                        </div>
                        <div class="answers-area">
@@ -134,11 +145,49 @@
                                                     </form>
                                                 @endif
                                             </div>
-                                            
                                             <div class="answer_date_and_comment">
                                                 <p>コメント<span>{{$answer->comment}}件</span></p>
                                                 <p class="answer_date">{{$answer->answer_date}}</p>
                                             </div>
+                                        </div>
+                                        @endforeach
+                                        @endif
+                                        @if ($draft_answers_num > 0)
+                                        <div class="draft-answer-header">
+                                            <p>下書き保存された回答 {{$draft_answers_num}}件</p>
+                                        </div>
+                                        @foreach ($draft_answers as $answer)
+                                        <div class="answer">
+                                            <div class="icon-userName">
+                                                <div class="icon">
+                                                    <img src="{{$answer->user_icon}}" alt="">
+                                                </div>
+                                                <p class="user-name">{{$answer->user_name}}</p>
+                                                @if ($question->best_answer_id == $answer->answer_id)
+                                                <div class="bestAnswer-flag bestAnswer-on">
+                                                    <img src="images/bestAnswer.png" alt="">
+                                                </div>
+                                                @endif
+                                            </div>
+                                            <div class="answer-content">
+                                                @if (isset($answer->answer_content))
+                                                    <div class="answer_content">
+                                                        <?php
+                                                        echo $answer->answer_content;
+                                                        ?>
+                                                    </div>
+                                                    <form style="display:none" method="POST" action="/answer_detail">
+                                                        {{csrf_field()}}
+                                                        <input type="hidden" name="answer_id" value="{{$answer->answer_id}}">
+                                                        <input type="submit" style="display:none">
+                                                    </form>
+                                                @endif
+                                            </div>
+                                            <form method="POST" action="/answer_release_flag_chnge">
+                                                {{csrf_field()}}
+                                                <input type="hidden" name="answer_id" value="{{$answer->answer_id}}">
+                                                <button class="release-btn">回答を公開する</button>
+                                            </form>
                                         </div>
                                         @endforeach
                                         @endif

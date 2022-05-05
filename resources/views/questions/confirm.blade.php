@@ -6,12 +6,16 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width initial-scale=1.0">
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/phone_style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/mini_pc_style.css') }}">
     </head>
     <body>
         <header>
-            <div class="logo">
-                <a href="home.html"><img src="{{asset('images/logo.png')}}" alt="ロゴ"></a>
-            </div>
+            <a href="home.html">
+                <div class="logo">
+                    <img src="{{ asset('images/logo.png') }}" alt="ロゴ">
+                </div>
+            </a>
             <div>
                 <div class="header-text">
                     <div class="icon-userName">
@@ -59,10 +63,10 @@
                             </ul>
                         </div>
                         <div id="createPost-container">
-                            <div id="create-box-left" class="create-box">
+                            <div id="createQuestion-box-left" class="create-box">
                                 <div class="createQuestion-box-left">
-                                    <div class="createBox-header">
-                                        <div class="text-heading">
+                                    <div class="createQuestionBox-header">
+                                        <div class="textQuestion-heading">
                                             <div class="store-btn">
                                                 <a href="{{route('question.release')}}"><button id="release-btn">公開する</button></a>
                                                 <a href="{{route('question.draft')}}"><button id="draft-btn">下書き保存</button></a>
@@ -126,11 +130,12 @@
                                 <div class="questionCreate-right">
                                     <div class="createBox-header">
                                         <div class="text-heading">
+                                            <p class="phone_question_confirm">指定されたユーザー</p>
                                         </div>
                                     </div>
                                     <div class="questionSample-tags-users">
                                         <div class="questionSample-users-box">
-                                            <p>指定されたユーザー</p>
+                                            <p class="pc_question_confirm">指定されたユーザー</p>
                                             <div class="questionSample-users">
                                                 @if (isset($selected_users))
                                                 @foreach ($selected_users as $selected_user)

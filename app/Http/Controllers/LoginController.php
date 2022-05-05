@@ -48,10 +48,10 @@ class LoginController extends Controller
                     session()->put('user', $user);
                     return redirect()->route('posts.index');
                 } else {
-                    return redirect()->route('logins.index')->with('message', 'ユーザーIDまたはパスワードが違います');
+                    return redirect()->route('logins.index')->with('message', 'パスワードが違います');
                 }
             } else {
-                return redirect()->route('logins.index')->with('message', 'ユーザーIDまたはパスワードが違います');
+                return redirect()->route('logins.index')->with('message', 'このユーザーIDは使用されていません');
             }
         }
     }

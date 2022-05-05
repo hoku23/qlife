@@ -9,6 +9,7 @@ use App\Post_tag_notice;
 use App\Post_tag;
 use App\Save;
 use App\Good;
+use App\Comment;
 use Validator;
 use App\Notifications\SendInvitation;
 use Mail;
@@ -27,7 +28,7 @@ class PostController extends Controller
     {
         if (session()->has('user')) {
             $user = session()->get('user');
-            $posts = Post::where('user_id', $user->user_id)->where('post_release_flag', 1)->get();
+            $posts = Post::where('user_id', $user->user_id)->where('post_release_flag', 1)->orderBy('post_date', 'desc')->orderBy('post_time', 'desc')->get();
             
             $newPosts =[];
             foreach ($posts as $post) {
@@ -61,6 +62,8 @@ class PostController extends Controller
     {
         if (session()->has('user')) {
             $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
         }
         
         $saves = Save::where('user_id', $user->user_id)->get();
@@ -105,31 +108,68 @@ class PostController extends Controller
      */
     public function create()
     {
-        $user = session()->get('user');
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
         $user_name = $user->user_name;
         $param_json = json_encode($user_name);
         
-        $file_name = old('file_name');
-        $content = old('content');
-        $content_htmlTag = old('content_htmlTag');
+        $session_content = session()->get('post_content');
+        $session_input_content = session()->get('post_input_content');
         
+        if(isset($session_content)) {
+            $content = $session_content;
+        } else {
+            $content = old('content');
+        }
+        if(isset($session_input_content)) {
+            $content_htmlTag = $session_input_content;
+        } else {
+            $content_htmlTag = old('content_htmlTag');
+        }
+        
+        $file_name = old('file_name');
+
         return view('posts.content_create', compact('user', 'param_json', 'file_name', 'content', 'content_htmlTag'));
     }
 
     public function create_title()
     {
-        $user = session()->get('user');
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
         $user_name = $user->user_name;
         $userName = json_encode($user_name);
         
-        return view('posts.title_thumnail_create', compact('user', 'userName'));
+        $session_title = session()->get('post_title');
+        if(isset($session_title)) {
+            $title = $session_title;
+        }
+        
+        $session_thumnail = session()->get('thumnail');
+        if(isset($session_thumnail)) {
+            $thumnail = $session_thumnail;
+        }
+        
+        return view('posts.title_thumnail_create', compact('user', 'userName', 'title', 'thumnail'));
     }
     
     public function create_tags()
     {
-        $user = session()->get('user');
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
         
-        return view('posts.tags_create', compact('user'));
+        $tags = session()->get('tags');
+        $param_json = json_encode($tags);
+        
+        return view('posts.tags_create', compact('user', 'param_json'));
     }
     /**
      * Store a newly created resource in storage.
@@ -139,7 +179,11 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $user = session()->get('user');
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
         
         $file_name = $request->input('file_name');
         $content = $request->input('content');
@@ -160,6 +204,7 @@ class PostController extends Controller
             return redirect()->route('posts.create')->withInput($values);   
         } else {
             session()->put('post_content', $content_htmlTag);
+            session()->put('post_input_content', $content);
             return redirect()->route('posts.create_title');
         }
     }
@@ -223,7 +268,11 @@ class PostController extends Controller
     
     public function show_confirm()
     {
-        $user = session()->get('user');
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
         $title = session()->get('post_title');
         $thumnail = session()->get('thumnail');
         $tags = session()->get('tags');
@@ -246,7 +295,11 @@ class PostController extends Controller
     
     public function release_post()
     {
-        $user = session()->get('user');
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
         
         $input = [
             'post_title' => session()->get('post_title'),
@@ -322,7 +375,11 @@ class PostController extends Controller
     }
     public function draft_post()
     {
-        $user = session()->get('user');
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
         
         $input = [
             'post_title' => session()->get('post_title'),
@@ -341,7 +398,7 @@ class PostController extends Controller
             $post->thumnail = session()->get('thumnail');
             $post->post_date = date('Y.m.d');
             $post->post_time = date('H:i:s');
-            $post->user_id = session()->get('user')->id;
+            $post->user_id = session()->get('user')->user_id;
             $post->post_release_flag = 0;
             $post->save();
             
@@ -369,13 +426,108 @@ class PostController extends Controller
             
             return view('posts.draft', compact('user'));    
         }
-        
-        
     }
-     
-    public function show()
+    
+    public function post_delete(Request $request)
     {
-        //
+        $post_id = $request->input('post_id');
+        Post::where('post_id', $post_id)->delete();
+        Post_tag::where('post_id', $post_id)->delete();
+        Comment::where('path', 'like', "$post_id/%")->delete();
+        Save::where('post_id', $post_id)->delete();
+        Good::where('post_id', $post_id)->delete();
+        
+        return redirect()->route('posts.post_deleted');
+    }
+    
+    public function post_deleted()
+    {
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
+        
+        return view('posts.deleted', compact('user'));
+    }
+    
+    public function show_draft_post()
+    {
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
+        
+        $posts = Post::where('user_id', $user->user_id)->where('post_release_flag', 0)->orderBy('post_date', 'desc')->orderBy('post_time', 'desc')->get();
+            
+        $newPosts =[];
+        foreach ($posts as $post) {
+            $tagsRecords = Post_tag::where('post_id', $post->post_id)->get();
+            $tags =[];
+            foreach ($tagsRecords as $tagsRecord) {
+                $tag = $tagsRecord->tag_name;
+                array_push($tags, $tag);
+            }
+            $post['tags'] = $tags;
+            
+            $good_nums = Good::where('post_id', $post->post_id)->get();
+            $good_array = [];
+            foreach ($good_nums as $good_num) {
+                array_push($good_array, $good_num);
+            }
+            
+            $post['good'] = count($good_array);
+            
+            array_push($newPosts, $post);
+        }
+        
+        return view('posts.draft_post', compact('user', 'newPosts'));
+    }
+    
+    public function release_flag_chnge(Request $request)
+    {
+        $post_id = $request->input('post_id');
+        Post::where('post_id', $post_id)->update(['post_release_flag' => 1]);
+        $post = Post::where('post_id', $post_id)->first();
+        
+        $post_tags = Post_tag::where('post_id', $post_id)->get();
+        $tags = [];
+        foreach ($post_tags as $post_tag) {
+            array_push($tags, $post_tag->tag_name);
+        }
+        
+        $users = [];
+	    $not_user = [];
+	    $notice_users = User_notice::where('notice_user_id', $post->user_id)->whereNotIn('user_id', $not_user)->get();
+	    foreach ($notice_users as $notice_user) {
+            $mail_user = User::where('user_id', $notice_user->user_id)->first();
+            array_push($users, $mail_user);
+            array_push($not_user, $mail_user->user_id);
+	    }
+	   
+	    foreach ($tags as $tag) {
+	        $notice_tags = Post_tag_notice::where('tag_name', $tag)->whereNotIn('user_id', $not_user)->get();
+	        foreach ($notice_tags as $notice_tag) {
+	            $notice_tags_user = User::where('user_id', $notice_tag->user_id)->first();
+	            array_push($users, $notice_tags_user);
+	            array_push($not_user, $notice_tags_user->user_id);   
+	        }
+	    }
+	    
+	    $post_tags = implode('/', $tags);
+	    $post_user_id = $post->user_id;
+	    $post_title = $post->post_title;
+	    
+	    SendPostedMail::dispatch($post_user_id, $post_title, $post_tags, $users);
+        
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index');
+        }
+        
+        return view('posts.complete', compact('user'));
     }
 
     /**

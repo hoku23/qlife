@@ -6,12 +6,16 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width initial-scale=1.0">
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/phone_style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/mini_pc_style.css') }}">
     </head>
     <body>
         <header>
-            <div class="logo">
-                <a href="home.html"><img src="{{asset('images/logo.png')}}" alt="ロゴ"></a>
-            </div>
+            <a href="home.html">
+                <div class="logo">
+                    <img src="{{ asset('images/logo.png') }}" alt="ロゴ">
+                </div>
+            </a>
             <div>
                 <div class="header-text">
                     <div class="icon-userName">
@@ -52,14 +56,40 @@
                         <p>{{session('message')}}</p>
                     </div>
                     @endif
+                    @if ($errors->has('new_user_name'))
+                        <div style="display:flex; align-items:center; color:red;">
+                            <p class="error">{{ $errors->first('new_user_name') }}</p>
+                        </div>
+                    @endif
+                    @if ($errors->has('email'))
+                        <div style="display:flex; align-items:center; color:red;">
+                            <p class="error">{{ $errors->first('email') }}</p>
+                        </div>
+                    @endif
+                    @if ($errors->has('new_password'))
+                        <div style="display:flex; align-items:center; color:red;">
+                            <p class="error">{{ $errors->first('new_password') }}</p>
+                        </div>
+                    @endif
+                    @if ($errors->has('new_password') == false && $errors->has('new_password_confirm'))
+                        <div style="display:flex; align-items:center; color:red;">
+                            <p class="error">{{ $errors->first('new_password_confirm') }}</p>
+                        </div>
+                    @endif
                 </div>
                 <section class="wrapper">
                     <div id="setting">
-                        <ul class="tabs">
+                        <ul class="tabs pc_tabs">
                             <li class="tab active-tab"><a href="{{route('settingUser.index')}}">会員情報設定</a></li>
                             <li class="tab"><a href="{{route('settingFavoriteTag.index')}}">お気に入りタグ設定</a></li>
                             <li class="tab"><a href="{{route('settingQuestionReceive.index')}}">質問受け取り設定</a></li>
                             <li class="tab"><a href="{{route('settingNotice.index')}}">通知設定</a></li>
+                        </ul>
+                        <ul class="tabs phone_tabs">
+                            <li class="tab active-tab"><a href="{{route('settingUser.index')}}">会員情報</a></li>
+                            <li class="tab"><a href="{{route('settingFavoriteTag.index')}}">お気に入りタグ</a></li>
+                            <li class="tab"><a href="{{route('settingQuestionReceive.index')}}">質問受け取り</a></li>
+                            <li class="tab"><a href="{{route('settingNotice.index')}}">通知</a></li>
                         </ul>
                         <div class="setting-contents">
                             <div class="setting-content show-content">
@@ -122,9 +152,9 @@
                                                     <label>現在のパスワード</label>
                                                     <input type="password" name="user_password">
                                                     <label>新しいパスワード</label>
-                                                    <input type="password" name="newUser_password">
+                                                    <input type="password" name="new_password">
                                                     <label>新しいパスワード（確認用）</label>
-                                                    <input type="password" name="newUser_password_confirm">
+                                                    <input type="password" name="new_password_confirm">
                                                     <input type="submit" style="display:none">
                                                 </div>
                                             </form>
@@ -137,7 +167,7 @@
                                                 {{csrf_field()}}
                                                 <div>
                                                     <label>新しいユーザーネーム</label>
-                                                    <input type="text" name="newUser_name">
+                                                    <input type="text" name="new_user_name">
                                                     <input type="submit" style="display:none">
                                                 </div>
                                             </form>
@@ -150,7 +180,7 @@
                                                 {{csrf_field()}}
                                                 <div>
                                                     <label>新しいメールアドレス</label>
-                                                    <input type="text" name="newUser_email">
+                                                    <input type="text" name="email">
                                                     <input type="submit" style="display:none">
                                                 </div>
                                             </form>

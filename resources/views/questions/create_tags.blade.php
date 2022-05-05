@@ -7,12 +7,16 @@
         <meta name="viewport" content="width=device-width initial-scale=1.0">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/phone_style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/mini_pc_style.css') }}">
     </head>
     <body>
         <header>
-            <div class="logo">
-                <a href="home.html"><img src="{{asset('images/logo.png')}}" alt="ロゴ"></a>
-            </div>
+            <a href="home.html">
+                <div class="logo">
+                    <img src="{{ asset('images/logo.png') }}" alt="ロゴ">
+                </div>
+            </a>
             <div>
                 <div class="header-text">
                     <div class="icon-userName">
@@ -49,7 +53,10 @@
                 <div class="main-header">
                     <h1>新規質問作成</h1>
                     @if (session('message'))
-                    <div style="display:flex; align-items:center; color:red;">
+                    <div id="pc_error_message" style="align-items:center; color:red;">
+                        <p>{{session('message')}}</p>
+                    </div>
+                    <div id="phone_error_message" style="align-items:center; color:red;">
                         <p>{{session('message')}}</p>
                     </div>
                     @endif
@@ -65,7 +72,7 @@
                             </ul>
                         </div>
                         <div id="createPost-container">
-                            <div id="create-box-left" class="create-box">
+                            <div id="createQuestionTags-box-left" class="create-box">
                                 <div>
                                     <div class="createBox-header">
                                         <div class="text-heading">

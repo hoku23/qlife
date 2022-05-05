@@ -14,7 +14,11 @@ class SettingFavoriteTagControlloer extends Controller
      */
     public function index()
     {
-        $user = session()->get('user');
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
         
         $newFavTags = [];
         

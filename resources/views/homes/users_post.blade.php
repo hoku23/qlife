@@ -6,12 +6,16 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width initial-scale=1.0">
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/phone_style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/mini_pc_style.css') }}">
     </head>
     <body>
         <header>
-            <div class="logo">
-                <a href="home.html"><img src="{{asset('images/logo.png')}}" alt="ロゴ"></a>
-            </div>
+            <a href="home.html">
+                <div class="logo">
+                    <img src="{{ asset('images/logo.png') }}" alt="ロゴ">
+                </div>
+            </a>
             <div>
                 <div class="header-text">
                     <div class="icon-userName">
@@ -49,12 +53,18 @@
                     <h2>
                         {{$post->post_title}}
                     </h2>
+                    @if (session('message'))
+                    <div style="display:flex; align-items:center; color:red;">
+                        <p>{{session('message')}}</p>
+                    </div>
+                    @endif
                 </div>
                 <section>
                    <div id="postDetail-container">
                        <div class="posts-area">
                             <div class="postDetails">
-                                <div class="postDetails-icon-userName">
+                                <div class="postDetails-icon-userName post_userName">
+                                    <input type="hidden" value="{{$post->user_id}}">
                                     <div class="icon">
                                         <img src="{{$post->user_icon}}" alt="">
                                     </div>
@@ -83,6 +93,13 @@
                                         <p>{{$good_num}}グッド</p>
                                     </div>
                                 </div>
+                                @if ($post->user_id == $user->user_id)
+                                <form method="POST" action="/post_delete" onsubmit="if(confirm('本当に削除してよろしいですか？')) { return true } else {return false };">
+                                    {{csrf_field()}}
+                                    <input type="hidden" name="post_id" value="{{$post->post_id}}">
+                                    <button class="post_delete_btn" type="submit">投稿を削除する</button>
+                                </form>
+                                @endif
                             </div>
                        </div>
                        <div class="reaction-area">
@@ -129,6 +146,11 @@
                                     <textarea class="comment-form" name="comment" id="" placeholder="コメントを入力"></textarea>
                                     <input type="hidden" name="post_id" value="{{$post->post_id}}">
                                     <input class="comment-btn" type="submit" value="送信">
+                                </form>
+                                <form style="display:none" method="POST" action="/user_page">
+                                    {{csrf_field()}}
+                                    <input id="otherUser" type="hidden" name="otherUser">
+                                    <input id="otherUser_btn" type="submit" style="display:none;">
                                 </form>
                             </div>
                             <div class="comment-lists">
@@ -220,6 +242,21 @@
                 save_submit.click();
             })
             
+            let post_userName = document.getElementsByClassName('post_userName');
+            for (let i = 0; i < post_userName.length; i++) {
+                if (post_userName[i]) {
+                    post_userName[i].addEventListener('click', function(e){
+                        console.log(post_userName[i].firstElementChild);
+                        let otherUser_name = post_userName[i].firstElementChild.value;
+                        console.log(otherUser_name);
+                        let otherUser = document.getElementById('otherUser');
+                        otherUser.value = otherUser_name;
+                        console.log(otherUser.value);
+                        let otherUser_btn = document.getElementById('otherUser_btn');
+                        otherUser_btn.click();
+                    })    
+                }
+            }
         </script>
 
         <script src="{{asset('js/index.js')}}" charset="utf-8"></script>

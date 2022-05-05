@@ -21,6 +21,8 @@ class SaveController extends Controller
     {
         if (session()->has('user')) {
             $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
         }
         
         $detail_post_id = $request->input('post_id');

@@ -17,6 +17,8 @@ class TimelineController extends Controller
     {
         if (session()->has('user')) {
             $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
         }
         
         $posts = [];
@@ -52,7 +54,7 @@ class TimelineController extends Controller
                 }
                 
                 $post_id = $followPost->post_id;
-                $comment_count = Comment::where('path', 'like', "$post_id%")->get()->count();
+                $comment_count = Comment::where('path', 'like', "$post_id/%")->get()->count();
                 $followPost['comment'] = $comment_count;
                 
                 array_push($posts, $followPost);
@@ -105,9 +107,14 @@ class TimelineController extends Controller
     {
         if (session()->has('user')) {
             $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
         }
         
         $post_id = old('post_id');
+        if (empty($post_id)) {
+            return redirect()->route('timeline.index');
+        }
         
         $post = Post::where('post_id', $post_id)->first();
         $post_user = User::where('user_id', $post->user_id)->first();

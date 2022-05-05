@@ -523,7 +523,7 @@ for (let i = 0; i < follow_cancels.length; i++) {
         follow_cancels[i].addEventListener('click', function(e) {
             console.log(e.target.previousElementSibling.lastElementChild.lastElementChild);
             console.log(e.target.previousElementSibling.lastElementChild.lastElementChild.previousElementSibling)
-            let submit = e.target.previousElementSibling.lastElementChild.lastElementChild;
+            let submit = e.target.previousElementSibling.lastElementChild.lastElementChild.lastElementChild;
             submit.click();
         })
     }

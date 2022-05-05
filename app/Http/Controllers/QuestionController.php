@@ -29,6 +29,8 @@ class QuestionController extends Controller
     {
         if (session()->has('user')) {
             $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
         }
         
         $questions = Question::where('user_id', $user->user_id)->where('release_flag', 1)->orderBy('question_date', 'desc')->orderBy('question_time', 'desc')->get();
@@ -43,7 +45,7 @@ class QuestionController extends Controller
             }
             $question['tags'] = $tags;
             
-            $answers_num = Answer::where('question_id', $question->question_id)->get()->count();
+            $answers_num = Answer::where('question_id', $question->question_id)->where('release_flag', 1)->get()->count();
             
             $question['answers'] = $answers_num;
             array_push($newQuestions, $question);
@@ -56,6 +58,8 @@ class QuestionController extends Controller
     {
         if (session()->has('user')) {
             $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
         }
         
         $questions = Question::where('release_flag', 1)->orderBy('question_date', 'desc')->orderBy('question_time', 'desc')->get();
@@ -74,7 +78,7 @@ class QuestionController extends Controller
             $question['user_icon'] = $question_user->user_icon;
             $question['user_name'] = $question_user->user_name;
             
-            $answers_num = Answer::where('question_id', $question->question_id)->get()->count();
+            $answers_num = Answer::where('question_id', $question->question_id)->where('release_flag', 1)->get()->count();
             
             $question['answers'] = $answers_num;
 
@@ -93,6 +97,8 @@ class QuestionController extends Controller
     {
         if (session()->has('user')) {
             $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
         }
         
         $user_name = $user->user_name;
@@ -139,7 +145,11 @@ class QuestionController extends Controller
     
     public function store(Request $request)
     {
-        $user = session()->get('user');
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
         
         $file_name = $request->input('file_name');
         $title = $request->input('title');
@@ -167,6 +177,8 @@ class QuestionController extends Controller
         } 
         
         if ($request->input('action') == 'preview') {
+            session()->put('question_content', $content_htmlTag);
+            session()->put('question_input_content', $content);
             return redirect()->route('question.create')->withInput($values);   
         } else {
             session()->put('question_title', $title);
@@ -185,6 +197,8 @@ class QuestionController extends Controller
     {
         if (session()->has('user')) {
             $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
         }
         
         $tags = session()->get('question_tags');
@@ -267,7 +281,7 @@ class QuestionController extends Controller
         if (session()->has('user')) {
             $user = session()->get('user');
         } else {
-            return redirect()->route('logins.index');
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
         }
         
         $tags = session()->get('question_tags');
@@ -276,11 +290,13 @@ class QuestionController extends Controller
         $try = session()->get('question_try');
         $selected_users_ids = session()->get('question_selected_users');
         $selected_users = [];
-        foreach ($selected_users_ids as $selected_user_id) {
+        if (isset($selected_users_ids)) {
+            foreach ($selected_users_ids as $selected_user_id) {
             if ($selected_user_id !== 'NoBody') {
                 $selected_user = User::where('user_id', $selected_user_id)->first();
                 array_push($selected_users, $selected_user);    
             }
+        }   
         }
         
         return view('questions.confirm', compact('user', 'tags', 'title', 'content', 'try', 'selected_users'));
@@ -294,7 +310,11 @@ class QuestionController extends Controller
         
     public function release_question()
     {
-        $user = session()->get('user');
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
         
         $input = [
             'question_title' => session()->get('question_title'),
@@ -395,7 +415,11 @@ class QuestionController extends Controller
     
     public function draft_question()
     {
-        $user = session()->get('user');
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
         
         $input = [
             'question_title' => session()->get('question_title'),
@@ -476,9 +500,14 @@ class QuestionController extends Controller
     {
         if (session()->has('user')) {
             $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
         }
         
         $question_id = old('question_id');
+        if (empty($question_id)) {
+            return redirect()->route('question_list_show');
+        }
         
         $question = Question::where('question_id', $question_id)->first();
         $question_user = User::where('user_id', $question->user_id)->first();
@@ -500,7 +529,7 @@ class QuestionController extends Controller
             $best_answer_user = User::where('user_id', $best_answer->user_id)->first();
             $best_answer['user_icon'] = $best_answer_user->user_icon;
             $best_answer['user_name'] = $best_answer_user->user_name;
-            $comment_count = Answer_comment::where('path', 'like', "$best_answer_id%")->get()->count();
+            $comment_count = Answer_comment::where('path', 'like', "$best_answer_id/%")->get()->count();
             $best_answer['comment'] = $comment_count;
             
             array_push($answers, $best_answer);
@@ -508,24 +537,149 @@ class QuestionController extends Controller
             $best_answer_id = 0;
         }
         
-        $question_answers = Answer::where('question_id', $question->question_id)->whereNotIn('answer_id', [$best_answer_id])->get();
+        $question_answers = Answer::where('question_id', $question->question_id)->where('release_flag', 1)->whereNotIn('answer_id', [$best_answer_id])->get();
         foreach ($question_answers as $answer) {
             $answer_user = User::where('user_id', $answer->user_id)->first();
             $answer['user_icon'] = $answer_user->user_icon;
             $answer['user_name'] = $answer_user->user_name;
             
             $answer_id = $answer->answer_id;
-            $comment_count = Answer_comment::where('path', 'like', "$answer_id%")->get()->count();
+            $comment_count = Answer_comment::where('path', 'like', "$answer_id/%")->get()->count();
             $answer['comment'] = $comment_count;
             
             array_push($answers, $answer);
         }
         
         $answers_num = count($answers);
+        
+        
+        $draft_question_answers = Answer::where('question_id', $question->question_id)->where('user_id', $user->user_id)->where('release_flag', 0)->whereNotIn('answer_id', [$best_answer_id])->get();
+        $draft_answers = [];
+        foreach ($draft_question_answers as $draft_answer) {
+            $draft_answer_user = User::where('user_id', $draft_answer->user_id)->first();
+            $draft_answer['user_icon'] = $draft_answer_user->user_icon;
+            $draft_answer['user_name'] = $draft_answer_user->user_name;
+            
+            $draft_answer_id = $draft_answer->answer_id;
 
-        return view('questions.users_question', compact('user', 'question', 'answers', 'answers_num'));
+            array_push($draft_answers, $draft_answer);
+        }
+        
+        $draft_answers_num = count($draft_answers);
+
+        return view('questions.users_question', compact('user', 'question', 'answers', 'answers_num', 'draft_answers', 'draft_answers_num'));
     }
     
+    public function question_delete(Request $request)
+    {
+        $question_id = $request->input('question_id');
+        Question::where('question_id', $question_id)->delete();
+        Question_tag::where('question_id', $question_id)->delete();
+        $answers = Answer::where('question_id', $question_id)->get();
+        foreach ($answers as $answer) {
+            $answer_id = $answer->answer_id;
+            Answer_comment::where('path', 'like', "$answer_id/%")->delete();   
+        }
+        Answer::where('question_id', $question_id)->delete();
+
+        return redirect()->route('question.question_deleted');
+    }
+    
+    public function question_deleted()
+    {
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
+        
+        return view('questions.deleted', compact('user'));
+    }
+    
+    public function show_draft_question()
+    {
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
+        
+        $questions = Question::where('user_id', $user->user_id)->where('release_flag', 0)->orderBy('question_date', 'desc')->orderBy('question_time', 'desc')->get();
+            
+        $newQuestions =[];
+        foreach ($questions as $question) {
+            $tagsRecords = Question_tag::where('question_id', $question->question_id)->get();
+            $tags =[];
+            foreach ($tagsRecords as $tagsRecord) {
+                $tag = $tagsRecord->tag_name;
+                array_push($tags, $tag);
+            }
+            $question['tags'] = $tags;
+            
+            $answers_num = Answer::where('question_id', $question->question_id)->get()->count();
+            
+            $question['answers'] = $answers_num;
+            array_push($newQuestions, $question);
+        }
+        
+        return view('questions.draft_question', compact('user', 'newQuestions'));
+    }
+    
+    public function release_flag_chnge(Request $request)
+    {
+        $question_id = $request->input('question_id');
+        $question = Question::where('question_id', $question_id)->first();
+        Question::where('question_id', $question_id)->update(['release_flag' => 1]);
+        
+        $question_tags = Question_tag::where('question_id', $question_id)->get();
+        $tags = [];
+        foreach ($question_tags as $question_tag) {
+            array_push($tags, $question_tag->tag_name);
+        }
+        
+        $question_requests = Question_request::where('question_id', $question_id)->get();
+        $selected_users_ids = [];
+        foreach ($question_requests as $question_request) {
+            array_push($selected_users_ids, $question_request->selected_user);
+        }
+        
+        $question_user = User::where('user_id', $question->user_id)->first();
+            
+        $request_users = [];
+	    $users = [];
+	    $not_user = [];
+	    
+	    $question_tags = implode('/', $tags);
+	    
+	    foreach ($selected_users_ids as $selected_users_id) {
+	        $request_user = User::where('user_id', $selected_users_id)->first();
+	        array_push($request_users, $request_user);
+	        array_push($not_user, $request_user->user_id);
+	    }
+	    
+	    foreach ($tags as $tag) {
+	        $notice_tags = Question_tag_notice::where('tag_name', $tag)->whereNotIn('user_id', $not_user)->get();
+	        foreach ($notice_tags as $notice_tag) {
+	            $notice_tags_user = User::where('user_id', $notice_tag->user_id)->first();
+	            array_push($users, $notice_tags_user);
+	            array_push($not_user, $notice_tags_user->user_id);   
+	        }
+	    }
+	    
+	    $question_user_id = $question->user_id;
+	    $question_title = $question->question_title;
+	    
+	    SendRequestMail::dispatch($question_user_id, $question_title, $question_tags, $request_users);
+	    SendQuestionedMail::dispatch($question_user_id, $question_title, $question_tags, $users);
+        
+        if (session()->has('user')) {
+            $user = session()->get('user');
+        } else {
+            return redirect()->route('logins.index')->with('message', 'ログインしてください');
+        }
+        
+        return view('questions.complete', compact('user'));
+    }
     
     /**
      * Store a newly created resource in storage.

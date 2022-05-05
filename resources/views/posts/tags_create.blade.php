@@ -7,19 +7,23 @@
         <meta name="viewport" content="width=device-width initial-scale=1.0">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/phone_style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/mini_pc_style.css') }}">
     </head>
     <body>
         <header>
-            <div class="logo">
-                <a href="home.html"><img src="{{asset('images/logo.png')}}" alt="ロゴ"></a>
-            </div>
+            <a href="home.html">
+                <div class="logo">
+                    <img src="{{ asset('images/logo.png') }}" alt="ロゴ">
+                </div>
+            </a>
             <div>
                 <div class="header-text">
                     <div class="icon-userName">
                         <div class="icon">
                             <img src="{{$user->user_icon}}" alt="">
                         </div>
-                            <p class="user-name">ユーザーネーム</p>
+                            <p class="user-name">{{$user->user_name}}</p>
                     </div>
                     <a href="login.html">ログアウト</a>
                 </div>
@@ -133,6 +137,25 @@
         </main>
         
         <script text/javascript>
+            var param = JSON.parse('<?php echo $param_json; ?>');
+            console.log(param);
+        
+            let elements = document.getElementsByClassName('post-tag');
+            
+            if (param) {
+                for (let i = 0; i < param.length; i++) {
+                    let target = param[i];
+                    for (let k = 0; k < elements.length; k++) {
+                        if (elements[k].innerHTML === target) {
+                            console.log('match');
+                            console.log(elements[k]);
+                            elements[k].classList.add('tag-on');
+                        }
+                    }
+                }    
+            }
+        
+        
             let submit = document.getElementById('submit');
             submit.addEventListener('click', submitData, false);
             

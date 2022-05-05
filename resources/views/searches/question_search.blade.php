@@ -7,12 +7,16 @@
         <meta name="viewport" content="width=device-width initial-scale=1.0">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/phone_style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/mini_pc_style.css') }}">
     </head>
     <body>
         <header>
-            <div class="logo">
-                <a href="home.html"><img src="{{asset('images/logo.png')}}" alt="ロゴ"></a>
-            </div>
+            <a href="home.html">
+                <div class="logo">
+                    <img src="{{ asset('images/logo.png') }}" alt="ロゴ">
+                </div>
+            </a>
             <div>
                 <div class="header-text">
                     <div class="icon-userName">
@@ -46,12 +50,21 @@
         </header>
         <main>
             <article>
-                <div class="main-header">
-                    <h1>”{{$keyword}}”の検索結果 {{$questions_num}}件</h1>
+                <div class="main-header timeline-main-header">
+                    <h1 id="pc_search_result">”{{$keyword}}”の検索結果 {{$questions_num}}件</h1>
+                    <h1 id="phone_search_result">検索結果 {{$questions_num}}件</h1>
+                    <div id="search_btn">
+                        <p>投稿を探す</p>
+                    </div>
                 </div>
                 <section>
                     <div id="questionList-container">
                         <div class="questionList-box">
+                            @if ($questions_num == 0 ) 
+                            <div style="text-align:center">
+                                <h2>お探しの質問は見つかりません</h2>
+                            </div>
+                            @endif
                             <div class="otherQuestion-lists">
                                 @if (isset($questions))
                                 @foreach ($questions as $question)
@@ -109,7 +122,7 @@
                                     <p>タグを選択してください</p>
                                     <div class="search-tags">
                                         <div class="search-tag">掃除</div>
-                                        <div class="search-tag">選択</div>
+                                        <div class="search-tag">洗濯</div>
                                         <div class="search-tag">料理</div>
                                         <div class="search-tag">収納</div>
                                         <div class="search-tag">育児</div>

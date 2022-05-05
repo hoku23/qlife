@@ -7,12 +7,16 @@
         <meta name="viewport" content="width=device-width initial-scale=1.0">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/phone_style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/mini_pc_style.css') }}">
     </head>
     <body>
         <header>
-            <div class="logo">
-                <a href="home.html"><img src="{{asset('images/logo.png')}}" alt="ロゴ"></a>
-            </div>
+            <a href="home.html">
+                <div class="logo">
+                    <img src="{{ asset('images/logo.png') }}" alt="ロゴ">
+                </div>
+            </a>
             <div>
                 <div class="header-text">
                     <div class="icon-userName">
@@ -51,11 +55,17 @@
                 </div>
                 <section class="wrapper">
                     <div id="setting">
-                        <ul class="tabs">
+                        <ul class="tabs pc_tabs">
                             <li class="tab"><a href="{{route('settingUser.index')}}">会員情報設定</a></li>
                             <li class="tab"><a href="{{route('settingFavoriteTag.index')}}">お気に入りタグ設定</a></li>
                             <li class="tab"><a href="{{route('settingQuestionReceive.index')}}">質問受け取り設定</a></li>
                             <li class="tab active-tab"><a href="{{route('settingNotice.index')}}">通知設定</a></li>
+                        </ul>
+                        <ul class="tabs phone_tabs">
+                            <li class="tab"><a href="{{route('settingUser.index')}}">会員情報</a></li>
+                            <li class="tab"><a href="{{route('settingFavoriteTag.index')}}">お気に入りタグ</a></li>
+                            <li class="tab"><a href="{{route('settingQuestionReceive.index')}}">質問受け取り</a></li>
+                            <li class="tab active-tab"><a href="{{route('settingNotice.index')}}">通知</a></li>
                         </ul>
                         <div class="setting-contents">
                             <div class="setting-content show-content">
@@ -180,6 +190,26 @@
                                                                     <div class="noteChange-postTag noteChange-tag">子供</div>
                                                                     <div class="noteChange-postTag noteChange-tag">結婚</div>
                                                                     <div class="noteChange-postTag noteChange-tag">同棲</div>
+                                                                    <div class="noteChange-postTag noteChange-tag">玄関</div>
+                                                                    <div class="noteChange-postTag noteChange-tag">リビング</div>
+                                                                    <div class="noteChange-postTag noteChange-tag">キッチン</div>
+                                                                    <div class="noteChange-postTag noteChange-tag">ダイニング</div>
+                                                                    <div class="noteChange-postTag noteChange-tag">寝室</div>
+                                                                    <div class="noteChange-postTag noteChange-tag">ベランダ</div>
+                                                                    <div class="noteChange-postTag noteChange-tag">トイレ</div>
+                                                                    <div class="noteChange-postTag noteChange-tag">バスルーム</div>
+                                                                    <div class="noteChange-postTag noteChange-tag">子供部屋</div>
+                                                                    <div class="noteChange-postTag noteChange-tag">マンション</div>
+                                                                    <div class="noteChange-postTag noteChange-tag">一軒家</div>
+                                                                    <div class="noteChange-postTag noteChange-tag">アパート</div>
+                                                                    <div class="noteChange-postTag noteChange-tag">リフォーム</div>
+                                                                    <div class="noteChange-postTag noteChange-tag">DIY</div>
+                                                                    <div class="noteChange-postTag noteChange-tag">冷蔵庫</div>
+                                                                    <div class="noteChange-postTag noteChange-tag">洗濯機</div>
+                                                                    <div class="noteChange-postTag noteChange-tag">テレビ</div>
+                                                                    <div class="noteChange-postTag noteChange-tag">ベッド</div>
+                                                                    <div class="noteChange-postTag noteChange-tag">安価</div>
+                                                                    <div class="noteChange-postTag noteChange-tag">高価</div>
                                                                 </div>
                                                             </div>
                                                             <div class="setting-btn">
@@ -232,6 +262,26 @@
                                                                     <div class="noteChange-questionTag noteChange-tag">子供</div>
                                                                     <div class="noteChange-questionTag noteChange-tag">結婚</div>
                                                                     <div class="noteChange-questionTag noteChange-tag">同棲</div>
+                                                                    <div class="noteChange-questionTag noteChange-tag">玄関</div>
+                                                                    <div class="noteChange-questionTag noteChange-tag">リビング</div>
+                                                                    <div class="noteChange-questionTag noteChange-tag">キッチン</div>
+                                                                    <div class="noteChange-questionTag noteChange-tag">ダイニング</div>
+                                                                    <div class="noteChange-questionTag noteChange-tag">寝室</div>
+                                                                    <div class="noteChange-questionTag noteChange-tag">ベランダ</div>
+                                                                    <div class="noteChange-questionTag noteChange-tag">トイレ</div>
+                                                                    <div class="noteChange-questionTag noteChange-tag">バスルーム</div>
+                                                                    <div class="noteChange-questionTag noteChange-tag">子供部屋</div>
+                                                                    <div class="noteChange-questionTag noteChange-tag">マンション</div>
+                                                                    <div class="noteChange-questionTag noteChange-tag">一軒家</div>
+                                                                    <div class="noteChange-questionTag noteChange-tag">アパート</div>
+                                                                    <div class="noteChange-questionTag noteChange-tag">リフォーム</div>
+                                                                    <div class="noteChange-questionTag noteChange-tag">DIY</div>
+                                                                    <div class="noteChange-questionTag noteChange-tag">冷蔵庫</div>
+                                                                    <div class="noteChange-questionTag noteChange-tag">洗濯機</div>
+                                                                    <div class="noteChange-questionTag noteChange-tag">テレビ</div>
+                                                                    <div class="noteChange-questionTag noteChange-tag">ベッド</div>
+                                                                    <div class="noteChange-questionTag noteChange-tag">安価</div>
+                                                                    <div class="noteChange-questionTag noteChange-tag">高価</div>
                                                                 </div>
                                                             </div>
                                                             <div class="setting-btn">
