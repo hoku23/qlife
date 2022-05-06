@@ -71,18 +71,11 @@ class RegisterController extends Controller
         
         if ($action == '登録') {
             $user = new User();
-            
-            $user->fill([
-                'user_id' => $request->input('user_id'),
-                'password' => Hash::make($request->input('password')),
-                'user_name' => $request->input('user_name'),
-                'email' => $request->input('email')
-            ]);
         
-            // $user->user_id = $request->input('user_id');
-            // $user->password = Hash::make($request->input('password'));
-            // $user->user_name = $request->input('user_name');
-            // $user->email = $request->input('email');
+            $user->user_id = $request->input('user_id');
+            $user->password = Hash::make($request->input('password'));
+            $user->user_name = $request->input('user_name');
+            $user->email = $request->input('email');
             $user->save();
             
             return redirect()->route('registers.show', ['id' => $user->id]);
