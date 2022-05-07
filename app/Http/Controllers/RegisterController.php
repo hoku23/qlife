@@ -30,6 +30,8 @@ class RegisterController extends Controller
     
     public function confirm(Request $request)
     {
+        Log::info('通過1');
+        
         $input = $request->all();
         
         // $validator = Validator::make($input, $this->validator);
@@ -67,7 +69,7 @@ class RegisterController extends Controller
      */
     public function store(Request $request)
     {
-        Log::info('通過1');
+        Log::info('通過2');
         
         $action = $request->input('action');
         $input = $request->except('action');
