@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Rules\Hankaku;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class RegisterController extends Controller
 {
@@ -66,6 +67,8 @@ class RegisterController extends Controller
      */
     public function store(Request $request)
     {
+        Log::info('通過1');
+        
         $action = $request->input('action');
         $input = $request->except('action');
         
