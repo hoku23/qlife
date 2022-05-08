@@ -138,7 +138,7 @@
                                                 <div class="question-tag">安価</div>
                                                 <div class="question-tag">高価</div>
                                             </div>
-                                            <div class="question-store" action="">
+                                            <div class="question-store">
                                                 <input id="tags_submit" class="questionStore-btn" type="submit" value="保存する">
                                             </div>
                                         </div>
@@ -182,14 +182,14 @@
                                                 @endforeach
                                                 @endif
                                             </div>
-                                            <div class="question-store" action="">
+                                            <div class="question-store">
                                                 <input id="users_submit" class="questionStore-btn" type="submit" value="保存する">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <form method="POST" action="/question/redirect" style="display:none">
+                            <form method="POST" action="{{route('question.redirect')}}" style="display:none">
                                 {{csrf_field()}}
                                 <input id="redirect" type="submit" style="display:none">
                             </form>

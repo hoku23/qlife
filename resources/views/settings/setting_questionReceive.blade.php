@@ -89,7 +89,7 @@
                                             <label>質問を受け取らない</label>
                                         </div>
                                     </div>
-                                    <form style="display: none;" method="POST" action="/store_questionReceive">
+                                    <form style="display: none;" method="POST" action="{{route('settingQuestionReceive.store_questionReceive')}}">
                                         {{csrf_field()}}
                                         <input id="questionReceive_yes" class="questionReceive" type="radio" name="questionReceive" value="yes" style="display:none">
                                         <input id="questionReceive_no" class="questionReceive" type="radio" name="questionReceive" value="no" style="display:none">

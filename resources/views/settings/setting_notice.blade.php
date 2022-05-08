@@ -133,7 +133,7 @@
                                                                         </div>
                                                                         <p class="user-name">{{$follow->user_name}}</p>
                                                                     </div>
-                                                                    <form style="display:none" method="POST" action="/store_notice_users">
+                                                                    <form style="display:none" method="POST" action="{{route('settingNotice.store_notice_users')}}">
                                                                         {{csrf_field()}}
                                                                         <input type="hidden" name="notice_user_id" value="{{$follow->user_id}}">
                                                                         <input type="submit" style="display:none">
@@ -214,7 +214,7 @@
                                                             </div>
                                                             <div class="setting-btn">
                                                                 <button id="submitPostTags">変更を保存する</button>
-                                                                <form method="POST" action="/settingNoticeTag/redirect" style="display:none">
+                                                                <form method="POST" action="{{route('settingNoticeTag.redirect')}}" style="display:none">
                                                                     {{csrf_field()}}
                                                                     <input id="postTag_redirect" type="submit" style="display:none">
                                                                 </form>
@@ -286,7 +286,7 @@
                                                             </div>
                                                             <div class="setting-btn">
                                                                 <button id="submitQuestionTags">変更を保存する</button>
-                                                                <form method="POST" action="/settingNoticeTag/redirect" style="display:none">
+                                                                <form method="POST" action="{{route('settingNoticeTag.redirect')}}" style="display:none">
                                                                     {{csrf_field()}}
                                                                     <input id="questionTag_redirect" type="submit" style="display:none">
                                                                 </form>

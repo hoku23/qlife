@@ -79,7 +79,7 @@
                                             <p>画像選択</p>
                                         </button>
                                     </div>
-                                    <form class="createPost-form" method="POST" action="/answer" enctype="multipart/form-data">
+                                    <form class="createPost-form" method="POST" action="{{route('answer.store')}}" enctype="multipart/form-data">
                                         {{ csrf_field() }}
                                         <textarea id="content" name="content" placeholder="本文を入力">{{$content}}</textarea>
                                         <textarea id="content_htmlTag" name="content_htmlTag">{{$content_htmlTag}}</textarea>

@@ -57,7 +57,7 @@
                         @else
                         <a id="follow-btn">フォローする</a>
                         @endif
-                        <form method="POST" action="/user_follow">
+                        <form method="POST" action="{{route('follow.user_follow')}}">
                             {{csrf_field()}}
                             <input id="follow_user_id" type="hidden" name="follow_user_id" value="{{$otherUser->user_id}}">
                             <input id="follow_user" type="submit" name="page" value="otherUser_page" style="display:none"> 
@@ -70,7 +70,7 @@
                             @foreach ($newPosts as $post)
                             <div class="post myPost">
                                 <p class="title save_post_title">{{$post->post_title}}</p>
-                                <form style="display:none" method="POST" action="/post_detail">
+                                <form style="display:none" method="POST" action="{{route('timeline.post_detail')}}">
                                     {{csrf_field()}}
                                     <input type="hidden" name="post_id" value="{{$post->post_id}}">
                                     <input type="submit" style="display:none">

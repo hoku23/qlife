@@ -53,7 +53,7 @@
                     <h2 id="question_title">
                         {{$question->question_title}}
                     </h2>
-                    <form style="display:none" method="POST" action="/question_detail">
+                    <form style="display:none" method="POST" action="{{route('question_detail')}}">
                         {{csrf_field()}}
                         <input type="hidden" name="question_id" value="{{$question->question_id}}">
                         <input type="submit" style="display:none">
@@ -89,7 +89,7 @@
                                     @endif
                                 </div>
                                 @if ($question->user_id == $user->user_id)
-                                <form method="POST" action="/bestAnswer_select">
+                                <form method="POST" action="{{route('bestAnswer_select')}}">
                                     {{csrf_field()}}
                                     <input type="hidden" name="answer_id" value="{{$answer->answer_id}}">
                                     @if ($question->best_answer_id == $answer->answer_id)
@@ -103,7 +103,7 @@
                                     <p>{{$answer->answer_date}}</p>
                                 </div>
                                 @if ($answer->user_id == $user->user_id)
-                                <form method="POST" action="/answer_delete" onsubmit="if(confirm('本当に削除してよろしいですか？')) { return true } else {return false };">
+                                <form method="POST" action="{{route('answer.answer_delete')}}" onsubmit="if(confirm('本当に削除してよろしいですか？')) { return true } else {return false };">
                                     {{csrf_field()}}
                                     <input type="hidden" name="answer_id" value="{{$answer->answer_id}}">
                                     <button class="delete_btn" type="submit">回答を削除する</button>
@@ -119,7 +119,7 @@
                                     </div>
                                     <p>コメント</p>
                                 </div>
-                                <form method="POST" action="/answer_comment_store">
+                                <form method="POST" action="{{route('answer_comment_store')}}">
                                     {{csrf_field()}}
                                     <textarea class="comment-form" name="comment" id="" placeholder="コメントを入力"></textarea>
                                     <input type="hidden" name="answer_id" value="{{$answer->answer_id}}">
@@ -147,7 +147,7 @@
                                             <div class="reply">
                                                 <p>返信する</p>
                                             </div>
-                                            <form class="reply_form hidden_form" method="POST" action="/answer_reply_store">
+                                            <form class="reply_form hidden_form" method="POST" action="{{route('answer_reply_store')}}">
                                                 {{csrf_field()}}
                                                 <textarea class="comment-form" name="comment" id="" placeholder="コメントを入力"></textarea>
                                                 <input type="hidden" name="comment_path" value="{{$parent_comment->path}}">
@@ -177,7 +177,7 @@
                                                     <div class="reply">
                                                         <p>返信する</p>
                                                     </div>
-                                                    <form class="reply_form hidden_form" method="POST" action="/answer_reply_store">
+                                                    <form class="reply_form hidden_form" method="POST" action="{{route('answer_reply_store')}}">
                                                         {{csrf_field()}}
                                                         <textarea class="comment-form" name="comment" id="" placeholder="コメントを入力"></textarea>
                                                         <input type="hidden" name="comment_path" value="{{$reply->path}}">

@@ -65,7 +65,7 @@
                             @foreach ($newPosts as $post)
                             <div class="post myPost">
                                 <p class="title myPost_title">{{$post->post_title}}</p>
-                                <form style="display:none" method="POST" action="/post_detail">
+                                <form style="display:none" method="POST" action="{{route('timeline.post_detail')}}">
                                     {{csrf_field()}}
                                     <input type="hidden" name="post_id" value="{{$post->post_id}}">
                                     <input type="submit" style="display:none">
@@ -80,7 +80,7 @@
                                         @endforeach
                                     @endif
                                 </div>
-                                <form method="POST" action="/post_release_flag_chnge">
+                                <form method="POST" action="{{route('post_release_flag_chnge')}}">
                                     {{csrf_field()}}
                                     <input type="hidden" name="post_id" value="{{$post->post_id}}">
                                     <button class="release-btn" style="margin-left:25px">投稿を公開する</button>

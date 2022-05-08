@@ -94,7 +94,7 @@
                                     </div>
                                 </div>
                                 @if ($question->user_id == $user->user_id)
-                                <form method="POST" action="/question_delete" onsubmit="if(confirm('本当に削除してよろしいですか？')) { return true } else {return false };">
+                                <form method="POST" action="{{route('question.question_delete')}}" onsubmit="if(confirm('本当に削除してよろしいですか？')) { return true } else {return false };">
                                     {{csrf_field()}}
                                     <input type="hidden" name="question_id" value="{{$question->question_id}}">
                                     <button class="delete_btn" type="submit">質問を削除する</button>
@@ -108,7 +108,7 @@
                                     <p>回答<span>{{$answers_num}}件</span></p>
                                     <div class="createAnswer-btn-box">
                                         <button id="createAnswer_btn" class="createAnswer-btn">回答を作成する</button>
-                                        <form style="display:none" method="POST" action="/create_answer">
+                                        <form style="display:none" method="POST" action="{{route('create_answer')}}">
                                             {{csrf_field()}}
                                             <input type="hidden" name="question_id" value="{{$question->question_id}}">
                                             <input type="submit" style="display:none">
@@ -138,7 +138,7 @@
                                                         echo $answer->answer_content;
                                                         ?>
                                                     </div>
-                                                    <form style="display:none" method="POST" action="/answer_detail">
+                                                    <form style="display:none" method="POST" action="{{route('answer_detail')}}">
                                                         {{csrf_field()}}
                                                         <input type="hidden" name="answer_id" value="{{$answer->answer_id}}">
                                                         <input type="submit" style="display:none">
@@ -176,14 +176,14 @@
                                                         echo $answer->answer_content;
                                                         ?>
                                                     </div>
-                                                    <form style="display:none" method="POST" action="/answer_detail">
+                                                    <form style="display:none" method="POST" action="{{route('answer_detail')}}">
                                                         {{csrf_field()}}
                                                         <input type="hidden" name="answer_id" value="{{$answer->answer_id}}">
                                                         <input type="submit" style="display:none">
                                                     </form>
                                                 @endif
                                             </div>
-                                            <form method="POST" action="/answer_release_flag_chnge">
+                                            <form method="POST" action="{{route('answer_release_flag_chnge')}}">
                                                 {{csrf_field()}}
                                                 <input type="hidden" name="answer_id" value="{{$answer->answer_id}}">
                                                 <button class="release-btn">回答を公開する</button>

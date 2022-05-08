@@ -133,7 +133,7 @@
                                             </div>
                                             <div class="new-icon">
                                                 <img id="img" src="" style="height:100%">
-                                                <form style="display:none" method="POST" action="/user_icon_change" enctype="multipart/form-data">
+                                                <form style="display:none" method="POST" action="{{route('settingUser.user_icon_change')}}" enctype="multipart/form-data">
                                                     {{csrf_field()}}
                                                     <input id="iconFile_select" style="display:none" type="file" name="user_icon">
                                                     <input id="fileName" type="hidden" name="file_name">
@@ -146,7 +146,7 @@
                                             </div>
                                         </div>
                                         <div class="change-form password-change-form">
-                                             <form method="POST" action="/user_password_change">
+                                             <form method="POST" action="{{route('settingUser.user_password_change')}}">
                                                 {{csrf_field()}}
                                                 <div>
                                                     <label>現在のパスワード</label>
@@ -163,7 +163,7 @@
                                             </div>
                                         </div>
                                         <div class="change-form userName-change-form">
-                                            <form method="POST" action="/user_name_change">
+                                            <form method="POST" action="{{route('settingUser.user_name_change')}}">
                                                 {{csrf_field()}}
                                                 <div>
                                                     <label>新しいユーザーネーム</label>
@@ -176,7 +176,7 @@
                                             </div>
                                         </div>
                                         <div class="change-form emial-change-form">
-                                            <form method="POST" action="/user_email_change">
+                                            <form method="POST" action="{{route('settingUser.user_email_change')}}">
                                                 {{csrf_field()}}
                                                 <div>
                                                     <label>新しいメールアドレス</label>

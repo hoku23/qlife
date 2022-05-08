@@ -94,7 +94,7 @@
                                     </div>
                                 </div>
                                 @if ($post->user_id == $user->user_id)
-                                <form method="POST" action="/post_delete" onsubmit="if(confirm('本当に削除してよろしいですか？')) { return true } else {return false };">
+                                <form method="POST" action="{{route('posts.post_delete')}}" onsubmit="if(confirm('本当に削除してよろしいですか？')) { return true } else {return false };">
                                     {{csrf_field()}}
                                     <input type="hidden" name="post_id" value="{{$post->post_id}}">
                                     <button class="post_delete_btn" type="submit">投稿を削除する</button>
@@ -111,7 +111,7 @@
                                         @elseif ($post->good == 0)
                                         <img id="good_img" src="images/good_w.png" alt="">
                                         @endif
-                                        <form style="display:none" method="POST" action="/good_store">
+                                        <form style="display:none" method="POST" action="{{route('good_store')}}">
                                             {{csrf_field()}}
                                             <input type="hidden" name="post_id" value="{{$post->post_id}}">
                                             <input style="display:none" id="good_submit" type="submit" name="page" value="detail_post_page">
@@ -123,7 +123,7 @@
                                         @elseif ($post->save == 0)
                                         <img id="save_img" src="images/save_w.png" alt="">
                                         @endif
-                                        <form style="display:none" method="POST" action="/save_store">
+                                        <form style="display:none" method="POST" action="{{route('save_store')}}">
                                             {{csrf_field()}}
                                             <input type="hidden" name="post_id" value="{{$post->post_id}}">
                                             <input style="display:none" id="save_submit" type="submit" name="page" value="detail_post_page">
@@ -141,13 +141,13 @@
                                     </div>
                                     <p>コメント</p>
                                 </div>
-                                <form method="POST" action="/comment_store">
+                                <form method="POST" action="{{route('comment_store')}}">
                                     {{csrf_field()}}
                                     <textarea class="comment-form" name="comment" id="" placeholder="コメントを入力"></textarea>
                                     <input type="hidden" name="post_id" value="{{$post->post_id}}">
                                     <input class="comment-btn" type="submit" value="送信">
                                 </form>
-                                <form style="display:none" method="POST" action="/user_page">
+                                <form style="display:none" method="POST" action="{{route('follow.user_page')}}">
                                     {{csrf_field()}}
                                     <input id="otherUser" type="hidden" name="otherUser">
                                     <input id="otherUser_btn" type="submit" style="display:none;">
@@ -174,7 +174,7 @@
                                             <div class="reply">
                                                 <p>返信する</p>
                                             </div>
-                                            <form class="reply_form hidden_form" method="POST" action="/reply_store">
+                                            <form class="reply_form hidden_form" method="POST" action="{{route('reply_store')}}">
                                                 {{csrf_field()}}
                                                 <textarea class="comment-form" name="comment" id="" placeholder="コメントを入力"></textarea>
                                                 <input type="hidden" name="comment_path" value="{{$parent_comment->path}}">
@@ -204,7 +204,7 @@
                                                     <div class="reply">
                                                         <p>返信する</p>
                                                     </div>
-                                                    <form class="reply_form hidden_form" method="POST" action="/reply_store">
+                                                    <form class="reply_form hidden_form" method="POST" action="{{route('reply_store')}}">
                                                         {{csrf_field()}}
                                                         <textarea class="comment-form" name="comment" id="" placeholder="コメントを入力"></textarea>
                                                         <input type="hidden" name="comment_path" value="{{$reply->path}}">

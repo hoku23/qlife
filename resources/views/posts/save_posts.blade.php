@@ -77,7 +77,7 @@
                                 <p class="user-name">{{$post->user_name}}</p>
                             </div>
                             <p class="title save_post_title">{{$post->post_title}}</p>
-                            <form style="display:none" method="POST" action="/post_detail">
+                            <form style="display:none" method="POST" action="{{route('timeline.post_detail')}}">
                                 {{csrf_field()}}
                                 <input type="hidden" name="post_id" value="{{$post->post_id}}">
                                 <input type="submit" style="display:none">
@@ -99,7 +99,7 @@
                                 </div>
                                 <div class="save-img">
                                     <img class="save_img" src="images/save_y.png" alt="">
-                                    <form style="display:none" method="POST" action="/save_store">
+                                    <form style="display:none" method="POST" action="{{route('save_store')}}">
                                         {{csrf_field()}}
                                         <input type="hidden" name="post_id" value="{{$post->post_id}}">
                                         <input style="display:none" id="save_submit" type="submit" name="page" value="save_posts_page">
@@ -109,7 +109,7 @@
                         </div>
                         @endforeach
                         @endif
-                        <form style="display:none" method="POST" action="/user_page">
+                        <form style="display:none" method="POST" action="{{route('follow.user_page')}}">
                             {{csrf_field()}}
                             <input id="otherUser" type="hidden" name="otherUser">
                             <input id="otherUser_btn" type="submit" style="display:none;">

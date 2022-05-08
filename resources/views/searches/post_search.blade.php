@@ -79,7 +79,7 @@
                                         <p class="user-name">{{$post->user_name}}</p>
                                     </div>
                                     <p class="title timeline_post_title">{{$post->post_title}}</p>
-                                    <form style="display:none" method="POST" action="/post_detail">
+                                    <form style="display:none" method="POST" action="{{route('timeline.post_detail')}}">
                                         {{csrf_field()}}
                                         <input type="hidden" name="post_id" value="{{$post->post_id}}">
                                         <input type="submit" style="display:none">
@@ -105,7 +105,7 @@
                                             @elseif ($post->save == 0)
                                             <img class="save_img" src="images/save_w.png" alt="">
                                             @endif
-                                            <form style="display:none" method="POST" action="/save_store">
+                                            <form style="display:none" method="POST" action="{{route('save_store')}}">
                                             {{csrf_field()}}
                                             <input type="hidden" name="post_id" value="{{$post->post_id}}">
                                             <input type="hidden" name="keyword" value="{{$keyword}}">
@@ -121,7 +121,7 @@
                         </div>
                        <div class="search-area">
                             <div class="keyword-search">
-                                <form class="search" method="POST" action="/post_search">
+                                <form class="search" method="POST" action="{{route('search.post_search')}}">
                                     {{csrf_field()}}
                                     <input class="keyword" type="text" name="keyword" placeholder="キーワードを入力">
                                     <input class="keywordSearch-btn" type="submit" value="検索">
@@ -168,7 +168,7 @@
                                     </div>
                                     <form class="search timelineSearch-btn">
                                         <input id="submit" class="tagSearch-btn" type="button" value="検索する">
-                                        <form method="POST" action="/post_search" style="display:none">
+                                        <form method="POST" action="{{route('search.post_search')}}" style="display:none">
                                             {{csrf_field()}}
                                             <input id="next" type="submit" style="display:none">
                                         </form>

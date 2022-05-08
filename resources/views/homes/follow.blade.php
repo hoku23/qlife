@@ -57,7 +57,7 @@
                         <h1>フォロワー<span>{{$follower_num}}人</span></h1>
                     </div>
                     <div class="user_search_header">
-                        <form class="search" method="POST" action="/user_search">
+                        <form class="search" method="POST" action="{{route('follow.user_search')}}">
                             {{csrf_field()}}
                             <input class="userSearch_form" type="text" placeholder="ユーザーネームを入力" name="user_word">
                             <input class="userSearch-btn" type="submit" value="検索">
@@ -97,7 +97,7 @@
                                                 <img src="{{$follower->user_icon}}" alt="">
                                             </div>
                                             <p class="user-name">{{$follower->user_name}}</p>
-                                            <form method="POST" action="/user_follow" style="display:none">
+                                            <form method="POST" action="{{route('follow.user_follow')}}" style="display:none">
                                                 {{csrf_field()}}
                                                 <input class="follow_user_id" type="hidden" name="follow_user_id" value="{{$follower->user_id}}">
                                                 <input class="follow_user" type="submit" name="page" value="follow_page" style="display:none"> 

@@ -67,7 +67,7 @@
                                 @foreach ($newQuestions as $question)
                                 <div class="myQuestion question">
                                     <p class="question-title">{{$question->question_title}}</p>
-                                    <form style="display:none" method="POST" action="/question_detail">
+                                    <form style="display:none" method="POST" action="{{route('question_detail')}}">
                                         {{csrf_field()}}
                                         <input type="hidden" name="question_id" value="{{$question->question_id}}">
                                         <input type="submit" style="display:none">

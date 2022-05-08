@@ -74,7 +74,7 @@
                                         </div>
                                     </div>
                                     <div class="createQuestionForm-box">
-                                        <form class="createQuestionText-form" method="POST" action="/question" enctype="multipart/form-data">
+                                        <form class="createQuestionText-form" method="POST" action="{{route('question.store')}}" enctype="multipart/form-data">
                                             {{csrf_field()}}
                                             <label for="">タイトル</label>
                                             <textarea id="questionCreate-title" name="title" placeholder="タイトルを入力してください">{{$title}}</textarea>

@@ -81,7 +81,7 @@
                                         <p class="user-name">{{$question->user_name}}</p>
                                     </div>
                                         <p class="question-title">{{$question->question_title}}</p>
-                                        <form style="display:none" method="POST" action="/question_detail">
+                                        <form style="display:none" method="POST" action="{{route('question_detail')}}">
                                             {{csrf_field()}}
                                             <input type="hidden" name="question_id" value="{{$question->question_id}}">
                                             <input type="submit" style="display:none">
@@ -112,7 +112,7 @@
                                 </div>
                                 @endforeach
                                 @endif
-                                <form style="display:none" method="POST" action="/user_page">
+                                <form style="display:none" method="POST" action="{{route('follow.user_page')}}">
                                     {{csrf_field()}}
                                     <input id="otherUser" type="hidden" name="otherUser">
                                     <input id="otherUser_btn" type="submit" style="display:none;">
@@ -121,7 +121,7 @@
                         </div>
                         <div class="search-area">
                             <div class="keyword-search">
-                                <form class="search" method="POST" action="/question_search">
+                                <form class="search" method="POST" action="{{route('search.question_search')}}">
                                     {{csrf_field()}}
                                     <input class="keyword" type="text" name="keyword" placeholder="キーワードを入力">
                                     <input class="keywordSearch-btn" type="submit" value="検索">
@@ -168,7 +168,7 @@
                                     </div>
                                     <div class="search timelineSearch-btn">
                                        <input id="submit" class="tagSearch-btn" type="button" value="検索する">
-                                       <form method="POST" action="/question_search" style="display:none">
+                                       <form method="POST" action="{{route('search.question_search')}}" style="display:none">
                                             {{csrf_field()}}
                                             <input id="next" type="submit" style="display:none">
                                         </form>

@@ -134,7 +134,7 @@
                                     </div>
                                     <div class="setting-btn">
                                         <button id="submit">変更を保存する</button>
-                                        <form method="POST" action="/settingFavoriteTag/redirect" style="display:none">
+                                        <form method="POST" action="{{route('settingFavoriteTag.redirect')}}" style="display:none">
                                             {{csrf_field()}}
                                             <input id="next" type="submit" style="display:none">
                                         </form>
@@ -180,7 +180,7 @@
                 
                 
                 const asynchronousFunc = (value) => {
-                    const url = '/settingFavoriteTag/store_tags';
+                    const url = 'settingFavoriteTag/store_tags';
                　return　fetch(url, {
                     method: 'POST',
                      headers: {

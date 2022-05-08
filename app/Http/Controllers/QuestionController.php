@@ -383,20 +383,27 @@ class QuestionController extends Controller
     	    
     	    $question_tags = implode('/', $tags);
     	    
-    	    foreach ($selected_users_ids as $selected_users_id) {
-    	        $request_user = User::where('user_id', $selected_users_id)->first();
-    	        array_push($request_users, $request_user);
-    	        array_push($not_user, $request_user->user_id);
-    	    }
     	    
-    	    foreach ($tags as $tag) {
-    	        $notice_tags = Question_tag_notice::where('tag_name', $tag)->whereNotIn('user_id', $not_user)->get();
-    	        foreach ($notice_tags as $notice_tag) {
-    	            $notice_tags_user = User::where('user_id', $notice_tag->user_id)->first();
-    	            array_push($users, $notice_tags_user);
-    	            array_push($not_user, $notice_tags_user->user_id);   
-    	        }
+    	        foreach ($selected_users_ids as $selected_users_id) {
+        	        $request_user = User::where('user_id', $selected_users_id)->first();
+        	        if (isset($request_user)) {
+            	        array_push($request_users, $request_user);
+            	        array_push($not_user, $request_user->user_id);
+        	        }
+        	    }    
+    	    
+    	    if (isset($tags)) {
+    	        foreach ($tags as $tag) {
+        	        $notice_tags = Question_tag_notice::where('tag_name', $tag)->whereNotIn('user_id', $not_user)->get();
+        	        foreach ($notice_tags as $notice_tag) {
+        	            $notice_tags_user = User::where('user_id', $notice_tag->user_id)->first();
+        	            array_push($users, $notice_tags_user);
+        	            array_push($not_user, $notice_tags_user->user_id);   
+        	        }
+        	    }    
     	    }
+    	     
+    	   
     	    
     	    $question_user_id = $question->user_id;
     	    $question_title = $question->question_title;

@@ -67,7 +67,7 @@
                             @foreach ($newPosts as $post)
                             <div class="post myPost">
                                 <p class="title myPost_title">{{$post->post_title}}</p>
-                                <form style="display:none" method="POST" action="/post_detail">
+                                <form style="display:none" method="POST" action="{{route('timeline.post_detail')}}">
                                     {{csrf_field()}}
                                     <input type="hidden" name="post_id" value="{{$post->post_id}}">
                                     <input type="submit" style="display:none">
