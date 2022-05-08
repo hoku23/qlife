@@ -357,7 +357,7 @@ class PostController extends Controller
                 array_push($not_user, $mail_user->user_id);
     	    }
     	   
-    	    foreach ($tags as $tag) {
+    	    foreach ((array)$tags as $tag) {
     	        $notice_tags = Post_tag_notice::where('tag_name', $tag)->whereNotIn('user_id', $not_user)->get();
     	        foreach ($notice_tags as $notice_tag) {
     	            $notice_tags_user = User::where('user_id', $notice_tag->user_id)->first();
