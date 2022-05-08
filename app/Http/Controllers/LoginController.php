@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
 {
@@ -20,11 +21,14 @@ class LoginController extends Controller
      */
     public function index()
     {
+        Log::info('ログイン通過1');
         return view('logins.index');
     }
     
     public function auth(Request $request)
     {
+        Log::info('ログイン通過2');
+        
         $input = $request->all();
         $validator = Validator::make($input, $this->validator);
 
