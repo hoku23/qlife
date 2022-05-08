@@ -196,6 +196,8 @@ class QuestionController extends Controller
     
     public function create_tags()
     {
+        Log::info('question.create_tags通過');
+        
         if (session()->has('user')) {
             $user = session()->get('user');
         } else {
