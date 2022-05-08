@@ -148,11 +148,15 @@ class PostController extends Controller
         $session_title = session()->get('post_title');
         if(isset($session_title)) {
             $title = $session_title;
+        } else {
+            $title = null;
         }
         
         $session_thumnail = session()->get('thumnail');
         if(isset($session_thumnail)) {
             $thumnail = $session_thumnail;
+        } else {
+            $thumnail = null;
         }
         
         return view('posts.title_thumnail_create', compact('user', 'userName', 'title', 'thumnail'));
