@@ -366,7 +366,7 @@ class PostController extends Controller
     	        }
     	    }
     	    
-    	    $post_tags = implode('/', $tags);
+    	    $post_tags = implode('/', (array)$tags);
     	    $post_user_id = $post->user_id;
     	    $post_title = $post->post_title;
     	    
