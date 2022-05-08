@@ -82,7 +82,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <form class="createPost-form" method="POST" action="/store_title">
+                                    <form class="createPost-form" method="POST" action="{{route('posts.store_title')}}">
                                         {{csrf_field()}}
                                         <textarea id="postTitle" name="postTitle" placeholder="タイトルを入力">@if(isset($title)){{$title}}@endif</textarea>
                                         <input id="postTitle-store" type="submit" name="action" value="save" style="display:none">
@@ -111,7 +111,7 @@
                                         <img id="img" src="@if(isset($thumnail)){{$thumnail}}@endif" style="width:100%">
                                     </div>
                                 </div>
-                                <form method="POST" action="/store_thumnail" enctype="multipart/form-data">
+                                <form method="POST" action="{{route('posts.store_thumnail')}}" enctype="multipart/form-data">
                                     {{csrf_field()}}
                                     <input id="thumnailFileSelect" type="file" name="thumnail" style="display:none">
                                     <input id="thumnailPath" type="hidden" name="thumnailPath" style="display:none">
