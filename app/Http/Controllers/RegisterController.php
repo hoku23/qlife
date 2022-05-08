@@ -25,12 +25,13 @@ class RegisterController extends Controller
      */
     public function index()
     {
+        Log::info('通過1');
         return view('registers.index');
     }
     
     public function confirm(Request $request)
     {
-        Log::info('通過1');
+        Log::info('通過2');
         
         $input = $request->all();
         
@@ -69,7 +70,7 @@ class RegisterController extends Controller
      */
     public function store(Request $request)
     {
-        Log::info('通過2');
+        Log::info('通過3');
         
         $action = $request->input('action');
         $input = $request->except('action');
