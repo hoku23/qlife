@@ -272,10 +272,13 @@ class QuestionController extends Controller
         $selected_users = session()->get('question_selected_users');
         
         if (isset($tags) && isset($selected_users)) {
+            Log::info('question.redirect通過2');
             return redirect()->route('question.confirm');
         } elseif (isset($tags)) {
+            Log::info('question.redirect通過3');
             return redirect()->route('question.create_tags')->with('message', 'ユーザーを選択してください');
         } elseif (isset($selected_users)) {
+            Log::info('question.redirect通過4');
             return redirect()->route('question.create_tags')->with('message', 'タグ選択を保存してください');
         }
         
