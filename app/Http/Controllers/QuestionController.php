@@ -223,6 +223,8 @@ class QuestionController extends Controller
     
     public function store_tags(Request $request)
     {
+        Log::info('question.store_tags通過1');
+        
         $raw = file_get_contents('php://input'); // POSTされた生のデータを受け取る
         $data = json_decode($raw); // json形式をphp変数に変換
         
@@ -234,6 +236,8 @@ class QuestionController extends Controller
         $tags = session()->get('question_tags');
         
         $res = 'Complete';
+        
+        Log::info('question.store_tags通過2');
         echo json_encode($res);
         
         //非同期処理でsessionに保存
