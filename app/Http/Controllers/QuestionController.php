@@ -271,6 +271,8 @@ class QuestionController extends Controller
         $tags = session()->get('question_tags');
         $selected_users = session()->get('question_selected_users');
         
+        Log::info('question.redirect通過5');
+        
         if (isset($tags) && isset($selected_users)) {
             Log::info('question.redirect通過2');
             return redirect()->route('question.confirm');
