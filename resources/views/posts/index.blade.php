@@ -20,7 +20,8 @@
                 <div class="header-text">
                     <div class="icon-userName">
                         <div class="icon">
-                            <img src="{{$user->user_icon}}" alt="">
+                            <!--<img src="{{$user->user_icon}}" alt="">-->
+                            <img src="images/default_icon.jpg" alt="">
                         </div>
                             <p class="user-name">{{ $user->user_name }}</p>
                     </div>
