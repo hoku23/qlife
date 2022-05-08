@@ -68,7 +68,7 @@ class RegisterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function register_store(Request $request)
     {
         Log::info('通過3');
         
@@ -84,7 +84,12 @@ class RegisterController extends Controller
             $user->email = $request->input('email');
             $user->save();
             
-            return redirect()->route('registers.show', ['id' => $user->id]);
+            $user_id = [
+                'user_id' => $user->user_id,
+                ];
+            
+            // return redirect()->route('registers.show', ['id' => $user->id]);
+            return redirect()->route('registers.show')->withInput($user_id);
         } else {
             return redirect()->route('registers.index')->withInput($input);
         }
@@ -96,9 +101,11 @@ class RegisterController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function register_show(Request $request)
     {
-        $user = User::findOrFail($id);
+        // $user = User::findOrFail($id);
+        $user_id = old('user_id');
+        $user = User::where('user_id', $user_id)->first();
         return view('registers.complete', compact('user'));
     }
 

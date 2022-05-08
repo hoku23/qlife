@@ -22,7 +22,7 @@
             <article>
                 <div class="registration">
                     <h1>会員登録</h1>
-                    <form id="registrationInput-form" method="POST" action="registers/confirm">
+                    <form id="registrationInput-form" method="POST" action="{{route('registers.confirm')}}">
                         {{ csrf_field() }}
                         <div>
                             <label>ユーザーID</label>

@@ -17,13 +17,16 @@ Route::get('/', function () {
 
 
 
-Route::resource('registers', 'RegisterController');
+// Route::resource('registers', 'RegisterController');
 
 if (env('APP_ENV') === 'local') {
     URL::forceScheme('https');
 }
 
+Route::get('registers', 'RegisterController@index')->name('registers.index');
 Route::post('registers/confirm', 'RegisterController@confirm')->name('registers.confirm');
+Route::post('registers/store', 'RegisterController@register_store')->name('registers.store');
+Route::get('registers/complete', 'RegisterController@register_show')->name('registers.show');
 
 Route::resource('logins', 'LoginController');
 Route::post('logins/auth', 'LoginController@auth')->name('logins.auth');

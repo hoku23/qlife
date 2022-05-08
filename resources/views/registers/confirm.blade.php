@@ -19,7 +19,7 @@
             <article>
                 <div class="registration">
                     <h1>会員情報確認</h1>
-                    <form method="post" action="/registers">
+                    <form method="POST" action="{{route('registers.store')}}">
                         {{ csrf_field()}}
                         <input type="hidden" name="user_id" value="{{ $input['user_id'] }}">
                         <input type="hidden" name="password" value="{{ $input['password'] }}">
