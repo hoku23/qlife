@@ -17,6 +17,7 @@ use Validator;
 use Illuminate\Http\Request;
 use App\Jobs\SendQuestionedMail;
 use App\Jobs\SendRequestMail;
+use Illuminate\Support\Facades\Log;
 
 class QuestionController extends Controller
 {
@@ -263,6 +264,8 @@ class QuestionController extends Controller
     
     public function redirect()
     {
+        Log::info('question.redirect通過1');
+        
         $tags = session()->get('question_tags');
         $selected_users = session()->get('question_selected_users');
         
