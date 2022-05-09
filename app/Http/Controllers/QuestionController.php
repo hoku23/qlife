@@ -306,8 +306,9 @@ class QuestionController extends Controller
         $selected_users = [];
         if (isset($selected_users_ids)) {
             foreach ($selected_users_ids as $selected_user_id) {
-            if ($selected_user_id !== 'NoBody') {
+            // if ($selected_user_id !== 'NoBody') {
                 $selected_user = User::where('user_id', $selected_user_id)->first();
+            if (isset($selected_user)) {    
                 array_push($selected_users, $selected_user);    
             }
         }   
