@@ -340,7 +340,7 @@
                 
                 
                 const asynchronousFunc = (value) => {
-                    const url = '/settingNoticeTag/store_postTags';
+                    const url = '{{route('settingNotice.store_postTags')}}';
                　return　fetch(url, {
                     method: 'POST',
                      headers: {
@@ -400,7 +400,7 @@
                 
                 
                 const asynchronousFunc = (value) => {
-                    const url = '/settingNoticeTag/store_questionTags';
+                    const url = '{{route('settingNotice.store_questionTags')}}';
                　return　fetch(url, {
                     method: 'POST',
                      headers: {

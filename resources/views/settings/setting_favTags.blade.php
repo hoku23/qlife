@@ -180,7 +180,7 @@
                 
                 
                 const asynchronousFunc = (value) => {
-                    const url = 'settingFavoriteTag/store_tags';
+                    const url = '{{route('settingFavoriteTag.store_tags')}}';
                　return　fetch(url, {
                     method: 'POST',
                      headers: {
