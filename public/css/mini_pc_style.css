@@ -2401,6 +2401,7 @@ div {
     }
     .createAnswer-box {
         flex-grow: 1;
+        padding-left: 181px;
     }
     .createAnswerComplete {
         padding-top: 177px;
