@@ -333,6 +333,7 @@ class PostController extends Controller
             
             session()->forget('post_title');
             session()->forget('post_content');
+            session()->forget('post_input_content');
             session()->forget('thumnail');
             
             $tags = session()->get('tags');
@@ -412,6 +413,7 @@ class PostController extends Controller
             
             session()->forget('post_title');
             session()->forget('post_content');
+            session()->forget('post_input_content');
             session()->forget('thumnail');
             
             

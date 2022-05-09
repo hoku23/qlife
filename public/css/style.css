@@ -2378,6 +2378,7 @@ div {
     .createAnswerComplete {
         padding-top: 177px;
     }
+    
     .createAnswer-check {
         width: 95%;
         max-width: 400px;
@@ -2391,7 +2392,14 @@ div {
     .createAnswer-check .icon-userName {
         margin: 0;
     }
-    
+    .answer-complete {
+        flex-grow: 1;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding-top: 150px;
+        box-sizing: border-box;
+    }
     /* 個々の回答 */
     #answerDetail-container {
         width: 100%;
