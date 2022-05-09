@@ -119,13 +119,13 @@ class PostController extends Controller
         $session_content = session()->get('post_content');
         $session_input_content = session()->get('post_input_content');
         
-        if(isset($session_content)) {
-            $content = $session_content;
+        if(isset($session_input_content)) {
+            $content = $session_input_content;
         } else {
             $content = old('content');
         }
-        if(isset($session_input_content)) {
-            $content_htmlTag = $session_input_content;
+        if(isset($session_content)) {
+            $content_htmlTag = $session_content;
         } else {
             $content_htmlTag = old('content_htmlTag');
         }
