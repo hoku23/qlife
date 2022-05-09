@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="{{asset('css/style.css')}}">
         <link rel="stylesheet" href="{{ asset('css/phone_style.css') }}">
         <link rel="stylesheet" href="{{ asset('css/mini_pc_style.css') }}">
+        <link rel="shortcut icon" href="{{asset('images/favicon.ico')}}" type="image/x-icon" />
     </head>
     <body>
         <header>
