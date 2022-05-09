@@ -197,7 +197,7 @@
                 
                 
                 const asynchronousFunc = (value) => {
-                    const url = '/search_tag_store';
+                    const url = '{{route('search.search_tag_store')}}';
                　return　fetch(url, {
                     method: 'POST',
                      headers: {
