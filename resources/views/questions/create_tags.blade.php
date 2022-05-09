@@ -234,7 +234,7 @@
                 
                 
                 const asynchronousFunc = (value) => {
-                    const url = '/question/store_tags';
+                    const url = '{{route('question.store_tags')}}';
                　return　fetch(url, {
                     method: 'POST',
                      headers: {
