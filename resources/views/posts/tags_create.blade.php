@@ -191,8 +191,8 @@
                 const waitAsynchronousFunc = (async() => {
                     const result = await asynchronousFunc()
                     console.log(result)
-                    //let next = document.getElementById('next');
-                    //next.click();
+                    let next = document.getElementById('next');
+                    next.click();
                 })();
             };
 
