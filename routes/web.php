@@ -97,7 +97,11 @@ Route::post('reply_store', 'CommentController@reply_store')->name('reply_store')
 Route::post('answer_comment_store', 'CommentController@answer_comment_store')->name('answer_comment_store');
 Route::post('answer_reply_store', 'CommentController@answer_reply_store')->name('answer_reply_store');
 
-Route::resource('question', 'QuestionController');
+// Route::resource('question', 'QuestionController');
+Route::get('question', 'QuestionController@index')->name('question.index');
+Route::get('question_content_create', 'QuestionController@create')->name('question.create');
+Route::post('question_content_store', 'QuestionController@store')->name('question.store');
+
 Route::get('create_tags', 'QuestionController@create_tags')->name('question.create_tags');
 Route::post('question/store_tags', 'QuestionController@store_tags')->name('question.store_tags');
 Route::post('question/store_users', 'QuestionController@store_users')->name('question.store_users');
@@ -113,7 +117,10 @@ Route::get('question_deleted', 'QuestionController@question_deleted')->name('que
 Route::get('show_draft_question', 'QuestionController@show_draft_question')->name('question.draft_question');
 Route::post('question_release_flag_chnge', 'QuestionController@release_flag_chnge')->name('question_release_flag_chnge');
 
-Route::resource('answer', 'AnswerController');
+// Route::resource('answer', 'AnswerController');
+Route::get('create_answer_content', 'AnswerController@create')->name('answer.create');
+Route::post('store_answer_content', 'AnswerController@store')->name('answer.store');
+
 Route::post('create_answer', 'AnswerController@create_answer')->name('create_answer');
 Route::get('answer_confirm', 'AnswerController@confirm')->name('answer.confirm');
 Route::get('release_answer', 'AnswerController@release_answer')->name('answer.release');

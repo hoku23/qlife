@@ -595,7 +595,7 @@ function newTextCreate2() {
             // let imgTag = "<div class=\"PostContent-imgs\"><img style=\"max-width: 90%\" src=\"https://b0b0704b8c11464390acf6e91a447ae8.vfs.cloud9.us-west-2.amazonaws.com/" + cutElem + "\"></div>"
             console.log(cutElem);
             // cutElem = '../storage/content_imgs/Hokuto.1649828956409.jpg'; // 
-            let imgTag = "<div class=\"PostContent-imgs\"><img style=\"max-width: 90%\" src=\"../" + cutElem + "\"></div>"
+            let imgTag = "<div class=\"PostContent-imgs\"><img style=\"max-width: 90%\" src=\"" + cutElem + "\"></div>"
             formText[formText.indexOf(element)] = imgTag;
             //テキスト部分を配列に格納
             formText.splice(formText.indexOf(imgTag) + 1, 0, cutText);
@@ -733,7 +733,7 @@ function newTextCreate3() {
             // let imgTag = "<div class=\"PostContent-imgs\"><img style=\"max-width: 90%\" src=\"https://b0b0704b8c11464390acf6e91a447ae8.vfs.cloud9.us-west-2.amazonaws.com/" + cutElem + "\"></div>"
             console.log(cutElem);
             // cutElem = '../storage/content_imgs/Hokuto.1649828956409.jpg'; // 
-            let imgTag = "<div class=\"PostContent-imgs\"><img style=\"max-width: 90%\" src=\"../" + cutElem + "\"></div>"
+            let imgTag = "<div class=\"PostContent-imgs\"><img style=\"max-width: 90%\" src=\"" + cutElem + "\"></div>"
             formText[formText.indexOf(element)] = imgTag;
             //テキスト部分を配列に格納
             formText.splice(formText.indexOf(imgTag) + 1, 0, cutText);
