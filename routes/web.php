@@ -32,7 +32,11 @@ Route::resource('logins', 'LoginController');
 Route::post('logins/auth', 'LoginController@auth')->name('logins.auth');
 Route::get('logout', 'LoginController@logout')->name('logout');
 
-Route::resource('posts', 'PostController');
+// Route::resource('posts', 'PostController');
+Route::get('post', 'PostController@index')->name('posts.index');
+Route::get('create_post_content', 'PostController@create')->name('posts.create');
+Route::post('store_post_content', 'PostController@store')->name('posts.store');
+
 Route::get('create_title', 'PostController@create_title')->name('posts.create_title');
 Route::post('store_title', 'PostController@store_title')->name('posts.store_title');
 Route::post('store_thumnail', 'PostController@store_thumnail')->name('posts.store_thumnail');
