@@ -1299,6 +1299,7 @@ div {
     #createPost-complete {
         display: block;
         height: 100vh;
+        padding-left: 181px;
         flex-grow: 1;
     }
     .post-complete {
