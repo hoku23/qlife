@@ -18,7 +18,7 @@ class ShopController extends Controller
         $client->setApplicationId(RAKUTEN_APPLICATION_ID);
         
         $items = [];
-        for ($i = 1; $i < 4; $i++) {
+        for ($i = 1; $i < 6; $i++) {
             $response = $client->execute('IchibaItemRanking',array(
                 'page' => $i,
                 'imageFlag' => 1,
@@ -69,7 +69,7 @@ class ShopController extends Controller
         
         if (isset($keyword) || isset($genreId)) {
             $items = [];
-            for ($i = 1; $i < 4; $i++) {
+            for ($i = 1; $i < 6; $i++) {
                 $response = $client->execute('IchibaItemSearch',array(
                     'keyword' => $keyword,
                     'genreId' => $genreId,
