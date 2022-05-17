@@ -18,7 +18,7 @@ class ShopController extends Controller
         $client->setApplicationId(RAKUTEN_APPLICATION_ID);
         
         $items = [];
-        for ($i = 1; $i < 5; $i++) {
+        for ($i = 1; $i < 4; $i++) {
             $response = $client->execute('IchibaItemRanking',array(
                 'page' => $i,
                 'imageFlag' => 1,
