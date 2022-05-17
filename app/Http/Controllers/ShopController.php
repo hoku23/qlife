@@ -69,7 +69,7 @@ class ShopController extends Controller
         
         if (isset($keyword) || isset($genreId)) {
             $items = [];
-            for ($i = 1; $i < 6; $i++) {
+            for ($i = 1; $i < 3; $i++) {
                 $response = $client->execute('IchibaItemSearch',array(
                     'keyword' => $keyword,
                     'genreId' => $genreId,
