@@ -132,3 +132,7 @@ Route::post('bestAnswer_select', 'AnswerController@bestAnswer_select')->name('be
 Route::post('answer_delete', 'AnswerController@answer_delete')->name('answer.answer_delete');
 Route::get('answer_deleted', 'AnswerController@answer_deleted')->name('answer.answer_deleted');
 Route::post('answer_release_flag_chnge', 'AnswerController@release_flag_chnge')->name('answer_release_flag_chnge');
+
+Route::get('shops', 'ShopController@index')->name('shops.index');
+Route::post('shop_search', 'ShopController@search')->name('shops.search');
+Route::get('shops_show', 'ShopController@show')->name('shops.show');

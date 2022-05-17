@@ -858,3 +858,55 @@ function addText6()
 	preview.click();
 	
 }
+
+const Genres = document.getElementsByClassName('genre');
+for(let i = 0; i < Genres.length; i++) {
+    Genres[i].addEventListener('click', switchGenres, false);
+}
+
+// ジャンルをクリックすると実行する関数
+function switchGenres(){
+
+    const arrayGenres = Array.prototype.slice.call(Genres);
+    const index = arrayGenres.indexOf(this);
+    const targetGenre = document.getElementsByClassName('genre')[index];
+    const genreclasses = Array.from(targetGenre.classList);
+    if (genreclasses.includes('genre_on') == true) {
+        targetGenre.classList.remove('genre_on');
+    } else {
+        for (let i = 0; i < Genres.length; i++) {
+            if (Genres[i].classList.contains('genre_on') == true) {
+                Genres[i].classList.remove('genre_on')
+            }
+        }
+        targetGenre.classList.add('genre_on');
+    }
+};
+
+const items_search_btn = document.getElementById('items_search_btn');
+items_search_btn.addEventListener('click', function(){
+    let on_genres = document.getElementsByClassName('genre_on');
+    if (on_genres[0]) {
+        const genre_input = document.getElementById('genre_input');
+        console.log(on_genres[0].title);
+        genre_input.value = on_genres[0].title;
+    } else {
+        const genre_input = document.getElementById('genre_input');
+        genre_input.value = "0";
+    }
+})
+
+const genre_search = document.getElementById('genre_search');
+genre_search.addEventListener('click', function(e){
+    const genre_list = document.getElementById('genre_list');
+    const genre_header = document.getElementById('genre_header');
+    if (e.target.innerHTML == 'ジャンル検索') {
+        e.target.innerHTML = '閉じる';
+        genre_header.classList.add('show_genre_header');
+        genre_list.classList.add('show_genre_list');
+    } else {
+        e.target.innerHTML = 'ジャンル検索';
+        genre_header.classList.remove('show_genre_header');
+        genre_list.classList.remove('show_genre_list');
+    }
+})
