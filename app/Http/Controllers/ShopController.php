@@ -29,17 +29,6 @@ class ShopController extends Controller
             if(!$response->isOk()){
                 return 'Error:'.$response->getMessage();
             } else {
-                // $items = [];
-                // foreach($response as $key => $rakutenItem){
-                //     $items[$key]['title'] = $rakutenItem['itemName'];
-                //     $items[$key]['price'] = $rakutenItem['itemPrice'];
-                //     $items[$key]['url'] = $rakutenItem['itemUrl'];
-                    
-                //     if($rakutenItem['imageFlag']){
-                //         $imgSrc = $rakutenItem['mediumImageUrls'][0]['imageUrl'];
-                //         $items[$key]['img'] = preg_replace('/^http:/','https:',$imgSrc);
-                //     }
-                // }
                 
                 foreach ($response as $item_info) {
                     $item['title'] = $item_info['itemName'];
@@ -78,19 +67,8 @@ class ShopController extends Controller
                 ));
                 
                 if(!$response->isOk()){
-                    return 'Error:'.$response->getMessage();
+                    return redirect()->route('shops.index');
                 } else {
-                    // $items = [];
-                    // foreach($response as $key => $rakutenItem){
-                    //     $items[$key]['title'] = $rakutenItem['itemName'];
-                    //     $items[$key]['price'] = $rakutenItem['itemPrice'];
-                    //     $items[$key]['url'] = $rakutenItem['itemUrl'];
-        
-                    //     if($rakutenItem['imageFlag']){
-                    //         $imgSrc = $rakutenItem['mediumImageUrls'][0]['imageUrl'];
-                    //         $items[$key]['img'] = preg_replace('/^http:/','https:',$imgSrc);
-                    //     }
-                    // }
                     
                     foreach ($response as $item_info) {
                         $item['title'] = $item_info['itemName'];
