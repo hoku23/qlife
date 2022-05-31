@@ -136,3 +136,5 @@ Route::post('answer_release_flag_chnge', 'AnswerController@release_flag_chnge')-
 Route::get('shops', 'ShopController@index')->name('shops.index');
 Route::post('shop_search', 'ShopController@search')->name('shops.search');
 Route::get('shops_show', 'ShopController@show')->name('shops.show');
+
+Route::get('privacy', 'PrivacyController@index')->name('privacy.index');

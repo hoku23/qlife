@@ -169,7 +169,7 @@ div {
         width: 75%;
         margin: 0 auto;
     }
-    #registrationInput-form > div {
+    .registerInputBox {
         display: flex;
         flex-direction: column;
         margin: 30px auto;
@@ -2732,4 +2732,5 @@ div {
     .item_price {
         margin: 0;
     }
+    
 }

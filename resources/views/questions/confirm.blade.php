@@ -45,6 +45,7 @@
                         <li><a href="{{route('question.index')}}">質問ホーム</a></li>
                         <li><a href="{{route('settingUser.index')}}">設定</a></li>
                         <li><a href="{{route('shops.index')}}">商品検索</a></li>
+                        <li><a href="{{route('privacy.index')}}">プライバシーポリシー</a></li>
                     </ul>
                 </nav>
             </div>

@@ -256,7 +256,10 @@ const menu = document.getElementById('menu');
 const hamburger = document.getElementById('hamburger');
 
 // menuボタンに対するクリックイベント
-menu.addEventListener('click', openMenu, false);
+if (menu) {
+    menu.addEventListener('click', openMenu, false);    
+}
+
 
 // menuボタンがクリックされた時の処理
 function openMenu(){
@@ -884,29 +887,34 @@ function switchGenres(){
 };
 
 const items_search_btn = document.getElementById('items_search_btn');
-items_search_btn.addEventListener('click', function(){
-    let on_genres = document.getElementsByClassName('genre_on');
-    if (on_genres[0]) {
-        const genre_input = document.getElementById('genre_input');
-        console.log(on_genres[0].title);
-        genre_input.value = on_genres[0].title;
-    } else {
-        const genre_input = document.getElementById('genre_input');
-        genre_input.value = "0";
-    }
-})
+if (items_search_btn) {
+    items_search_btn.addEventListener('click', function(){
+        let on_genres = document.getElementsByClassName('genre_on');
+        if (on_genres[0]) {
+            const genre_input = document.getElementById('genre_input');
+            console.log(on_genres[0].title);
+            genre_input.value = on_genres[0].title;
+        } else {
+            const genre_input = document.getElementById('genre_input');
+            genre_input.value = "0";
+        }
+    })    
+} 
+
 
 const genre_search = document.getElementById('genre_search');
-genre_search.addEventListener('click', function(e){
-    const genre_list = document.getElementById('genre_list');
-    const genre_header = document.getElementById('genre_header');
-    if (e.target.innerHTML == 'ジャンル検索') {
-        e.target.innerHTML = '閉じる';
-        genre_header.classList.add('show_genre_header');
-        genre_list.classList.add('show_genre_list');
-    } else {
-        e.target.innerHTML = 'ジャンル検索';
-        genre_header.classList.remove('show_genre_header');
-        genre_list.classList.remove('show_genre_list');
-    }
-})
+if (genre_search) {
+    genre_search.addEventListener('click', function(e){
+        const genre_list = document.getElementById('genre_list');
+        const genre_header = document.getElementById('genre_header');
+        if (e.target.innerHTML == 'ジャンル検索') {
+            e.target.innerHTML = '閉じる';
+            genre_header.classList.add('show_genre_header');
+            genre_list.classList.add('show_genre_list');
+        } else {
+            e.target.innerHTML = 'ジャンル検索';
+            genre_header.classList.remove('show_genre_header');
+            genre_list.classList.remove('show_genre_list');
+        }
+    })   
+}

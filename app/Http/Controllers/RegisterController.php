@@ -35,12 +35,15 @@ class RegisterController extends Controller
         
         $input = $request->all();
         
+        // $privacy = $request->input('privacy-policy');
+        
         // $validator = Validator::make($input, $this->validator);
         $validator = Validator::make($input, ['user_id' => ['required', 'string', 'unique:users', new Hankaku, 'max:30'],
                                               'password' => ['required', 'string', new Hankaku, 'max:20'],
                                               'confirm_password' => ['required', 'same:password'],
                                               'user_name' => ['required', 'string', 'max:50'],
-                                              'email' => ['required', 'string', 'unique:users', 'max:256', 'email']
+                                              'email' => ['required', 'string', 'unique:users', 'max:256', 'email'],
+                                              'privacy-policy' => ['required']
         ]);
         
         if ($validator->fails()){

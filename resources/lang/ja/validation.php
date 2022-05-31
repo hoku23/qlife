@@ -160,7 +160,8 @@ return [
         'answer_content' => '回答の内容',
         'question_title' => 'タイトル',
         'question_content' => '困っていること',
-        'question_try' => '試したことや候補'
+        'question_try' => '試したことや候補',
+        'privacy-policy' => 'プライバシポリシーへの同意'
         ],
 
 ];
