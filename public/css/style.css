@@ -592,6 +592,10 @@ div {
     #phone_followList {
         display: none;
     }
+    /*ユーザー個人ページ*/
+    .user-posts-list {
+        padding-top: 200px;
+    }
     /* 設定 */
     #setting {
         width: 100%;

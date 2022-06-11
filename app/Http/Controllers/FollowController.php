@@ -105,6 +105,9 @@ class FollowController extends Controller
             }
             
             $follow_infos = Follow::where('user_id', $user->user_id)->where('follow_user_id', $otherUser->user_id)->get();
+            if (!$follow_infos) {
+                $follow_infos[] = null;
+            }
             
             $values = [
                 'user' => $user,
