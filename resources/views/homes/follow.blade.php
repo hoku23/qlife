@@ -194,7 +194,7 @@
                     </div>
                     <div class="user_search">
                         <div class="user_search_header">
-                            <form class="user_search_form" method="POST" action="/user_search">
+                            <form class="user_search_form" method="POST" action="{{route('follow.user_search')}}">
                                 {{csrf_field()}}
                                 <input class="userSearch_form" type="text" placeholder="ユーザーネームを入力" name="user_word">
                                 <input class="userSearch-btn" type="submit" value="検索">
@@ -214,7 +214,7 @@
                             @endforeach    
                         @endif
                     </div>
-                    <form method="POST" action="/user_page">
+                    <form method="POST" action="{{route('follow.user_page')}}">
                         {{csrf_field()}}
                         <input id="otherUser" type="hidden" name="otherUser">
                         <input id="otherUser_btn" type="submit" style="display:none;">
