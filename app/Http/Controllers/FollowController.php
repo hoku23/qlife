@@ -178,7 +178,12 @@ class FollowController extends Controller
         } else {
             Follow::where('user_id', $user->user_id)->where('follow_user_id', $follow_user->user_id)->delete();
         }
-        $follow_infos = Follow::where('user_id', $user->user_id)->where('follow_user_id', $follow_user->user_id)->get();
+        $follow_check = Follow::where('user_id', $user->user_id)->where('follow_user_id', $follow_user->user_id)->first();
+        if (empty($follow_check)) {
+                $follow_infos = 0;
+            } else {
+                $follow_infos = 1;
+            }
         
         if ($request->page == 'otherUser_page') {
             $values = [
