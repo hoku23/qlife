@@ -215,7 +215,9 @@ class QuestionController extends Controller
         $follows = Follow::where('user_id', $user->user_id)->get();
         foreach ($follows as $follow) {
             $follow_user = User::where('user_id', $follow->follow_user_id)->first();
-            array_push($follow_users, $follow_user);
+            if ($follow_user->question_receive == 1) {
+                array_push($follow_users, $follow_user);   
+            }
         }
         
         return view('questions.create_tags', compact('user', 'param_json', 'users_param_json', 'follow_users'));

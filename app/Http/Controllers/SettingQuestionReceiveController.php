@@ -30,10 +30,15 @@ class SettingQuestionReceiveController extends Controller
             return redirect()->route('logins.index')->with('message', 'ログインしてください');
         }
         $input = $request->input('questionReceive');
+        if ($input == 'yes') {
+            $value = 1;
+        } else {
+            $value = 0;
+        }
         
         if (isset($input)) {
             $change_user = User::where('user_id', $user->user_id)->first();
-            $change_user->question_receive = $input;
+            $change_user->question_receive = $value;
             $change_user->save();
             session()->put('user', $change_user);
             
