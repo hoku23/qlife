@@ -55,7 +55,7 @@
                 <div class="main-header">
                     <h1 class="shown-posts">{{$otherUser->user_name}}さんの投稿</h1>
                     <div class="follow-btn-container">
-                        @if (isset($follow))
+                        @if ($follow == 1)
                         <a id="follow-btn">フォロー中</a>
                         @else
                         <a id="follow-btn">フォローする</a>

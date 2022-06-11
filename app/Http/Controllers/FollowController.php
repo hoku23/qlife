@@ -104,9 +104,11 @@ class FollowController extends Controller
                 array_push($newPosts, $post);
             }
             
-            $follow_infos = Follow::where('user_id', $user->user_id)->where('follow_user_id', $otherUser->user_id)->get();
-            if (!$follow_infos) {
-                $follow_infos[] = null;
+            $follow_check = Follow::where('user_id', $user->user_id)->where('follow_user_id', $otherUser->user_id)->first();
+            if (empty($follow_check)) {
+                $follow_infos = 0;
+            } else {
+                $follow_infos = 1;
             }
             
             $values = [
@@ -126,14 +128,10 @@ class FollowController extends Controller
             $user = $request->old('user');
             $otherUser = $request->old('otherUser');
             $newPosts = $request->old('newPosts');
+            $follow = $request->old('follow');
             
             if (empty($otherUser)) {
                 return redirect()->route('posts.index');
-            }
-            
-            if($request->old('follow')) {
-                $follows = $request->old('follow');
-                foreach ($follows as $follow);
             }
 
         return view('homes.user', compact('user', 'otherUser', 'newPosts', 'follow'));
