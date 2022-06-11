@@ -78,7 +78,7 @@
                                                 <img src="{{$followUser->user_icon}}" alt="">
                                             </div>
                                             <p class="user-name">{{$followUser->user_name}}</p>
-                                            <form method="POST" action="/follow_remove" style="display:none">
+                                            <form method="POST" action="{{route('follow.follow_remove')}}" style="display:none">
                                                 {{csrf_field()}}
                                                 <input class="follow_user_id" type="hidden" name="follow_user_id" value="{{$followUser->user_id}}">
                                                 <input class="follow_user" type="submit" name="page" value="follow_page" style="display:none"> 
@@ -131,7 +131,7 @@
                             @endforeach    
                         @endif
                     </div>
-                    <form method="POST" action="/user_page">
+                    <form method="POST" action="{{route('follow.user_page')}}">
                         {{csrf_field()}}
                         <input id="otherUser" type="hidden" name="otherUser">
                         <input id="otherUser_btn" type="submit" style="display:none;">
@@ -151,7 +151,7 @@
                                                 <img src="{{$followUser->user_icon}}" alt="">
                                             </div>
                                             <p class="user-name">{{$followUser->user_name}}</p>
-                                            <form method="POST" action="/follow_remove" style="display:none">
+                                            <form method="POST" action="{{route('follow.follow_remove')}}" style="display:none">
                                                 {{csrf_field()}}
                                                 <input class="follow_user_id" type="hidden" name="follow_user_id" value="{{$followUser->user_id}}">
                                                 <input class="follow_user" type="submit" name="page" value="follow_page" style="display:none"> 
@@ -176,7 +176,7 @@
                                                 <img src="{{$follower->user_icon}}" alt="">
                                             </div>
                                             <p class="user-name">{{$follower->user_name}}</p>
-                                            <form method="POST" action="/user_follow" style="display:none">
+                                            <form method="POST" action="{{route('follow.user_follow')}}" style="display:none">
                                                 {{csrf_field()}}
                                                 <input class="follow_user_id" type="hidden" name="follow_user_id" value="{{$follower->user_id}}">
                                                 <input class="follow_user" type="submit" name="page" value="follow_page" style="display:none"> 
