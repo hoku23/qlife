@@ -19,7 +19,8 @@ class SettingQuestionReceiveController extends Controller
         } else {
             return redirect()->route('logins.index')->with('message', 'ログインしてください');
         }
-        return view('settings.setting_questionReceive', compact('user'));
+        $question_recieve = $user->question_receive;
+        return view('settings.setting_questionReceive', compact('user', 'question_recieve'));
     }
     
     public function store_questionReceive(Request $request)

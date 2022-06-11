@@ -109,6 +109,19 @@
                 </section>
             </article>
         </main>
+        <script text/javascript>
+            var question_recieve = JSON.parse('<?php echo $question_recieve; ?>');
+            
+            let yes_checked = document.getElementById('yes_check');
+            let no_checked = document.getElementById('no_check');
+            
+            if (question_recieve == 1) {
+                yes_checked.classList.add('checked');
+            } else {
+                no_checked.classList.add('checked');
+            }
+
+        </script>
 
         <script src="{{asset('js/index.js')}}"></script>
     </body>
