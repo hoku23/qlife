@@ -11,7 +11,7 @@
         <link rel="shortcut icon" href="{{asset('images/favicon.ico')}}" type="image/x-icon" />
     <body>
         <header>
-            <a href="home.html">
+            <a href="{{ route('posts.index') }}">
                 <div class="logo">
                     <img src="{{ asset('images/logo.png') }}" alt="ロゴ">
                 </div>

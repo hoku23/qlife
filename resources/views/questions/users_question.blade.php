@@ -12,7 +12,7 @@
     </head>
     <body>
         <header>
-            <a href="home.html">
+            <a href="{{ route('posts.index') }}">
                 <div class="logo">
                     <img src="{{ asset('images/logo.png') }}" alt="ロゴ">
                 </div>
